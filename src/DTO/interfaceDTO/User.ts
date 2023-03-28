@@ -1,4 +1,4 @@
-import { UserModel } from "../../Interfaces/Users/Users.type"
+import { UserModel } from "../../Interfaces/User/Users.type"
 
 
 // SIGN UP
@@ -6,14 +6,12 @@ import { UserModel } from "../../Interfaces/Users/Users.type"
 
 export interface SignupUserInputDTO {
 
-    username: unknown,
-    email: unknown,
-    cellphone: unknown,
-    address: unknown,
-    password: unknown,
-    role: unknown,
-    skills:unknown,
-    image:unknown
+    username: string,
+    email: string,
+    cellphone: string,
+    address: string,
+    password: string,
+    skills:string,
 
 }
 
@@ -26,8 +24,8 @@ export interface SignUpUserOutputDTO {
 //LOGIN
 
 export interface LoginUserInputDTO {
-    email: unknown,
-    password: unknown
+    email: string,
+    password: string
 }
 
 export interface LoginUserOutputDTO {
@@ -48,16 +46,15 @@ export type GetUserOutputDTO = UserModel
 
 export interface EditUserInputDTO {
 
-    idToEdit: unknown,
-    token: unknown,
-    username: unknown,
-    email: unknown,
-    cellphone: unknown,
-    address: unknown,
-    password: unknown,
-    role: unknown,
-    skills:unknown,
-    image:unknown
+    idToEdit: string,
+    token: string,
+    username: string,
+    email: string,
+    cellphone: string,
+    address: string,
+    password: string,
+    skills:string,
+    image:string
 }
 
 export interface EditUserOutputDTO {

@@ -1,4 +1,4 @@
-import { UserWorkVacanciesModel } from "../../Interfaces/Users/Users.type"
+import { UserWorkVacanciesModel } from "../../Interfaces/User/Users.type"
 
 
 //CreateJobVacancies

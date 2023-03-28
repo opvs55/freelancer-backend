@@ -1,7 +1,7 @@
-import { UserDB, UserModel, USER_ROLES } from "../../Interfaces/Users/Users.type";
+import { UserDB, UserModel, USER_ROLES } from "../../Interfaces/User/Users.type";
 
 
-export class Users{
+export class User{
     constructor(
         private id:string,
         private username:string,

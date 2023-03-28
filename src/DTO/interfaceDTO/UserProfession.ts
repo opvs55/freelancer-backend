@@ -1,4 +1,4 @@
-import {  UserProfessionsModel } from "../../Interfaces/Users/Users.type"
+import {  UserProfessionsModel } from "../../Interfaces/User/Users.type"
 
 
 // Create

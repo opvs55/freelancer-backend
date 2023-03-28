@@ -1,4 +1,4 @@
--- Active: 1679612139820@@127.0.0.1@3306
+-- Active: 1680029849713@@127.0.0.1@3306
 
 
 
@@ -15,11 +15,12 @@ CREATE TABLE
         role TEXT NOT NULL,
         skills TEXT,
         image TEXT,
-        create_at TEXT DEFAULT(DATETIME()) NOT NULL
+        created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) NOT NULL
     );
 /**/
+DROP TABLE users;
 
-
+SELECT * FROM users;
 
 /*Tablea Empresa*/
 CREATE TABLE
