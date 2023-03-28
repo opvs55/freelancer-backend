@@ -1,95 +1,120 @@
-
+import { USER_ROLES } from "../../Interfaces/User/Users.type"
 import { validateParam } from "../../Utils/Validate"
-import { CreateUserProfessions, DeleteUserProfessionsInputDTO, EditUserProfessionsInputDTO, GetUserProfessionsInputDTO } from "../InterfaceDTO/UserProfession"
+import { DeleteUserInputDTO, EditUserInputDTO, GetUserInputDTO, SignupUserInputDTO } from "../InterfaceDTO/User"
 
 
 //=================================================/
 
 //CLASSE - TESTANDO A FUNÇÃO DE VALIDAÇÃO, se der bom, atualizo para o projeto todo
 
-export class UserProfessionsDTO {
+export class UserDTO {
 
 
-    public CreateUserProfessionsInputDTO = (
+    public SignUPUserInputDTO = (
+        
+        username: unknown,
+        email: unknown,
+        cellphone: unknown,
+        address: unknown,
+        password: unknown,
+        skills:unknown,
 
+    ): SignupUserInputDTO => {
+
+        validateParam("username", username, "string")
+        validateParam("email", email, "string")
+        validateParam("cellphone", cellphone, "string")
+        validateParam("address", address, "string")
+        validateParam("password", password, "string")
+        validateParam("skills", skills, "string")
+        
+        const user: SignupUserInputDTO = {
+
+            username: username as string,
+            email: email as string,
+            cellphone: cellphone as string,
+            address: address as string,
+            password: password as string,
+            skills: skills as string,
+
+        }
+
+
+        return user
+    }
+
+    public GetUserInputDTO = (
         token: unknown,
-        id: unknown,
-        user_id: unknown,
-        profession: unknown,
-        experienceYears: unknown
-
-    ): CreateUserProfessions => {
+        id: unknown
+    ): GetUserInputDTO => {
 
         validateParam("token", token, "string")
         validateParam("id", id, "string")
-        validateParam("user_id", user_id, "string")
-        validateParam("profession", profession, "string")
-        validateParam("experienceYears", experienceYears, "number")
 
-        const userProfessions : CreateUserProfessions  = {
-
-            token: token as string,
-            id: id as string,
-            user_id: user_id as string,
-            profession: profession as string,
-            experienceYears: experienceYears as number
+        const getUser = {
+            token:token as string,
+            id:id as string
         }
 
-
-        return userProfessions
+        return getUser
     }
 
-    public GetUserProfessionsInputDTO = (
-        token: unknown,
-    ): GetUserProfessionsInputDTO => {
-
-        validateParam("token", token, "string")
-
-        const getUserProfessions = {
-            token: token as string,
-        }
-
-        return getUserProfessions
-    }
-
-    public EditUserProfessionsInputDTO = (
+    public EditUserInputDTO = (
 
         idToEdit: unknown,
         token: unknown,
-        profession: unknown,
-        experienceYears: unknown
-    
-    ): EditUserProfessionsInputDTO => {
+        username: unknown,
+        email: unknown,
+        cellphone: unknown,
+        address: unknown,
+        password: unknown,
+        role: unknown,
+        skills:unknown,
+        image:unknown
+
+    ): EditUserInputDTO => {
 
         validateParam("idToEdiT", idToEdit, "string")
         validateParam("token", token, "string")
-        validateParam("profession", profession, "string")
-        validateParam("experienceYears", experienceYears, "number")
+        validateParam("username", username, "string")
+        validateParam("email", email, "string")
+        validateParam("cellphone", cellphone, "string")
+        validateParam("address", address, "string")
+        validateParam("password", password, "string")
+        validateParam("role", role, "USER_ROLES")
+        validateParam("skills", skills, "string")
+        validateParam("image", image, "string")
 
-        const userProfessions = {
+        const user = {
             idToEdit: idToEdit as string,
             token: token as string,
-            profession: profession as string,
-            experienceYears: experienceYears as number
+            username: username as string,
+            email: email as string,
+            cellphone: cellphone as string,
+            address: address as string,
+            password: password as string,
+            role: role as USER_ROLES,
+            skills: skills as string,
+            image: image as string
         }
 
-        return userProfessions
+        return user
     }
 
-    public DeleteUserProfessionsInputDTO = (
+    public DeleteUserInputDTO = (
         idToDelete: unknown,
         token: unknown
-    ): DeleteUserProfessionsInputDTO => {
+    ): DeleteUserInputDTO => {
 
         validateParam("token", token, "string")
         validateParam("idToDelete", idToDelete, "string")
 
-        const deleteUserProfessions = {
+        const deleteUser = {
             idToDelete: idToDelete as string,
             token: token as string
         }
 
-        return deleteUserProfessions
+        return deleteUser
     }
 
 }

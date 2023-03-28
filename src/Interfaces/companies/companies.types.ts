@@ -31,7 +31,7 @@ export interface CompaniesModel {
     createdAt: string
 }
 
-export interface JobVacanciesDB{
+export interface WorkVacanciesDB{
     id:string,
     company_id:string,
     title: string,
@@ -42,7 +42,7 @@ export interface JobVacanciesDB{
     created_at:string
 }
 
-export interface jobVacanciesModel{
+export interface WorkVacanciesModel{
     id:string,
     company_id:string,
     title: string,
