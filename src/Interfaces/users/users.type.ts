@@ -57,19 +57,19 @@ export interface UserProfessionsModel {
 }
 
 
-export interface UserJobVacanciesDB{
+export interface UserWorkVacanciesDB{
     id:string,
     user_id:string,
-    job_vacancy_id:string,
+    work_vacancy_id:string,
     company_id:string,
     aplied_at: string,
 }
 
 
-export interface UserJobVacanciesModel{
+export interface UserWorkVacanciesModel{
     id:string,
     userId: string,
-    jobVacancyId:string,
+    workVacancyId:string,
     companyId:string,
     aplied_at:string,
     username:string,
@@ -77,7 +77,7 @@ export interface UserJobVacanciesModel{
     cellphone:string,
     address:string,
     image:string,
-    job:{
+    work:{
         title:string,
         description:string,
         location:string,
