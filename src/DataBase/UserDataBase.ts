@@ -1,4 +1,4 @@
-import { UserDB } from "../Interfaces/User/Users.type";
+import { UserDB, UserModel } from "../Interfaces/User/Users.type";
 import { BaseDatabase } from "./BaseDataBase";
 
 
@@ -21,6 +21,56 @@ export class UserDataBase extends BaseDatabase{
             .where({email})
 
         return result[0]
+    }
+    public findById= async (id:string): Promise< UserDB | undefined > =>{
+
+
+        const result: UserDB[] = await BaseDatabase
+            .connection(UserDataBase.TABLE_USERS)
+            .select()
+            .where({id})
+
+        return result[0]
+    }
+
+    public getUser = async (): Promise<UserModel> => {
+        const result: UserModel = await BaseDatabase
+            .connection(UserDataBase.TABLE_USERS)
+            .select(
+                "users.id",
+                "users.username",
+                "users.email",
+                "users.role",
+                "users.created_at"
+            )
+
+        return result
+    }
+
+    public getAllUser = async (): Promise<UserModel[]> => {
+        const result: UserModel[] = await BaseDatabase
+            .connection(UserDataBase.TABLE_USERS)
+            .select(
+                "users.id",
+                "users.username",
+                "users.email",
+                "users.role",
+                "users.created_at"
+            )
+
+        return result
+    }
+
+    public updateUser = async (id: string, userDB: UserDB): Promise<void> => {
+        await BaseDatabase.connection(UserDataBase.TABLE_USERS)
+            .update(userDB)
+            .where({ id })
+    }
+
+    public deleteUser = async (id: string): Promise<void> => {
+        await BaseDatabase.connection(UserDataBase.TABLE_USERS)
+            .delete()
+            .where({ id })
     }
 }
 

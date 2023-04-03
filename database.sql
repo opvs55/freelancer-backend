@@ -1,26 +1,32 @@
 -- Active: 1680029849713@@127.0.0.1@3306
 
-
-
-
 /*Tablea Usuários*/
 CREATE TABLE
     users (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
         username TEXT NOT NULL,
         email TEXT UNIQUE NOT NULL,
-        cellphone TEXT NOT NULL,
-        address TEXT NOT NULL,
         password TEXT NOT NULL,
         role TEXT NOT NULL,
-        skills TEXT,
-        image TEXT,
         created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) NOT NULL
     );
 /**/
-DROP TABLE users;
 
-SELECT * FROM users;
+
+/* Tabela de Perfis de Usuários */
+CREATE TABLE user_profiles (
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    user_id TEXT NOT NULL,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    address TEXT,
+    phone_number TEXT,
+    bio TEXT,
+    skills TEXT,
+    image TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 
 /*Tablea Empresa*/
 CREATE TABLE
@@ -34,28 +40,45 @@ CREATE TABLE
         password TEXT NOT NULL,
         role TEXT NOT NULL,
         image TEXT,
-        create_at TEXT DEFAULT (DATETIME()) NOT NULL
+        created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) NOT NULL
 );
 
-DROP TABLE companies;
+
+SELECT * FROM companies;
+
+CREATE TABLE company_profiles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    company_id INTEGER NOT NULL,
+    address TEXT NOT NULL,
+    phone_number TEXT NOT NULL,
+    description TEXT,
+    image TEXT,
+    FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 
-/*Profisão do usuário*/
-CREATE TABLE
-    user_professions (
-        id TEXT PRIMARY KEY UNIQUE NOT NULL,
-        user_id TEXT NOT NULL,
-        profession TEXT NOT NULL,
-        experience_years INTEGER NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES users(id) 
-        ON DELETE CASCADE 
-        ON UPDATE CASCADE
-    );
+/* Tabela de Profissões */
+CREATE TABLE professions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT UNIQUE NOT NULL
+);
+
+
+/* Tabela de Profissões dos Usuários */
+CREATE TABLE user_professions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    profession_id INTEGER NOT NULL,
+    experience_years INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (profession_id) REFERENCES professions(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 
 
 /*Vagas de Emprego*/
     CREATE TABLE 
-        job_vacancies (
+        work_vacancies (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
         company_id TEXT NOT NULL,
         title TEXT NOT NULL,
@@ -70,31 +93,24 @@ CREATE TABLE
 );
 
 
-
 /*Pessoa interessada na vaga*/
     CREATE TABLE 
-        user_job_vacancies (
+        user_work_vacancies (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
         user_id TEXT NOT NULL,
-        job_vacancy_id TEXT NOT NULL,
-        companies_id TEXT NOT NULL,
+        work_vacancy_id TEXT NOT NULL,
+        chosen TEXT NOT NULL,
         applied_at TEXT DEFAULT (DATETIME()) NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id)
         ON DELETE CASCADE 
         ON UPDATE CASCADE,
-        FOREIGN KEY (job_vacancy_id) REFERENCES job_vacancies(id)
+        FOREIGN KEY (work_vacancy_id) REFERENCES work_vacancies(id)
         ON DELETE CASCADE 
         ON UPDATE CASCADE,
-        Foreign Key (companies_id) REFERENCES companies(id)
-        ON DELETE CASCADE 
-        ON UPDATE CASCADE
 );
 
+DROP TABLE user_work_vacancies;
+DROP TABLE work_vacancies;
 
 
-
-
-
-ALTER TABLE users ADD skills TEXT;
-ALTER TABLE job_vacancies ADD skills_required TEXT;
 

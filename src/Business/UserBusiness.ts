@@ -1,9 +1,9 @@
 import { UserDataBase } from "../DataBase/UserDataBase";
-import { LoginUserInputDTO, LoginUserOutputDTO, SignUpUserOutputDTO, SignupUserInputDTO } from "../DTO/InterfaceDTO/User";
+import { LoginUserInputDTO, LoginUserOutputDTO, SignUpUserOutputDTO, SignupUserInputDTO, GetUserInputDTO, GetUserOutputDTO, GetAllUserInputDTO, GetAllUserOutputDTO, EditUserInputDTO, DeleteUserInputDTO } from "../DTO/InterfaceDTO/User";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
 import { USER_ROLES } from "../Interfaces/Companie/Companie.types";
-import { TokenPayLoad, UserDB } from "../Interfaces/User/Users.type";
+import { TokenPayLoad, UserDB, UserModel } from "../Interfaces/User/Users.type";
 import { User } from "../Models/Users/User";
 import { HashManager } from "../Services/HashManager";
 import { IdGenerator } from "../Services/IdGenerator";
@@ -27,10 +27,7 @@ export class UserBusiness {
         const {
             username,
             email,
-            cellphone,
-            address,
-            password,
-            skills
+            password
         } = input
 
 
@@ -39,10 +36,7 @@ export class UserBusiness {
 
         validateParam("username", username, "string")
         validateParam("email", email, "string")
-        validateParam("cellphone", cellphone, "string")
-        validateParam("address", address, "string")
         validateParam("password", password, "string")
-        validateParam("skills", skills, "string")
 
 
         //declaro valores complementares
@@ -51,7 +45,6 @@ export class UserBusiness {
         const hashedPassword = await this.hashManager.hash(password)
         const role = USER_ROLES.NORMAL
         const createdAt = new Date().toISOString()
-        const image = "Lauren Ipsum"
 
 
         //monto meu objeto
@@ -60,12 +53,8 @@ export class UserBusiness {
             id,
             username,
             email,
-            cellphone,
-            address,
             hashedPassword,
             role,
-            skills,
-            image,
             createdAt
         )
 
@@ -125,12 +114,8 @@ export class UserBusiness {
             userDB.id,
             userDB.username,
             userDB.email,
-            userDB.cellphone,
-            userDB.address,
             userDB.password,
             userDB.role,
-            userDB.skills,
-            userDB.image,
             userDB.created_at
         )
 
@@ -148,5 +133,137 @@ export class UserBusiness {
 
         return output
     }
+
+    public getUser= async (input: GetUserInputDTO): Promise<GetUserOutputDTO> => {
+
+        const { token, id } = input
+        
+        if (!token) {
+            throw new BadRequestError("token ausente")
+        }
+
+        if (!id) {
+            throw new BadRequestError("id cadastrado necessário")
+        }
+
+
+        const payload = this.tokenManager.getPayload(token)
+
+        if (payload == null) {
+            throw new BadRequestError("token invalido")
+        }
+
+        const user: UserModel =
+            await this.userDataBase
+                .getUser()
+
+        const output: GetUserOutputDTO= user
+
+        return output
+    }
+    public getAllUser= async (input: GetAllUserInputDTO): Promise<GetAllUserOutputDTO> => {
+
+        const { token} = input
+        
+        if (!token) {
+            throw new BadRequestError("token ausente")
+        }
+
+
+        const payload = this.tokenManager.getPayload(token)
+
+        if (payload == null) {
+            throw new BadRequestError("token invalido")
+        }
+
+        const user: UserModel[] =
+            await this.userDataBase
+                .getAllUser()
+
+        const output: GetAllUserOutputDTO= user
+
+        return output
+    }
+
+    public editUser = async (input: EditUserInputDTO): Promise<void> => {
+
+        const {
+            idToEdit,
+            token,
+            username,
+            email,
+            password
+        } = input
+
+        if (token === undefined) {
+            throw new BadRequestError("token ausente")
+        }
+
+        const payload = this.tokenManager.getPayload(token)
+
+        if (payload == null) {
+            throw new BadRequestError("token invalido")
+        }
+
+
+        const userDB = await this.userDataBase.findById(idToEdit)
+
+        if (!userDB) {
+            throw new NotFoundError("Id não encontrado")
+        }
+
+
+        const userEditada = new User(
+            userDB.id,
+            userDB.username,
+            userDB.email,
+            userDB.password,
+            userDB.role,
+            userDB.created_at
+        )
+
+        userEditada.setUsername(username? username: userEditada.getUserName());
+        userEditada.setEmail(email? email: userEditada.getEmail());
+        userEditada.setPassword(password ? password : userEditada.getPassword());
+
+
+        
+        userEditada.setCreateAt(new Date().toISOString())
+
+        const upUserDB = userEditada.userToDBModel()
+
+        await this.userDataBase.updateUser(idToEdit, upUserDB)
+    }
+
+    public deleteUser = async (input: DeleteUserInputDTO): Promise<void> => {
+
+        const { idToDelete, token } = input
+
+        if (token === undefined) {
+            throw new BadRequestError("token ausente")
+        }
+
+        const payload = this.tokenManager.getPayload(token)
+
+        if (payload == null) {
+            throw new BadRequestError("token invalido")
+        }
+
+        const userDB = await this.userDataBase.findById(idToDelete)
+
+        if (!userDB) {
+            throw new NotFoundError("Id não encontrado")
+        }
+
+        const creatorId = payload.id
+
+        if (payload.role !== USER_ROLES.ADMIN && userDB.id !== creatorId) {
+            throw new BadRequestError("Apenas o user criador da postagem ou ADM's podem deletar!")
+        }
+
+
+        await this.userDataBase.deleteUser(idToDelete)
+    }
+
 
 }

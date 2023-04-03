@@ -118,7 +118,6 @@ export class Companie{
             cellphone: this.cellphone,
             address:this.address,
             description:this.description,
-            password: this.password,
             role: this.role,
             image: this.image,
             createdAt: this.createAt
