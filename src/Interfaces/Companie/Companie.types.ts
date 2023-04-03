@@ -25,7 +25,6 @@ export interface CompanieModel {
     cellphone:string,
     address:string,
     description:string,
-    password: string,
     role: USER_ROLES,
     image:string,
     createdAt: string

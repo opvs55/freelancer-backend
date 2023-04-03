@@ -1,26 +1,28 @@
 import { Request, Response } from "express";
-import { UserBusiness } from "../Business/UserBusiness";
-import { DeleteUserInputDTO, EditUserInputDTO, GetAllUserInputDTO, GetUserInputDTO, LoginUserInputDTO, SignupUserInputDTO } from "../DTO/InterfaceDTO/User";
+import { CompanieBusiness } from "../Business/CompanieBusiness";
+import { DeleteCompanieInputDTO, EditCompanieInputDTO, GetAllCompanieInputDTO, GetCompanieInputDTO, LoginCompanieInputDTO, SignUpCompanieInputDTO } from "../DTO/InterfaceDTO/Companie";
 import { BaseError } from "../Errors/BaseError";
 
 
 
-export class UserController {
+export class CompanieController {
     constructor(
-        private userBusiness: UserBusiness
+        private companieBusiness: CompanieBusiness
     ) { }
 
     public signup = async (req: Request, res: Response) => {
         try {
-            const input: SignupUserInputDTO = {
+            const input: SignUpCompanieInputDTO = {
 
-                username: req.body.username,
+                name: req.body.name,
                 email: req.body.email,
-                password: req.body.password,
-                
+                cellphone: req.body.cellphone,
+                address: req.body.address,
+                description: req.body.description,
+                password: req.body.password
             }
 
-            const output = await this.userBusiness.signup(input)
+            const output = await this.companieBusiness.signup(input)
 
             res.status(201).send(output)
 
@@ -38,12 +40,12 @@ export class UserController {
 
     public login = async (req: Request, res: Response) =>{
         try{
-            const input: LoginUserInputDTO= {
+            const input: LoginCompanieInputDTO = {
                 email: req.body.email,
                 password: req.body.password
             }
 
-            const output = await this.userBusiness.login(input)
+            const output = await this.companieBusiness.login(input)
 
             res.status(200).send(output)
         } catch (error) {
@@ -55,14 +57,15 @@ export class UserController {
         }
     }
 
-    public getUser = async (req: Request, res: Response) => {
+    public getCompanie = async (req: Request, res: Response) => {
         try {
-            const input: GetUserInputDTO = {
+            const input: GetCompanieInputDTO = {
+
                 token: req.headers.authorization,
                 id: req.params.id
             }
 
-            const output = await this.userBusiness.getUser(input)
+            const output = await this.companieBusiness.getCompanie(input)
 
             res.status(200).send(output)
 
@@ -76,39 +79,45 @@ export class UserController {
         }
     }
 
-    public getAllUser = async (req: Request, res: Response) =>{
-        try{
-            const input: GetAllUserInputDTO = {
-                token: req.headers.authorization
+    public getAllCompanie = async (req: Request, res: Response) => {
+        try {
+            const input: GetAllCompanieInputDTO = {
+                token: req.headers.authorization,
             }
 
-
-            const output = await this.userBusiness.getAllUser(input)
+            const output = await this.companieBusiness.getAllCompanie(input)
 
             res.status(200).send(output)
-        } catch (error){
+
+        } catch (error) {
             console.log(error)
-            if(error instanceof BaseError){
+            if (error instanceof BaseError) {
                 res.status(error.statusCode).send(error.message)
             } else {
-                res.status(500).send("error inespperado")
+                res.status(500).send("erro inesperado")
             }
         }
     }
 
-    public editUser = async (req: Request, res: Response) => {
+    public editCompanie = async (req: Request, res: Response) => {
         try {
 
-            const input: EditUserInputDTO = {
+            const input: EditCompanieInputDTO = {
 
                 idToEdit: req.params.id,
                 token: req.headers.authorization,
-                username:req.body.username,
+                name:req.body.name,
                 email:req.body.email,
-                password:req.body.password
+                cellphone:req.body.cellphone,
+                address:req.body.address,
+                description:req.body.description,
+                password:req.body.passowrd,
+                image:req.body.image,
+                
+
             }
 
-            await this.userBusiness.editUser(input)
+            await this.companieBusiness.editCompanie(input)
 
             res.status(200).end()
 
@@ -122,15 +131,15 @@ export class UserController {
         }
     }
 
-    public deleteUser = async (req: Request, res: Response) => {
+    public deleteCompanie = async (req: Request, res: Response) => {
         try {
 
-            const input: DeleteUserInputDTO = {
+            const input: DeleteCompanieInputDTO = {
                 idToDelete: req.params.id,
                 token: req.headers.authorization
             }
 
-            await this.userBusiness.deleteUser(input)
+            await this.companieBusiness.deleteCompanie(input)
 
             res.status(200).end()
         } catch (error) {

@@ -14,12 +14,8 @@ export interface UserDB {
     id: string,
     username: string,
     email: string,
-    cellphone: string,
-    address : string,
     password: string,
     role: USER_ROLES,
-    skills:string,
-    image: string,
     created_at: string
 }
 
@@ -27,33 +23,34 @@ export interface UserModel {
     id: string,
     username: string,
     email: string,
-    password: string,
-    cellphone: string,
-    address : string,
     role: USER_ROLES,
-    skills:string,
-    image: string,
     createdAt: string
 }
 
 
-export interface UserProfessionsDB{
+export interface UserProfileDB{
     id:string,
     user_id: string,
-    profession: string,
-    experiencie_years: number,
+    first_name:string,
+    last_name:string,
+    address:string,
+    phone_number:string,
+    bio:string,
+    skills:string,
+    image:string,
 }
 
 
-export interface UserProfessionsModel {
-    id: string,
+export interface UserProfileModel {
+    id:string,
     userId: string,
-    profession: string,
-    experiencieYears: number,
-    username: string, 
-    email: string,
-    cellphone:string,
-    image: string
+    firstName:string,
+    lastName:string,
+    address:string,
+    phoneNumber:string,
+    bio:string,
+    skills:string,
+    image:string,
 }
 
 

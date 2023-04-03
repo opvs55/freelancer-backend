@@ -8,10 +8,7 @@ export interface SignupUserInputDTO {
 
     username: string,
     email: string,
-    cellphone: string,
-    address: string,
     password: string,
-    skills:string,
 
 }
 
@@ -39,7 +36,12 @@ export interface GetUserInputDTO {
     id: string
 }
 
+export interface GetAllUserInputDTO {
+    token: string | undefined
+}
+
 export type GetUserOutputDTO = UserModel
+export type GetAllUserOutputDTO = UserModel[]
 
 
 //EDIT Companie INFO
@@ -47,14 +49,10 @@ export type GetUserOutputDTO = UserModel
 export interface EditUserInputDTO {
 
     idToEdit: string,
-    token: string,
+    token: string | undefined,
     username: string,
-    email: string,
-    cellphone: string,
-    address: string,
+    email: string,  
     password: string,
-    skills:string,
-    image:string
 }
 
 export interface EditUserOutputDTO {

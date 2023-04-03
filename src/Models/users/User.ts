@@ -6,12 +6,8 @@ export class User{
         private id:string,
         private username:string,
         private email:string,
-        private cellphone:string,
-        private address:string,
         private password:string,
         private role: USER_ROLES,
-        private skills: string,
-        private image: string,
         private createAt: string
     ){}
 
@@ -36,20 +32,7 @@ export class User{
         this.email = value
     }
 
-    public getCellPhone(): string {
-        return this.cellphone
-    }
-    public setCellPhone(value: string): void {
-        this.cellphone = value
-    }
-
-    public getAddress(): string {
-        return this.address
-    }
-    public setAddress(value: string): void {
-        this.address = value
-    }
-
+    
     public getPassword(): string {
         return this.password
     }
@@ -62,21 +45,6 @@ export class User{
     }
     public setRole(value:USER_ROLES): void {
         this.id = value
-    }
-
-    public getSkills():string{
-        return this.skills
-    }
-
-    public setSkills(value:string):void{
-        this.skills = value
-    }
-
-    public getImage(): string {
-        return this.image
-    }
-    public setImage(value:string): void {
-        this.image = value
     }
     public getCreateAt(): string {
         return this.createAt
@@ -93,12 +61,8 @@ export class User{
             id: this.id,
             username: this.username,
             email: this.email,
-            cellphone: this.cellphone,
-            address: this.address,
             password: this.password,
             role: this.role,
-            skills: this.skills,
-            image: this.image,
             created_at: this.createAt
         }
     }
@@ -109,12 +73,7 @@ export class User{
             id: this.id,
             username: this.username,
             email: this.email,
-            password: this.password,
-            cellphone: this.cellphone,
-            address : this.address,
             role: this.role,
-            skills: this.skills,
-            image: this.image,
             createdAt: this.createAt
         }
     }
