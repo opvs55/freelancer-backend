@@ -6,6 +6,8 @@ dotenv.config()
 
 export class TokenManager {
 
+    private static SECRET_KEY = process.env.JWT_KEY || 'batata123';
+
     public createToken = (payload: TokenPayLoad): string => {
         const token = jwt.sign(
             payload,
@@ -29,6 +31,15 @@ export class TokenManager {
 
         } catch (error) {
             return null
+        }
+    }
+
+    public verifyToken(token: string): TokenPayLoad | null {
+        try {
+            const payload = jwt.verify(token, TokenManager.SECRET_KEY) as TokenPayLoad;
+            return payload;
+        } catch (error) {
+            return null;
         }
     }
 }

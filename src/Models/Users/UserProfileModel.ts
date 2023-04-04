@@ -68,7 +68,7 @@ export class UsersProfiles{
         return this.phoneNumber
     }
     public setPhoneNumber(value: string): void {
-        if (!value || typeof value !== 'string' || !value.includes('@') || !value.includes('.')) {
+        if (!value || typeof value !== 'string' ) {
             throw new Error('PhoneNumber invalid');
         }
         this.phoneNumber = value;
@@ -95,37 +95,47 @@ export class UsersProfiles{
         this.skills = value
     }
 
+
+    public getImage(): string {
+        return this.image
+    }
+    public setImage(value:string): void {
+        if(!value || typeof value !== "string"){
+            throw new Error("Image invalid")
+        }
+        this.image = value
+    }
+
     //Transforma o objeto em DB ou Model - teste
 
-    public toObject(type: string): UserProfileDB | UserProfileModel {
-        if (type === 'db') {
-            return {
-                id: this.id,
-                user_id: this.userId,
-                first_name: this.firstName,
-                last_name: this.lastName,
-                address: this.address,
-                phone_number: this.phoneNumber,
-                bio: this.bio,
-                skills: this.skills,
-                image: this.image
 
-            };
-        } else if (type === 'model') {
-            return {
-                id: this.id,
-                userId: this.userId,
-                firstName: this.firstName,
-                lastName: this.lastName,
-                address: this.address,
-                phoneNumber: this.phoneNumber,
-                bio: this.bio,
-                skills: this.skills,
-                image: this.image
-            };
-        } else {
-            throw new Error('Invalid type specified.');
+
+
+    public userProfileToDB(): UserProfileDB{
+        return{
+            id: this.id,
+            user_id: this.userId,
+            first_name: this.firstName,
+            last_name: this.lastName,
+            address: this.address,
+            phone_number: this.phoneNumber,
+            bio: this.bio,
+            skills: this.skills,
+            image: this.image
         }
     }
     
+    public userProfileToModel(): UserProfileModel {
+        return{
+            id: this.id,
+            userId: this.userId,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            address: this.address,
+            phoneNumber: this.phoneNumber,
+            bio: this.bio,
+            skills: this.skills,
+            image: this.image
+        }
+    }
 }

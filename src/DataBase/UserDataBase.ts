@@ -1,11 +1,11 @@
-import { UserDB, UserModel } from "../Interfaces/User/Users.type";
+import { UserDB, UserModel, UserProfileDB } from "../Interfaces/User/Users.type";
 import { BaseDatabase } from "./BaseDataBase";
 
 
 export class UserDataBase extends BaseDatabase{
     public static TABLE_USERS = "users"
 
-    public insert = async(userDB: UserDB) => {
+    public insert = async(userDB: UserDB | UserProfileDB) => {
         await BaseDatabase
             .connection(UserDataBase.TABLE_USERS)
             .insert(userDB)

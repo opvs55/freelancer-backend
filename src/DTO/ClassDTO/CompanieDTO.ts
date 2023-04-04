@@ -1,5 +1,5 @@
 import { validateParam } from "../../Utils/Validate"
-import { DeleteCompanieInputDTO, EditCompanieInputDTO, GetCompanieInputDTO, SignUpCompanieInputDTO } from "../InterfaceDTO/Companie"
+import { DeleteCompanieInputDTO, EditCompanieInputDTO, GetCompanieInputDTO, SignUpCompanieInputDTO } from "../interfaceDTO/CompanieInterface"
 
 
 //=================================================/

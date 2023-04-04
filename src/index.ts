@@ -3,6 +3,9 @@ import cors from "cors"
 import dotenv from "dotenv"
 import { userRouter } from "./Routes/UserRouter"
 import { companiesRouter } from "./Routes/CompaniesRouter"
+import { userProfileRouter } from "./Routes/UserProfileRouter"
+import { userProfessionRouter } from "./Routes/UserProfessions"
+import { professionRouter } from "./Routes/professionsRouter"
 
 
 dotenv.config()
@@ -22,4 +25,7 @@ app.listen(Number(process.env.PORT), () => {
 //começar o projeto
 app.use("/user", userRouter)
 app.use("/companie", companiesRouter)
+app.use("/userProfile", userProfileRouter)
+app.use("/userProfession", userProfessionRouter)
+app.use("/profession", professionRouter)
 // app.use("/companie", companieRouter)
