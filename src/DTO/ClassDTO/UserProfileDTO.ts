@@ -1,16 +1,16 @@
 
 import { validateParam } from "../../Utils/Validate"
-import { CreateUserProfile, DeleteUserProfileInputDTO, EditUserProfileInputDTO, GetUserProfileInputDTO } from "../InterfaceDTO/UserProfile"
+import {  CreateUserProfileInputDTO, DeleteUserProfileInputDTO, EditUserProfileInputDTO, GetUserProfileInputDTO } from "../interfaceDTO/UserProfileInterface"
 
 
 //=================================================/
 
 //CLASSE - TESTANDO A FUNÇÃO DE VALIDAÇÃO, se der bom, atualizo para o projeto todo
 
-export class UserProfessionsDTO {
+export class UserProfileDTO {
 
 
-    public CreateUserProfessionsInputDTO = (
+    public CreateUserProfileInputDTO = (
 
         token: unknown,
         id: unknown,
@@ -23,7 +23,7 @@ export class UserProfessionsDTO {
         skills: unknown,
         image: unknown
 
-    ): CreateUserProfile => {
+    ): CreateUserProfileInputDTO => {
 
         validateParam("token", token, "string")
         validateParam("id", id, "string")
@@ -36,7 +36,7 @@ export class UserProfessionsDTO {
         validateParam("skills", skills, "string")
         validateParam("image", image, "string")
 
-        const userProfessions: CreateUserProfile = {
+        const userProfile: CreateUserProfileInputDTO = {
 
             token: token as string,
             id: id as string,
@@ -52,23 +52,25 @@ export class UserProfessionsDTO {
         }
 
 
-        return userProfessions
+        return userProfile
     }
 
-    public GetUserProfessionsInputDTO = (
-        token: unknown,
+    public GetUserProfileInputDTO = (
+        id: unknown,
+        token: unknown
     ): GetUserProfileInputDTO => {
 
         validateParam("token", token, "string")
 
-        const getUserProfessions = {
+        const getUserProfile = {
+            id: id as string,
             token: token as string,
         }
 
-        return getUserProfessions
+        return getUserProfile
     }
 
-    public EditUserProfessionsInputDTO = (
+    public EditUserProfileInputDTO = (
 
         idToEdit: unknown,
         token: unknown,
@@ -92,7 +94,7 @@ export class UserProfessionsDTO {
         validateParam("skills", skills, "string")
         validateParam("image", image, "string")
 
-        const userProfessions = {
+        const userProfile = {
             idToEdit: idToEdit as string,
             token: token as string,
             first_name: first_name as string,
@@ -104,10 +106,10 @@ export class UserProfessionsDTO {
             image: image as string
         }
 
-        return userProfessions
+        return userProfile
     }
 
-    public DeleteUserProfessionsInputDTO = (
+    public DeleteUserProfileInputDTO = (
         idToDelete: unknown,
         token: unknown
     ): DeleteUserProfileInputDTO => {
@@ -115,12 +117,12 @@ export class UserProfessionsDTO {
         validateParam("token", token, "string")
         validateParam("idToDelete", idToDelete, "string")
 
-        const deleteUserProfessions = {
+        const deleteUserProfile = {
             idToDelete: idToDelete as string,
             token: token as string
         }
 
-        return deleteUserProfessions
+        return deleteUserProfile
     }
 
 }

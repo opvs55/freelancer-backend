@@ -54,6 +54,21 @@ export interface UserProfileModel {
 }
 
 
+export interface UserProfessionDB {
+    id:string,
+    user_id:string,
+    profession_id:string,
+    experience_years:string
+}
+
+export interface UserProfessionModel {
+    id:string,
+    userId:string,
+    professionId:string,
+    experienceYears:string
+}
+
+
 export interface UserWorkVacanciesDB{
     id:string,
     user_id:string,

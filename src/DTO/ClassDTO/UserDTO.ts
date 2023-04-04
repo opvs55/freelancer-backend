@@ -1,6 +1,6 @@
 import { USER_ROLES } from "../../Interfaces/User/Users.type"
 import { validateParam } from "../../Utils/Validate"
-import { DeleteUserInputDTO, EditUserInputDTO, GetUserInputDTO, SignupUserInputDTO } from "../InterfaceDTO/User"
+import { DeleteUserInputDTO, EditUserInputDTO, GetUserInputDTO, SignupUserInputDTO } from "../interfaceDTO/UserInterface"
 
 
 //=================================================/

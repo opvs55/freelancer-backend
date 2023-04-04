@@ -1,4 +1,4 @@
--- Active: 1680029849713@@127.0.0.1@3306
+-- Active: 1680531083565@@127.0.0.1@3306
 
 /*Tablea Usuários*/
 CREATE TABLE
@@ -28,6 +28,8 @@ CREATE TABLE user_profiles (
 );
 
 
+SELECT * FROM user_profiles;
+
 /*Tablea Empresa*/
 CREATE TABLE
     companies (
@@ -46,33 +48,32 @@ CREATE TABLE
 
 SELECT * FROM companies;
 
-CREATE TABLE company_profiles (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    company_id INTEGER NOT NULL,
-    address TEXT NOT NULL,
-    phone_number TEXT NOT NULL,
-    description TEXT,
-    image TEXT,
-    FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-
 /* Tabela de Profissões */
 CREATE TABLE professions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT UNIQUE NOT NULL
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    name TEXT UNIQUE NOT NULL,
+    image TEXT
 );
+
+DROP TABLE professions;
+
 
 
 /* Tabela de Profissões dos Usuários */
 CREATE TABLE user_professions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    profession_id INTEGER NOT NULL,
-    experience_years INTEGER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (profession_id) REFERENCES professions(id) ON DELETE CASCADE ON UPDATE CASCADE
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    user_id TEXT NOT NULL,
+    profession_id TEXT NOT NULL,
+    experience_years TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) 
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE,
+    FOREIGN KEY (profession_id) REFERENCES professions(id) 
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE
 );
+
+DROP TABLE user_professions;
 
 
 

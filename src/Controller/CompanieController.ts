@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CompanieBusiness } from "../Business/CompanieBusiness";
-import { DeleteCompanieInputDTO, EditCompanieInputDTO, GetAllCompanieInputDTO, GetCompanieInputDTO, LoginCompanieInputDTO, SignUpCompanieInputDTO } from "../DTO/InterfaceDTO/Companie";
+import { DeleteCompanieInputDTO, EditCompanieInputDTO, GetAllCompanieInputDTO, GetCompanieInputDTO, LoginCompanieInputDTO, SignUpCompanieInputDTO } from "../DTO/interfaceDTO/CompanieInterface";
 import { BaseError } from "../Errors/BaseError";
 
 

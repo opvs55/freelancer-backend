@@ -1,10 +1,10 @@
+import { DeleteUserInputDTO, EditUserInputDTO, GetAllUserInputDTO, GetAllUserOutputDTO, GetUserInputDTO, GetUserOutputDTO, LoginUserInputDTO, LoginUserOutputDTO, SignUpUserOutputDTO, SignupUserInputDTO } from "../DTO/interfaceDTO/UserInterface";
 import { UserDataBase } from "../DataBase/UserDataBase";
-import { LoginUserInputDTO, LoginUserOutputDTO, SignUpUserOutputDTO, SignupUserInputDTO, GetUserInputDTO, GetUserOutputDTO, GetAllUserInputDTO, GetAllUserOutputDTO, EditUserInputDTO, DeleteUserInputDTO } from "../DTO/InterfaceDTO/User";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
 import { USER_ROLES } from "../Interfaces/Companie/Companie.types";
 import { TokenPayLoad, UserDB, UserModel } from "../Interfaces/User/Users.type";
-import { User } from "../Models/Users/User";
+import { User } from "../Models/Users/UserModel";
 import { HashManager } from "../Services/HashManager";
 import { IdGenerator } from "../Services/IdGenerator";
 import { TokenManager } from "../Services/TokenManager";
