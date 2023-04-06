@@ -6,7 +6,7 @@ import {
     EditUserProfessionInputDTO,
     GetAllUserProfessionInputDTO,
     GetUserProfessionInputDTO
-} from "../DTO/InterfaceDTO/UserProfessionInterface";
+} from "../DTO/interfaceDTO/UserProfessionInterface";
 import { UserProfessionBusiness } from "../Business/UserProfessionBusiness";
 
 
