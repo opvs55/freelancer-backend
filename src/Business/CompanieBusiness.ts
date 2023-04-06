@@ -13,7 +13,7 @@ import {
 } from "../DTO/interfaceDTO/CompanieInterface"
 import { BadRequestError } from "../Errors/BadRequestError"
 import { NotFoundError } from "../Errors/NotFoundError"
-import { CompanieDB, CompanieModel } from "../Interfaces/Companie/Companie.Types"
+import { CompanieDB, CompanieModel } from "../Interfaces/Companie/Companie.types"
 import { TokenPayLoad, USER_ROLES } from "../Interfaces/User/Users.Types"
 import { Companie } from "../Models/Companie/CompanieModel"
 import { HashManager } from "../Services/HashManager"
