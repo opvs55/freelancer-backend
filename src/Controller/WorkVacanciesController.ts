@@ -1,38 +1,35 @@
 import { Request, Response } from "express";
-import { GetUserInputDTO } from "../DTO/InterfaceDTO/UserInterface";
 import { BaseError } from "../Errors/BaseError";
 import {
-    CreateUserProfileInputDTO,
-    DeleteUserProfileInputDTO,
-    EditUserProfileInputDTO,
-    GetAllUserProfileInputDTO
-} from "../DTO/InterfaceDTO/UserProfileInterface";
-import { UserProfileBusiness } from "../Business/UserProfileBusiness";
+    CreateWorkVacanciesInputDTO,
+    DeleteWorkVacanciesInputDTO,
+    EditWorkVacanciesInputDTO,
+    GetWorkVacanciesByIdInputDTO,
+    GetWorkVacanciesInputDTO
+} from "../DTO/InterfaceDTO/WorkVacanciesInterface";
+import { WorkVacanciesBusiness } from "../Business/WorkVacanciesBusiness";
 
 
 
-export class UserProfileController {
+export class WorkVacanciesController {
     constructor(
-        private userProfileBusiness: UserProfileBusiness
+        private workVacanciesBusiness: WorkVacanciesBusiness
     ) { }
 
-    public createUserProfile = async (req: Request, res: Response) => {
+    public createWorkVacancies = async (req: Request, res: Response) => {
         try {
-            const input: CreateUserProfileInputDTO = {
+            const input: CreateWorkVacanciesInputDTO = {
 
                 token: req.headers.authorization,
-                user_id: req.params.user_id,
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                address: req.body.address,
-                phone_number: req.body.phone_number,
-                bio: req.body.bio,
-                skills: req.body.skills,
-                image: req.body.image
-
+                company_id: req.params.company_id,
+                title: req.body.title,
+                description: req.body.description,
+                skills_required: req.body.skills_required,
+                location: req.body.location,
+                salary: req.body.salary,
             }
 
-            const output = await this.userProfileBusiness.createProfile(input)
+            const output = await this.workVacanciesBusiness.createWorkVancancies(input)
 
             res.status(201).send(output)
 
@@ -49,14 +46,14 @@ export class UserProfileController {
 
 
 
-    public getUserProfile = async (req: Request, res: Response) => {
+    public getWorkVacancies = async (req: Request, res: Response) => {
         try {
-            const input: GetUserInputDTO = {
+            const input: GetWorkVacanciesByIdInputDTO = {
                 token: req.headers.authorization,
                 id: req.params.id
             }
 
-            const output = await this.userProfileBusiness.getUserProfile(input)
+            const output = await this.workVacanciesBusiness.getWorkVacancies(input)
 
             res.status(200).send(output)
 
@@ -70,15 +67,13 @@ export class UserProfileController {
         }
     }
 
-
-
-    public getAllUserProfile = async (req: Request, res: Response) => {
+    public getAllWorkVacancies = async (req: Request, res: Response) => {
         try {
-            const input: GetAllUserProfileInputDTO = {
+            const input: GetWorkVacanciesInputDTO = {
                 token: req.headers.authorization,
             }
 
-            const output = await this.userProfileBusiness.getAllUserProfile(input)
+            const output = await this.workVacanciesBusiness.getAllWorkVacancies(input)
 
             res.status(200).send(output)
 
@@ -93,27 +88,22 @@ export class UserProfileController {
     }
 
 
-
-
-
-    public editUserProfile = async (req: Request, res: Response) => {
+    public editWorkVacancies = async (req: Request, res: Response) => {
         try {
 
-            const input: EditUserProfileInputDTO = {
+            const input: EditWorkVacanciesInputDTO = {
 
                 token: req.headers.authorization,
                 idToEdit: req.params.id,
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                address: req.body.address,
-                phone_number: req.body.phone_number,
-                bio: req.body.bio,
-                skills: req.body.skills,
-                image: req.body.image
+                title: req.body.title,
+                description: req.body.description,
+                skills_required: req.body.skills_required,
+                location: req.body.location,
+                salary: req.body.salary,
 
             }
 
-            await this.userProfileBusiness.editUserProfile(input)
+            await this.workVacanciesBusiness.editWorkVacancies(input)
 
             res.status(200).end()
 
@@ -127,15 +117,15 @@ export class UserProfileController {
         }
     }
 
-    public deleteUser = async (req: Request, res: Response) => {
+    public deleteWorkVacancies = async (req: Request, res: Response) => {
         try {
 
-            const input: DeleteUserProfileInputDTO = {
+            const input: DeleteWorkVacanciesInputDTO = {
                 idToDelete: req.params.id,
                 token: req.headers.authorization
             }
 
-            await this.userProfileBusiness.deleteUserProfile(input)
+            await this.workVacanciesBusiness.deleteWorkVacancies(input)
 
             res.status(200).end()
         } catch (error) {

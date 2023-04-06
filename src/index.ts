@@ -5,7 +5,9 @@ import { userRouter } from "./Routes/UserRouter"
 import { companiesRouter } from "./Routes/CompaniesRouter"
 import { userProfileRouter } from "./Routes/UserProfileRouter"
 import { userProfessionRouter } from "./Routes/UserProfessions"
-import { professionRouter } from "./Routes/professionsRouter"
+import { professionRouter } from "./Routes/ProfessionsRouter"
+import { workVacanciesRouter } from "./Routes/WorkVacancies"
+import { userWorkVacanciesRouter } from "./Routes/UserWorkVacancies"
 
 
 dotenv.config()
@@ -28,4 +30,6 @@ app.use("/companie", companiesRouter)
 app.use("/userProfile", userProfileRouter)
 app.use("/userProfession", userProfessionRouter)
 app.use("/profession", professionRouter)
+app.use("/workVacancies", workVacanciesRouter)
+app.use("/userWorkVacancies", userWorkVacanciesRouter)
 // app.use("/companie", companieRouter)

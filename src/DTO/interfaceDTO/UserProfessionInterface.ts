@@ -1,4 +1,4 @@
-import {  UserProfessionModel, UserProfileModel } from "../../Interfaces/User/Users.type"
+import {  UserProfessionModel } from "../../Interfaces/User/Users.Types"
 
 
 // Create
@@ -38,8 +38,6 @@ export interface EditUserProfessionInputDTO {
 
     token: string | undefined,
     idToEdit: string,
-    user_id: string,
-    profession_id:string,
     experience_years: string
 
 }

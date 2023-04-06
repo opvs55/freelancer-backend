@@ -1,4 +1,4 @@
-import {UserProfessionDB, UserProfessionModel} from "../../Interfaces/User/Users.type";
+import {UserProfessionDB, UserProfessionModel} from "../../Interfaces/User/Users.Types";
 
 
 export class UserProfession{

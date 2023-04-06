@@ -1,4 +1,4 @@
-import { CompanieDB, CompanieModel, USER_ROLES } from "../../Interfaces/Companie/Companie.types";
+import { CompanieDB, CompanieModel, USER_ROLES } from "../../Interfaces/Companie/Companie.Types";
 
 
 export class Companie{

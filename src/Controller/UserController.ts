@@ -1,6 +1,13 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../Business/UserBusiness";
-import { DeleteUserInputDTO, EditUserInputDTO, GetAllUserInputDTO, GetUserInputDTO, LoginUserInputDTO, SignupUserInputDTO } from "../DTO/interfaceDTO/UserInterface";
+import {
+    DeleteUserInputDTO,
+    EditUserInputDTO,
+    GetAllUserInputDTO,
+    GetUserInputDTO,
+    LoginUserInputDTO,
+    SignupUserInputDTO
+} from "../DTO/InterfaceDTO/UserInterface";
 import { BaseError } from "../Errors/BaseError";
 
 
@@ -17,7 +24,7 @@ export class UserController {
                 username: req.body.username,
                 email: req.body.email,
                 password: req.body.password,
-                
+
             }
 
             const output = await this.userBusiness.signup(input)
@@ -36,9 +43,9 @@ export class UserController {
     }
 
 
-    public login = async (req: Request, res: Response) =>{
-        try{
-            const input: LoginUserInputDTO= {
+    public login = async (req: Request, res: Response) => {
+        try {
+            const input: LoginUserInputDTO = {
                 email: req.body.email,
                 password: req.body.password
             }
@@ -76,8 +83,8 @@ export class UserController {
         }
     }
 
-    public getAllUser = async (req: Request, res: Response) =>{
-        try{
+    public getAllUser = async (req: Request, res: Response) => {
+        try {
             const input: GetAllUserInputDTO = {
                 token: req.headers.authorization
             }
@@ -86,9 +93,9 @@ export class UserController {
             const output = await this.userBusiness.getAllUser(input)
 
             res.status(200).send(output)
-        } catch (error){
+        } catch (error) {
             console.log(error)
-            if(error instanceof BaseError){
+            if (error instanceof BaseError) {
                 res.status(error.statusCode).send(error.message)
             } else {
                 res.status(500).send("error inespperado")
@@ -103,9 +110,9 @@ export class UserController {
 
                 idToEdit: req.params.id,
                 token: req.headers.authorization,
-                username:req.body.username,
-                email:req.body.email,
-                password:req.body.password
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password
             }
 
             await this.userBusiness.editUser(input)

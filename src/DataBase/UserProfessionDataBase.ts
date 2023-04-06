@@ -1,4 +1,4 @@
-import {  UserProfessionDB, UserProfessionModel } from "../Interfaces/User/Users.type";
+import {  UserProfessionDB, UserProfessionModel } from "../Interfaces/User/Users.Types";
 import { BaseDatabase } from "./BaseDataBase";
 
 
@@ -12,7 +12,7 @@ export class UserProfessionDataBase extends BaseDatabase{
     }
 
 
-    public findById= async (id:string): Promise< UserProfessionDB | undefined > =>{
+    public findById= async (id:string): Promise< UserProfessionDB > =>{
 
 
         const result: UserProfessionDB [] = await BaseDatabase
@@ -27,13 +27,14 @@ export class UserProfessionDataBase extends BaseDatabase{
     //fazer alguma modificações para buscar mais informações
 
 
-    public getUserProfession = async (id:string): Promise<UserProfessionModel|undefined> => {
+    public getUserProfession = async (id:string): Promise<UserProfessionModel> => {
         const result: UserProfessionModel[] = await BaseDatabase
             .connection(UserProfessionDataBase.TABLE_USER_PROFESSIONS)
             .select(
                 "user_professions.id",
                 "user_professions.user_id",
                 "user_professions.profession_id",
+                "users.username",
                 "user_professions.experience_years"
             )
             .leftJoin("users", "user_professions.user_id", "users.id")
@@ -53,7 +54,7 @@ export class UserProfessionDataBase extends BaseDatabase{
                 "user_professions.experience_years"
             )
             .leftJoin("users", "user_professions.user_id", "users.id")
-            .rightJoin("professions", "user_professions.profession_id", "professions.id")
+            .leftJoin("professions", "user_professions.profession_id", "professions.id")
 
         return result
     }

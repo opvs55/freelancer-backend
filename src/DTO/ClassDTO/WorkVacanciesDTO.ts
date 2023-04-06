@@ -1,5 +1,5 @@
 import { validateParam } from "../../Utils/Validate"
-import { CreateWorkVacanciesInputDTO, DeleteWorkVacanciesInputDTO, EditWorkVacanciesInputDTO,GetWorkVacanciesInputDTO } from "../interfaceDTO/WorkVacanciesInterface"
+import { CreateWorkVacanciesInputDTO, DeleteWorkVacanciesInputDTO, EditWorkVacanciesInputDTO,GetWorkVacanciesInputDTO } from "../InterfaceDTO/WorkVacanciesInterface"
 
 
 
@@ -7,8 +7,9 @@ import { CreateWorkVacanciesInputDTO, DeleteWorkVacanciesInputDTO, EditWorkVacan
 
 export class WorkVacanciesDTO {
 
-    public CreateJobVacanciesInputDTO = (
+    public CreateWorkVacanciesInputDTO = (
         token: unknown,
+        company_id: unknown,
         title: unknown,
         description: unknown,
         skills_required: unknown,
@@ -27,6 +28,7 @@ export class WorkVacanciesDTO {
         const workVacancies: CreateWorkVacanciesInputDTO = {
     
             token: token as string,
+            company_id: company_id as string,
             title : title  as string,
             description: description as string,
             skills_required: skills_required as string,
@@ -38,7 +40,7 @@ export class WorkVacanciesDTO {
         return workVacancies
     }
 
-    public GetJobVacanciesInputDTO = (
+    public GetWorkVacanciesInputDTO = (
         token: unknown,
     ): GetWorkVacanciesInputDTO => {
 
@@ -51,7 +53,7 @@ export class WorkVacanciesDTO {
         return getWorkVacancies
     }
     
-    public EditJobVacanciesInputDTO = (
+    public EditWorkVacanciesInputDTO = (
 
         idToEdit: unknown,
         token: unknown,
@@ -72,7 +74,7 @@ export class WorkVacanciesDTO {
         validateParam("salary", salary, "number")
 
         const workVacancies: EditWorkVacanciesInputDTO = {
-    
+            idToEdit: idToEdit as string,
             token: token as string,
             title : title  as string,
             description: description as string,
@@ -85,7 +87,7 @@ export class WorkVacanciesDTO {
     }
 
 
-    public DeleteJobVacanciesInputDTO = (
+    public DeleteWorkVacanciesInputDTO = (
         idToDelete: unknown,
         token: unknown
     ): DeleteWorkVacanciesInputDTO => {

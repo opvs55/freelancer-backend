@@ -1,8 +1,17 @@
-import { CreateUserProfileInputDTO, CreateUserProfileOutputDTO, DeleteUserProfileInputDTO, EditUserProfileInputDTO, GetUserProfileInputDTO, GetUserProfileOutputDTO } from "../DTO/interfaceDTO/UserProfileInterface";
+import { GetAllUserProfessionInputDTO } from "../DTO/InterfaceDTO/UserProfessionInterface";
+import {
+    CreateUserProfileInputDTO,
+    CreateUserProfileOutputDTO,
+    DeleteUserProfileInputDTO,
+    EditUserProfileInputDTO,
+    GetAllUserProfileOutputDTO,
+    GetUserProfileInputDTO,
+    GetUserProfileOutputDTO
+} from "../DTO/InterfaceDTO/UserProfileInterface";
 import { UserProfileDataBase } from "../DataBase/UserProfileDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
-import { USER_ROLES } from "../Interfaces/Companie/Companie.types";
+import { USER_ROLES } from "../Interfaces/Companie/Companie.Types";
 import { UsersProfiles } from "../Models/Users/UserProfileModel";
 import { IdGenerator } from "../Services/IdGenerator";
 import { TokenManager } from "../Services/TokenManager";
@@ -15,7 +24,7 @@ export class UserProfileBusiness {
     constructor(
         private userProfileDataBase: UserProfileDataBase,
         private tokenManager: TokenManager,
-        private idGenerator: IdGenerator 
+        private idGenerator: IdGenerator
     ) { }
 
     public createProfile = async (input: CreateUserProfileInputDTO): Promise<CreateUserProfileOutputDTO> => {
@@ -72,8 +81,8 @@ export class UserProfileBusiness {
 
         //criou um objeto tipado
 
-        const output: CreateUserProfileOutputDTO =  {mensage: "profile criado com sucesso" }
-        
+        const output: CreateUserProfileOutputDTO = { mensage: "profile criado com sucesso" }
+
         //retorno
 
         return output
@@ -84,11 +93,11 @@ export class UserProfileBusiness {
     public getUserProfile = async (input: GetUserProfileInputDTO): Promise<GetUserProfileOutputDTO> => {
 
         const { token, id } = input
-        
+
         if (!token) {
             throw new BadRequestError("token ausente")
         }
-    
+
         if (!id) {
             throw new BadRequestError("id ausente")
         }
@@ -98,19 +107,47 @@ export class UserProfileBusiness {
         if (!payload) {
             throw new BadRequestError("token inválido")
         }
-    
+
         const user = await this.userProfileDataBase.getUserProfile(id)
-    
+
         if (!user) {
             throw new NotFoundError("usuário não encontrado")
         }
-    
-        
+
+
         const output: GetUserProfileOutputDTO = user
-    
+
         return output
     }
 
+
+    public getAllUserProfile = async (input: GetAllUserProfessionInputDTO): Promise<GetAllUserProfileOutputDTO> => {
+
+        const { token } = input
+
+        if (!token) {
+            throw new BadRequestError("token ausente")
+        }
+
+        
+
+        const payload = this.tokenManager.verifyToken(token)
+
+        if (!payload) {
+            throw new BadRequestError("token inválido")
+        }
+
+        const user = await this.userProfileDataBase.getAllUserProfile()
+
+        if (!user) {
+            throw new NotFoundError("usuário não encontrado")
+        }
+
+
+        const output: GetAllUserProfileOutputDTO = user
+
+        return output
+    }
 
     public editUserProfile = async (input: EditUserProfileInputDTO): Promise<void> => {
 
@@ -156,9 +193,9 @@ export class UserProfileBusiness {
             userProfileDB.image
         )
 
-        userProfileEditada.setFirstName(first_name? first_name: userProfileEditada.getFirstName());
+        userProfileEditada.setFirstName(first_name ? first_name : userProfileEditada.getFirstName());
         console.log(userProfileEditada.getLastName())
-        userProfileEditada.setLastName(last_name? last_name: userProfileEditada.getLastName());
+        userProfileEditada.setLastName(last_name ? last_name : userProfileEditada.getLastName());
         userProfileEditada.setAddress(address ? address : userProfileEditada.getAddress());
         userProfileEditada.setPhoneNumber(phone_number ? phone_number : userProfileEditada.getPhoneNumber());
         userProfileEditada.setBio(bio ? bio : userProfileEditada.getBio());
@@ -195,7 +232,7 @@ export class UserProfileBusiness {
 
         const creatorId = payload.id
 
-        if (payload.role !== USER_ROLES.ADMIN && userDB.id !== creatorId) {
+        if (payload.role !== USER_ROLES.ADMIN && userDB.user_id !== creatorId) {
             throw new BadRequestError("Apenas o user criador da postagem ou ADM's podem deletar!")
         }
 

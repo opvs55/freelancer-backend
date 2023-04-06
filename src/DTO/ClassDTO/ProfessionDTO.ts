@@ -1,6 +1,5 @@
 import { validateParam } from "../../Utils/Validate"
-import { DeleteCompanieInputDTO, EditCompanieInputDTO, GetCompanieInputDTO, SignUpCompanieInputDTO } from "../interfaceDTO/CompanieInterface"
-import { CreateProfessionInputDTO, DeleteProfessionInputDTO, EditProfessionInputDTO, GetProfessionInputDTO } from "../interfaceDTO/ProfessionInterface"
+import { CreateProfessionInputDTO, DeleteProfessionInputDTO, EditProfessionInputDTO, GetProfessionInputDTO } from "../InterfaceDTO/ProfessionInterface"
 
 
 //=================================================/
@@ -20,6 +19,7 @@ export class ProfessionDTO {
         validateParam("image", image, "string")
 
         const profession: CreateProfessionInputDTO = {
+            token: name as string,
             name: name as string,
             image: image as string
         }

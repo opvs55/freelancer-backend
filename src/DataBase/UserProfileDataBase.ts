@@ -1,4 +1,4 @@
-import {  UserProfileDB, UserProfileModel } from "../Interfaces/User/Users.type";
+import {  UserProfileDB, UserProfileModel } from "../Interfaces/User/Users.Types";
 import { BaseDatabase } from "./BaseDataBase";
 
 
@@ -12,7 +12,7 @@ export class UserProfileDataBase extends BaseDatabase{
     }
 
 
-    public findById= async (id:string): Promise< UserProfileDB| undefined > =>{
+    public findById= async (id:string): Promise< UserProfileDB> =>{
 
 
         const result: UserProfileDB[] = await BaseDatabase
@@ -23,7 +23,7 @@ export class UserProfileDataBase extends BaseDatabase{
         return result[0]
     }
 
-    public getUserProfile = async (id:string): Promise<UserProfileModel|undefined> => {
+    public getUserProfile = async (id:string): Promise<UserProfileModel> => {
         const result: UserProfileModel[] = await BaseDatabase
             .connection(UserProfileDataBase.TABLE_USER_PROFILES)
             .select(
@@ -42,6 +42,26 @@ export class UserProfileDataBase extends BaseDatabase{
             .where({ "user_profiles.id": id });
 
         return result[0]
+    }
+
+    public getAllUserProfile = async (): Promise<UserProfileModel[]> => {
+        const result: UserProfileModel[] = await BaseDatabase
+            .connection(UserProfileDataBase.TABLE_USER_PROFILES)
+            .select(
+                "user_profiles.id",
+                "user_profiles.user_id",
+                "users.username",
+                "user_profiles.first_name",
+                "user_profiles.last_name",
+                "user_profiles.address",
+                "user_profiles.phone_number",
+                "user_profiles.bio",
+                "user_profiles.skills",
+                "user_profiles.image"
+            )
+            .leftJoin("users", "user_profiles.user_id", "users.id")
+
+        return result
     }
 
 

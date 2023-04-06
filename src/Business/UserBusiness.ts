@@ -1,9 +1,20 @@
-import { DeleteUserInputDTO, EditUserInputDTO, GetAllUserInputDTO, GetAllUserOutputDTO, GetUserInputDTO, GetUserOutputDTO, LoginUserInputDTO, LoginUserOutputDTO, SignUpUserOutputDTO, SignupUserInputDTO } from "../DTO/interfaceDTO/UserInterface";
+import {
+    DeleteUserInputDTO,
+    EditUserInputDTO,
+    GetAllUserInputDTO,
+    GetAllUserOutputDTO,
+    GetUserInputDTO,
+    GetUserOutputDTO,
+    LoginUserInputDTO,
+    LoginUserOutputDTO,
+    SignUpUserOutputDTO,
+    SignupUserInputDTO
+} from "../DTO/InterfaceDTO/UserInterface";
 import { UserDataBase } from "../DataBase/UserDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
-import { USER_ROLES } from "../Interfaces/Companie/Companie.types";
-import { TokenPayLoad, UserDB, UserModel } from "../Interfaces/User/Users.type";
+import { USER_ROLES } from "../Interfaces/Companie/Companie.Types";
+import { TokenPayLoad, UserDB, UserModel } from "../Interfaces/User/Users.Types";
 import { User } from "../Models/Users/UserModel";
 import { HashManager } from "../Services/HashManager";
 import { IdGenerator } from "../Services/IdGenerator";
@@ -91,22 +102,22 @@ export class UserBusiness {
 
     }
 
-    public login = async(input:LoginUserInputDTO): Promise<LoginUserOutputDTO> =>{
+    public login = async (input: LoginUserInputDTO): Promise<LoginUserOutputDTO> => {
 
-        const { email, password} = input 
+        const { email, password } = input
 
         validateParam("email", email, "string")
         validateParam("password", password, "string")
 
-        const userDB : UserDB | undefined = await this.userDataBase.findByEmail(email)
+        const userDB: UserDB | undefined = await this.userDataBase.findByEmail(email)
 
-        if(!userDB){
+        if (!userDB) {
             throw new NotFoundError("email invalido")
         }
 
         const isPasswordCorrect = await this.hashManager.compare(password, userDB.password)
 
-        if(!isPasswordCorrect){
+        if (!isPasswordCorrect) {
             throw new BadRequestError("password incorreto")
         }
 
@@ -119,7 +130,7 @@ export class UserBusiness {
             userDB.created_at
         )
 
-        const payload : TokenPayLoad = {
+        const payload: TokenPayLoad = {
             id: user.getId(),
             username: user.getUserName(),
             role: user.getRole()
@@ -134,10 +145,10 @@ export class UserBusiness {
         return output
     }
 
-    public getUser= async (input: GetUserInputDTO): Promise<GetUserOutputDTO> => {
+    public getUser = async (input: GetUserInputDTO): Promise<GetUserOutputDTO> => {
 
         const { token, id } = input
-        
+
         if (!token) {
             throw new BadRequestError("token ausente")
         }
@@ -157,14 +168,14 @@ export class UserBusiness {
             await this.userDataBase
                 .getUser()
 
-        const output: GetUserOutputDTO= user
+        const output: GetUserOutputDTO = user
 
         return output
     }
-    public getAllUser= async (input: GetAllUserInputDTO): Promise<GetAllUserOutputDTO> => {
+    public getAllUser = async (input: GetAllUserInputDTO): Promise<GetAllUserOutputDTO> => {
 
-        const { token} = input
-        
+        const { token } = input
+
         if (!token) {
             throw new BadRequestError("token ausente")
         }
@@ -180,7 +191,7 @@ export class UserBusiness {
             await this.userDataBase
                 .getAllUser()
 
-        const output: GetAllUserOutputDTO= user
+        const output: GetAllUserOutputDTO = user
 
         return output
     }
@@ -222,12 +233,12 @@ export class UserBusiness {
             userDB.created_at
         )
 
-        userEditada.setUsername(username? username: userEditada.getUserName());
-        userEditada.setEmail(email? email: userEditada.getEmail());
+        userEditada.setUsername(username ? username : userEditada.getUserName());
+        userEditada.setEmail(email ? email : userEditada.getEmail());
         userEditada.setPassword(password ? password : userEditada.getPassword());
 
 
-        
+
         userEditada.setCreateAt(new Date().toISOString())
 
         const upUserDB = userEditada.userToDBModel()

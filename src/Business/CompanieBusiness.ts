@@ -1,10 +1,20 @@
 import { CompanieDataBase } from "../DataBase/CompanieDataBase"
-import { DeleteCompanieInputDTO, EditCompanieInputDTO, GetAllCompanieInputDTO, GetAllCompanieOutputDTO, GetCompanieInputDTO, GetCompanieOutputDTO, LoginCompanieInputDTO, LoginCompanieOutputDTO, SignUpCompanieInputDTO, SignUpCompanieOutputDTO } from "../DTO/interfaceDTO/CompanieInterface"
+import {
+    DeleteCompanieInputDTO,
+    EditCompanieInputDTO,
+    GetAllCompanieInputDTO,
+    GetAllCompanieOutputDTO,
+    GetCompanieInputDTO,
+    GetCompanieOutputDTO,
+    LoginCompanieInputDTO,
+    LoginCompanieOutputDTO,
+    SignUpCompanieInputDTO,
+    SignUpCompanieOutputDTO
+} from "../DTO/InterfaceDTO/CompanieInterface"
 import { BadRequestError } from "../Errors/BadRequestError"
 import { NotFoundError } from "../Errors/NotFoundError"
-import { CompanieDB } from "../Interfaces/Companie/Companie.types"
-import { CompaniesModel } from "../Interfaces/Companies/Companies.types"
-import { TokenPayLoad, USER_ROLES } from "../Interfaces/User/Users.type"
+import { CompanieDB, CompanieModel } from "../Interfaces/Companie/Companie.Types"
+import { TokenPayLoad, USER_ROLES } from "../Interfaces/User/Users.Types"
 import { Companie } from "../Models/Companie/CompanieModel"
 import { HashManager } from "../Services/HashManager"
 import { IdGenerator } from "../Services/IdGenerator"
@@ -170,7 +180,7 @@ export class CompanieBusiness {
             throw new BadRequestError("token invalido")
         }
 
-        const companie: CompaniesModel =
+        const companie: CompanieModel =
             await this.companieDataBase
                 .getCompanie()
 
@@ -193,7 +203,7 @@ export class CompanieBusiness {
             throw new BadRequestError("token invalido")
         }
 
-        const companie: CompaniesModel[] =
+        const companie: CompanieModel[] =
             await this.companieDataBase
                 .getAllCompanie()
 
@@ -248,14 +258,14 @@ export class CompanieBusiness {
         )
 
         companieEditada.setname(name ? name : companieEditada.getName());
-        companieEditada.setEmail(email? email: companieEditada.getEmail());
+        companieEditada.setEmail(email ? email : companieEditada.getEmail());
         companieEditada.setCellphone(cellphone ? cellphone : companieEditada.getCellphone());
         companieEditada.setAddress(address ? address : companieEditada.getAddress());
-        companieEditada.setDescription(description? description: companieEditada.getDescription());
+        companieEditada.setDescription(description ? description : companieEditada.getDescription());
         companieEditada.setPassword(password ? password : companieEditada.getPassword());
         companieEditada.setImage(image ? image : companieEditada.getImage());
 
-        
+
         companieEditada.setCreateAt(new Date().toISOString())
 
         const upCompanieDB = companieEditada.companieToDBModel()

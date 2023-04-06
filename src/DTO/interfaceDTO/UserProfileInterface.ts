@@ -1,4 +1,4 @@
-import {  UserProfileModel } from "../../Interfaces/User/Users.type"
+import {  UserProfileModel } from "../../Interfaces/User/Users.Types"
 
 
 // Create
@@ -30,6 +30,13 @@ export interface GetUserProfileInputDTO {
 }
 
 export type GetUserProfileOutputDTO = UserProfileModel
+
+
+export interface GetAllUserProfileInputDTO {
+    token: string | undefined
+}
+
+export type GetAllUserProfileOutputDTO = UserProfileModel[]
 
 
 //EDIT UserProfession INFO

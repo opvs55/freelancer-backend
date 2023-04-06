@@ -1,20 +1,21 @@
-import { WorkVacanciesModel } from "../../Interfaces/Companie/Companie.types"
+import { WorkVacanciesDB, WorkVacanciesModel } from "../../Interfaces/Companie/Companie.Types"
 
 
 
 //CreateJobVacancies
 
 export interface CreateWorkVacanciesInputDTO {
-    token: unknown,
-    title: unknown,
-    description: unknown,
-    skills_required: unknown,
-    location: unknown,
-    salary:unknown
+    token: string | undefined,
+    company_id: string,
+    title: string,
+    description: string,
+    skills_required: string,
+    location: string,
+    salary:number
 }
 
 export interface CreateWorkVacanciesOutputDTO {
-    token: string
+    mensage: string
 }
 
 //GET Work VACANCIES
@@ -38,12 +39,13 @@ export type GetWorkVacanciesByIdOutputDTO = WorkVacanciesModel
 //EDIT Work VACANCIES INFO
 
 export interface EditWorkVacanciesInputDTO {
-    token: unknown,
-    title: unknown,
-    description: unknown,
-    skills_required: unknown,
-    location: unknown,
-    salary:unknown
+    token: string | undefined,
+    idToEdit: string,
+    title: string,
+    description: string,
+    skills_required: string,
+    location: string,
+    salary:number
 }
 
 export interface EditWorkVacanciesOutputDTO{
