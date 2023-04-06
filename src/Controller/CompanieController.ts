@@ -7,7 +7,7 @@ import {
     GetCompanieInputDTO,
     LoginCompanieInputDTO,
     SignUpCompanieInputDTO
-} from "../DTO/InterfaceDTO/CompanieInterface";
+} from "../DTO/interfaceDTO/CompanieInterface";
 import { BaseError } from "../Errors/BaseError";
 
 
