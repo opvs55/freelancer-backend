@@ -7,7 +7,7 @@ import {
     GetUserInputDTO,
     LoginUserInputDTO,
     SignupUserInputDTO
-} from "../DTO/InterfaceDTO/UserInterface";
+} from "../DTO/interfaceDTO/UserInterface";
 import { BaseError } from "../Errors/BaseError";
 
 
