@@ -6,7 +6,7 @@ import {
     EditUserWorkVacanciesInputDTO,
     GetAllUserWorkVacanciesInputDTO,
     GetUserWorkVacanciesInputDTO
-} from "../DTO/InterfaceDTO/UserWorkVacanciesInterface";
+} from "../DTO/interfaceDTO/UserWorkVacanciesInterface";
 import { UserWorkVacanciesBusiness } from "../Business/UserWorkVacanciesBusiness";
 
 
