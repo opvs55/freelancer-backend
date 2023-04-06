@@ -4,7 +4,7 @@ import {
     DeleteUserWorkVacanciesInputDTO,
     EditUserWorkVacanciesInputDTO,
     GetUserWorkVacanciesInputDTO
-} from "../InterfaceDTO/UserWorkVacanciesInterface"
+} from "../interfaceDTO/UserWorkVacanciesInterface"
 
 
 
