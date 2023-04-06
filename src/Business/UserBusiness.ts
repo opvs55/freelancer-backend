@@ -9,11 +9,11 @@ import {
     LoginUserOutputDTO,
     SignUpUserOutputDTO,
     SignupUserInputDTO
-} from "../DTO/InterfaceDTO/UserInterface";
+} from "../DTO/interfaceDTO/UserInterface";
 import { UserDataBase } from "../DataBase/UserDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
-import { USER_ROLES } from "../Interfaces/Companie/Companie.Types";
+import { USER_ROLES } from "../Interfaces/Companie/Companie.types";
 import { TokenPayLoad, UserDB, UserModel } from "../Interfaces/User/Users.Types";
 import { User } from "../Models/Users/UserModel";
 import { HashManager } from "../Services/HashManager";
