@@ -1,4 +1,4 @@
-import { CreateUserWorkVacanciesInputDTO, CreateUserWorkVacanciesOutputDTO, DeleteUserWorkVacanciesInputDTO, EditUserWorkVacanciesInputDTO, GetAllUserWorkVacanciesInputDTO, GetAllUserWorkVacanciesOutputDTO, GetUserWorkVacanciesInputDTO, GetUserWorkVacanciesOutputDTO } from "../DTO/InterfaceDTO/UserWorkVacanciesInterface";
+import { CreateUserWorkVacanciesInputDTO, CreateUserWorkVacanciesOutputDTO, DeleteUserWorkVacanciesInputDTO, EditUserWorkVacanciesInputDTO, GetAllUserWorkVacanciesInputDTO, GetAllUserWorkVacanciesOutputDTO, GetUserWorkVacanciesInputDTO, GetUserWorkVacanciesOutputDTO } from "../DTO/interfaceDTO/UserWorkVacanciesInterface";
 
 
 import { UserProfileDataBase } from "../DataBase/UserProfileDataBase";
