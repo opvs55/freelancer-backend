@@ -1,6 +1,6 @@
 
 import { validateParam } from "../../Utils/Validate"
-import { CreateUserProfessionInputDTO, DeleteUserProfessionInputDTO, EditUserProfessionInputDTO, GetUserProfessionInputDTO } from "../InterfaceDTO/UserProfessionInterface"
+import { CreateUserProfessionInputDTO, DeleteUserProfessionInputDTO, EditUserProfessionInputDTO, GetUserProfessionInputDTO } from "../interfaceDTO/UserProfessionInterface"
 
 
 //=================================================/
