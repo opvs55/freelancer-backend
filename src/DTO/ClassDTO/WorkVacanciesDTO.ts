@@ -1,5 +1,5 @@
 import { validateParam } from "../../Utils/Validate"
-import { CreateWorkVacanciesInputDTO, DeleteWorkVacanciesInputDTO, EditWorkVacanciesInputDTO,GetWorkVacanciesInputDTO } from "../InterfaceDTO/WorkVacanciesInterface"
+import { CreateWorkVacanciesInputDTO, DeleteWorkVacanciesInputDTO, EditWorkVacanciesInputDTO,GetWorkVacanciesInputDTO } from "../interfaceDTO/WorkVacanciesInterface"
 
 
 
