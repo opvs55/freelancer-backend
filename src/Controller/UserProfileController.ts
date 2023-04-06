@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetUserInputDTO } from "../DTO/InterfaceDTO/UserInterface";
+import { GetUserInputDTO } from "../DTO/interfaceDTO/UserInterface";
 import { BaseError } from "../Errors/BaseError";
 import {
     CreateUserProfileInputDTO,
