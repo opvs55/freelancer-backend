@@ -11,7 +11,7 @@ import {
 import { WorkVacanciesDataBase } from "../DataBase/WorkVacanciesDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
-import { USER_ROLES } from "../Interfaces/Companie/Companie.Types";
+import { USER_ROLES } from "../Interfaces/Companie/Companie.types";
 import { WorkVacancies } from "../Models/Jobs/WorkVacanciesModel";
 
 import { IdGenerator } from "../Services/IdGenerator";
