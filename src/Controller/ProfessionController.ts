@@ -7,7 +7,7 @@ import {
     EditProfessionInputDTO,
     GetAllProfessionInputDTO,
     GetProfessionInputDTO
-} from "../DTO/InterfaceDTO/ProfessionInterface";
+} from "../DTO/interfaceDTO/ProfessionInterface";
 
 
 export class ProfessionController {
