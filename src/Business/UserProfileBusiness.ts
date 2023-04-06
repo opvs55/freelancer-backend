@@ -1,4 +1,4 @@
-import { GetAllUserProfessionInputDTO } from "../DTO/InterfaceDTO/UserProfessionInterface";
+import { GetAllUserProfessionInputDTO } from "../DTO/interfaceDTO/UserProfessionInterface";
 import {
     CreateUserProfileInputDTO,
     CreateUserProfileOutputDTO,
@@ -11,7 +11,7 @@ import {
 import { UserProfileDataBase } from "../DataBase/UserProfileDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
-import { USER_ROLES } from "../Interfaces/Companie/Companie.Types";
+import { USER_ROLES } from "../Interfaces/Companie/Companie.types";
 import { UsersProfiles } from "../Models/Users/UserProfileModel";
 import { IdGenerator } from "../Services/IdGenerator";
 import { TokenManager } from "../Services/TokenManager";
