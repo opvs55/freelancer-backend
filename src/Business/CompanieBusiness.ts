@@ -10,7 +10,7 @@ import {
     LoginCompanieOutputDTO,
     SignUpCompanieInputDTO,
     SignUpCompanieOutputDTO
-} from "../DTO/InterfaceDTO/CompanieInterface"
+} from "../DTO/interfaceDTO/CompanieInterface"
 import { BadRequestError } from "../Errors/BadRequestError"
 import { NotFoundError } from "../Errors/NotFoundError"
 import { CompanieDB, CompanieModel } from "../Interfaces/Companie/Companie.Types"
