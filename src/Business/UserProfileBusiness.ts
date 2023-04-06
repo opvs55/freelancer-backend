@@ -7,7 +7,7 @@ import {
     GetAllUserProfileOutputDTO,
     GetUserProfileInputDTO,
     GetUserProfileOutputDTO
-} from "../DTO/InterfaceDTO/UserProfileInterface";
+} from "../DTO/interfaceDTO/UserProfileInterface";
 import { UserProfileDataBase } from "../DataBase/UserProfileDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
