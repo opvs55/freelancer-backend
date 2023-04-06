@@ -1,4 +1,4 @@
-import {  WorkVacanciesDB, WorkVacanciesModel } from "../../Interfaces/Companie/Companie.Types";
+import {  WorkVacanciesDB, WorkVacanciesModel } from "../../Interfaces/Companie/Companie.types";
 
 
 
