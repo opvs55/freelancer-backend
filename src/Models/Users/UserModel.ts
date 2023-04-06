@@ -1,4 +1,4 @@
-import { UserDB, UserModel, USER_ROLES } from "../../Interfaces/User/Users.type";
+import { UserDB, UserModel, USER_ROLES } from "../../Interfaces/User/Users.Types";
 
 
 export class User{

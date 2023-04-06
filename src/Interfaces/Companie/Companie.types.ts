@@ -50,9 +50,6 @@ export interface WorkVacanciesModel{
     location:string,
     salary: number,
     created_at:string
-    email:string,
-    cellphone:string,
-    address:string,
 }
 
 

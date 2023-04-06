@@ -1,4 +1,4 @@
-import {UserProfileDB, UserProfileModel} from "../../Interfaces/User/Users.type";
+import {UserProfileDB, UserProfileModel} from "../../Interfaces/User/Users.Types";
 
 
 export class UsersProfiles{

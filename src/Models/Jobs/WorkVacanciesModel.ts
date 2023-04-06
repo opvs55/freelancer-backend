@@ -1,4 +1,4 @@
-import {  WorkVacanciesDB, WorkVacanciesModel } from "../../Interfaces/Companie/Companie.types";
+import {  WorkVacanciesDB, WorkVacanciesModel } from "../../Interfaces/Companie/Companie.Types";
 
 
 
@@ -15,10 +15,7 @@ export class WorkVacancies{
         private skillsRequired:string,
         private location:string,
         private salary:number,
-        private createdAt:string,
-        private email:string,
-        private cellphone:string,
-        private address:string
+        private createdAt:string
 
     ){}
 
@@ -80,31 +77,8 @@ export class WorkVacancies{
         this.createdAt = value
     }
 
-    public getEmail():string{
-        return this.email
-    }
 
-    public setEmail(value:string):void{
-        this.email = value
-    }
-
-    public getCellphone():string{
-        return this.cellphone
-    }
-
-    public setCellphone(value:string):void{
-        this.cellphone = value
-    }
-
-    public getAddress():string{
-        return this.address
-    }
-
-    public setAdress(value:string):void{
-        this.address = value
-    }
-
-    public jobVacanciesDB():WorkVacanciesDB{
+    public WorkVacanciesDB():WorkVacanciesDB{
         return{
             id: this.id,
             company_id: this.companyId,
@@ -118,7 +92,7 @@ export class WorkVacancies{
     }
 
 
-    public toJobVacanciesModel():WorkVacanciesModel{
+    public toWorkVacanciesModel():WorkVacanciesModel{
         return{
             id: this.id,
             company_id: this.companyId,
@@ -128,9 +102,6 @@ export class WorkVacancies{
             location: this.location,
             salary: this.salary,
             created_at: this.createdAt,
-            email: this.email,
-            cellphone: this.cellphone,
-            address: this.address
         }
     }
     

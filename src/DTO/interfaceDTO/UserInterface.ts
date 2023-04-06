@@ -1,6 +1,8 @@
 // SIGN UP
 
-import { UserModel } from "../../Interfaces/User/Users.type"
+import { UserModel } from "../../Interfaces/User/Users.Types"
+
+
 
 export interface SignupUserInputDTO {
 

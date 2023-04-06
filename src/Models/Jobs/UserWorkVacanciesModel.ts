@@ -1,4 +1,4 @@
-import { UserWorkVacanciesDB, UserWorkVacanciesModel } from "../../Interfaces/User/Users.type";
+import { UserWorkVacanciesDB, UserWorkVacanciesModel } from "../../Interfaces/User/Users.Types";
 
 
 
@@ -9,13 +9,14 @@ export class UserWorkVacancies{
     constructor(
 
         private id:string,
-        private userId:string,
-        private workVacancieId:string,
-        private companyId:string,
+        private userProfileId:string,
+        private work_vacancy_id:string,
+        private company_id:string,
+        private chosen:number,
         private appliedAt:string,
-        private username:string,
-        private email:string,
-        private cellphone:string,
+        private first_name:string,
+        private last_name:string,
+        private phone_number:string,
         private address:string,
         private image:string,
         private title:string,
@@ -32,29 +33,29 @@ export class UserWorkVacancies{
         this.id = value
     }
 
-    public getUserId(): string {
-        return this.userId
+    public getUserProfileId(): string {
+        return this.userProfileId
     }
-    public setUserId(value: string): void {
+    public setUserProfileId(value: string): void {
         if(!value || typeof value !== "string"){
             throw new Error("User_id invalid")
         }
-        this.userId = value
+        this.userProfileId = value
     }
 
-    public getJobVacancyId():string{
-        return this.workVacancieId
+    public getWorkVacancieId():string{
+        return this.work_vacancy_id
     }
 
-    public setJobVacancyId(value:string):void{
-        this.workVacancieId = value
+    public setWorkVacancieId(value:string):void{
+        this.work_vacancy_id = value
     }
 
     public getCompanyId(): string {
-        return this.companyId
+        return this.company_id
     }
     public setCompanyId(value: string): void {
-        this.companyId = value
+        this.company_id = value
     }
 
     public getTitle(): string {
@@ -78,12 +79,12 @@ export class UserWorkVacancies{
         this.appliedAt = value
     }
 
-    public getUsername():string{
-        return this.username
+    public getFirstName():string{
+        return this.first_name
     }
 
-    public setUsername(value:string):void{
-        this.username = value
+    public setFirstName(value:string):void{
+        this.first_name = value
     }
     
     public getLocation(): string {
@@ -109,20 +110,20 @@ export class UserWorkVacancies{
         this.image = value
     }
 
-    public getEmail():string{
-        return this.email
+    public getLastName():string{
+        return this.last_name
     }
 
-    public setEmail(value:string):void{
-        this.email = value
+    public setLastName(value:string):void{
+        this.last_name = value
     }
 
     public getCellphone():string{
-        return this.cellphone
+        return this.phone_number
     }
 
     public setCellphone(value:string):void{
-        this.cellphone = value
+        this.phone_number = value
     }
 
     public getAddress():string{
@@ -133,35 +134,43 @@ export class UserWorkVacancies{
         this.address = value
     }
 
-    public workVacanciesDB():UserWorkVacanciesDB{
+    public getChosen():number{
+        return this.chosen
+    }
+
+    public setChosen(value:number):void{
+        this.chosen = value
+    }
+
+    public userWorkVacanciesDB():UserWorkVacanciesDB{
         return{
             id: this.id,
-            user_id:this.userId,
-            work_vacancy_id: this.workVacancieId,
-            company_id: this.companyId,
-            aplied_at: this.appliedAt
+            userProfileId:this.userProfileId,
+            work_vacancy_id: this.work_vacancy_id,
+            chosen: this.chosen,
+            applied_at: this.appliedAt
         }
     }
 
 
-    public toWorkVacanciesModel():UserWorkVacanciesModel{
+    public toUserWorkVacanciesModel():UserWorkVacanciesModel{
         return{
             id: this.id,
-            userId: this.userId,
-            workVacancyId: this.workVacancieId,
-            companyId: this.companyId,
-            aplied_at: this.appliedAt,
-            username: this.username,
-            email: this.email,
-            cellphone: this.cellphone,
+            userProfileId: this.userProfileId,
+            work_vacancy_id: this.work_vacancy_id,
+            company_id: this.company_id,
+            chosen: this.chosen,
+            applied_at: this.appliedAt,
+            first_name: this.first_name,
+            last_name: this.last_name,
+            phone_number: this.phone_number,
             address: this.address,
             image: this.image,
-            work:{
-                title: this.title,
-                description: this.description,
-                location:this.location,
-                salary:this.salary
-            }
+            title: this.title,
+            description: this.description,
+            location:this.location,
+            salary:this.salary
+            
         }
     }
     

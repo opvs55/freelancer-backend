@@ -1,6 +1,6 @@
 
 import { validateParam } from "../../Utils/Validate"
-import {  CreateUserProfileInputDTO, DeleteUserProfileInputDTO, EditUserProfileInputDTO, GetUserProfileInputDTO } from "../interfaceDTO/UserProfileInterface"
+import {  CreateUserProfileInputDTO, DeleteUserProfileInputDTO, EditUserProfileInputDTO, GetUserProfileInputDTO } from "../InterfaceDTO/UserProfileInterface"
 
 
 //=================================================/
@@ -39,7 +39,6 @@ export class UserProfileDTO {
         const userProfile: CreateUserProfileInputDTO = {
 
             token: token as string,
-            id: id as string,
             user_id: user_id as string,
             first_name: first_name as string,
             last_name: last_name as string,

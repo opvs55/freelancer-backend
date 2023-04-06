@@ -1,14 +1,16 @@
-import { UserWorkVacanciesModel } from "../../Interfaces/User/Users.type"
+import {  UserWorkVacanciesModel } from "../../Interfaces/User/Users.Types"
 
 
 //CreateJobVacancies
 
 export interface CreateUserWorkVacanciesInputDTO {
-    token: unknown,
+    token: unknown
+    userProfileId: string,
+    work_vacancy_id: string
 }
 
 export interface CreateUserWorkVacanciesOutputDTO {
-    mensagem:string
+    mensage:string
 }
 
 //GET UserWork VACANCIES
@@ -18,7 +20,26 @@ export interface GetUserWorkVacanciesInputDTO {
     token: string | undefined
 }
 
-export type GetUserWorkVacanciesOutputDTO = UserWorkVacanciesModel[]
+
+export interface GetAllUserWorkVacanciesInputDTO {  
+    token: string | undefined
+}
+
+export type GetUserWorkVacanciesOutputDTO  = UserWorkVacanciesModel | void
+export type GetAllUserWorkVacanciesOutputDTO = UserWorkVacanciesModel[] | void[]
+
+
+//EDIT Work VACANCIES INFO
+
+export interface EditUserWorkVacanciesInputDTO {
+    token: string | undefined,
+    idToEdit: string,
+    chosen: number
+}
+
+export interface EditUserWorkVacanciesOutputDTO{
+    mensage:string
+}
 
 
 

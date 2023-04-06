@@ -1,4 +1,4 @@
-import { CompanieDB, CompanieModel } from "../Interfaces/Companie/Companie.types";
+import { CompanieDB, CompanieModel } from "../Interfaces/Companie/Companie.Types";
 import { BaseDatabase } from "./BaseDataBase";
 
 
@@ -10,7 +10,7 @@ export class CompanieDataBase extends BaseDatabase{
             .connection(CompanieDataBase.TABLE_COMPANIES)
             .insert(companieDB)
     }
-    public findByEmail = async (email:string): Promise< CompanieDB| undefined > =>{
+    public findByEmail = async (email:string): Promise< CompanieDB> =>{
 
 
         const result: CompanieDB[] = await BaseDatabase
@@ -20,7 +20,7 @@ export class CompanieDataBase extends BaseDatabase{
 
         return result[0]
     }
-    public findById= async (id:string): Promise< CompanieDB| undefined > =>{
+    public findById= async (id:string): Promise< CompanieDB > =>{
 
 
         const result: CompanieDB[] = await BaseDatabase

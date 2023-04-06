@@ -1,10 +1,18 @@
-import { CreateProfessionInputDTO, CreateProfessionOutputDTO, DeleteProfessionInputDTO, EditProfessionInputDTO, GetAllProfessionInputDTO, GetAllProfessionOutputDTO, GetProfessionInputDTO, GetProfessionOutputDTO } from "../DTO/interfaceDTO/ProfessionInterface";
+import {
+    CreateProfessionInputDTO,
+    CreateProfessionOutputDTO,
+    DeleteProfessionInputDTO,
+    EditProfessionInputDTO,
+    GetAllProfessionInputDTO,
+    GetAllProfessionOutputDTO,
+    GetProfessionInputDTO,
+    GetProfessionOutputDTO
+} from "../DTO/InterfaceDTO/ProfessionInterface";
 import { ProfessionDataBase } from "../DataBase/ProfessionDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
-import { USER_ROLES } from "../Interfaces/Companie/Companie.types";
+import { USER_ROLES } from "../Interfaces/Companie/Companie.Types";
 import { Profession } from "../Models/Companie/ProfessionModel";
-import { UserProfession } from "../Models/Users/UserProfessions";
 import { IdGenerator } from "../Services/IdGenerator";
 import { TokenManager } from "../Services/TokenManager";
 import { validateParam } from "../Utils/Validate";
@@ -16,7 +24,7 @@ export class ProfessionBusiness {
     constructor(
         private ProfessionDataBase: ProfessionDataBase,
         private tokenManager: TokenManager,
-        private idGenerator: IdGenerator 
+        private idGenerator: IdGenerator
     ) { }
 
     public createProfession = async (input: CreateProfessionInputDTO): Promise<CreateProfessionOutputDTO> => {
@@ -54,8 +62,8 @@ export class ProfessionBusiness {
 
         //criou um objeto tipado
 
-        const output: CreateProfessionOutputDTO =  {mensage: "Cadastro feito com sucesso" }
-        
+        const output: CreateProfessionOutputDTO = { mensage: "Cadastro feito com sucesso" }
+
         //retorno
 
         return output
@@ -66,11 +74,11 @@ export class ProfessionBusiness {
     public getProfession = async (input: GetProfessionInputDTO): Promise<GetProfessionOutputDTO> => {
 
         const { token, id } = input
-        
+
         if (!token) {
             throw new BadRequestError("token ausente")
         }
-    
+
         if (!id) {
             throw new BadRequestError("id ausente")
         }
@@ -80,43 +88,43 @@ export class ProfessionBusiness {
         if (!payload) {
             throw new BadRequestError("token inválido")
         }
-    
+
         const user = await this.ProfessionDataBase.getProfession(id)
-    
+
         if (!user) {
             throw new NotFoundError("usuário não encontrado")
         }
-    
-        
+
+
         const output: GetProfessionOutputDTO = user
-    
+
         return output
     }
 
     public getAllProfession = async (input: GetAllProfessionInputDTO): Promise<GetAllProfessionOutputDTO> => {
 
         const { token } = input
-        
+
         if (!token) {
             throw new BadRequestError("token ausente")
         }
-    
+
 
         const payload = this.tokenManager.verifyToken(token)
 
         if (!payload) {
             throw new BadRequestError("token inválido")
         }
-    
+
         const user = await this.ProfessionDataBase.getAllProfession()
-    
+
         if (!user) {
             throw new NotFoundError("usuário não encontrado")
         }
-    
-        
+
+
         const output: GetAllProfessionOutputDTO = user
-    
+
         return output
     }
 
@@ -156,8 +164,9 @@ export class ProfessionBusiness {
         )
 
         validateParam("token", token, "string")
-        validateParam("name", name, "string")
-        validateParam("image", image, "string")
+
+        ProfessionEditada.setname(name ? name : ProfessionEditada.getName());
+        ProfessionEditada.setImage(image ? image : ProfessionEditada.getImage());
 
 
 

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-import { TokenPayLoad } from '../Interfaces/User/Users.type'
+import { TokenPayLoad } from '../Interfaces/User/Users.Types'
 
 dotenv.config()
 

@@ -21,6 +21,7 @@ const userProfileController = new UserProfileController(
 )
 
 userProfileRouter.post("/:user_id", userProfileController.createUserProfile)
+userProfileRouter.get("/", userProfileController.getAllUserProfile)
 userProfileRouter.get("/:id", userProfileController.getUserProfile)
 userProfileRouter.put("/:id", userProfileController.editUserProfile)
 userProfileRouter.delete("/:id", userProfileController.deleteUser)

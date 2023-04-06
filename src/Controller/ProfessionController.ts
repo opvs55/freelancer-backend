@@ -1,7 +1,13 @@
 import { Request, Response } from "express";
 import { BaseError } from "../Errors/BaseError";
 import { ProfessionBusiness } from "../Business/ProfessionBusiness";
-import { CreateProfessionInputDTO, DeleteProfessionInputDTO, EditProfessionInputDTO, GetAllProfessionInputDTO, GetProfessionInputDTO } from "../DTO/interfaceDTO/ProfessionInterface";
+import {
+    CreateProfessionInputDTO,
+    DeleteProfessionInputDTO,
+    EditProfessionInputDTO,
+    GetAllProfessionInputDTO,
+    GetProfessionInputDTO
+} from "../DTO/InterfaceDTO/ProfessionInterface";
 
 
 export class ProfessionController {
@@ -16,7 +22,7 @@ export class ProfessionController {
                 token: req.headers.authorization,
                 name: req.body.name,
                 image: req.body.image
-                
+
             }
 
             const output = await this.ProfessionBusiness.createProfession(input)
@@ -85,7 +91,7 @@ export class ProfessionController {
                 idToEdit: req.params.id,
                 name: req.body.name,
                 image: req.body.image
-                
+
             }
 
             await this.ProfessionBusiness.editProfession(input)

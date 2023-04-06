@@ -1,6 +1,13 @@
 import { Request, Response } from "express";
 import { CompanieBusiness } from "../Business/CompanieBusiness";
-import { DeleteCompanieInputDTO, EditCompanieInputDTO, GetAllCompanieInputDTO, GetCompanieInputDTO, LoginCompanieInputDTO, SignUpCompanieInputDTO } from "../DTO/interfaceDTO/CompanieInterface";
+import {
+    DeleteCompanieInputDTO,
+    EditCompanieInputDTO,
+    GetAllCompanieInputDTO,
+    GetCompanieInputDTO,
+    LoginCompanieInputDTO,
+    SignUpCompanieInputDTO
+} from "../DTO/InterfaceDTO/CompanieInterface";
 import { BaseError } from "../Errors/BaseError";
 
 
@@ -38,8 +45,8 @@ export class CompanieController {
     }
 
 
-    public login = async (req: Request, res: Response) =>{
-        try{
+    public login = async (req: Request, res: Response) => {
+        try {
             const input: LoginCompanieInputDTO = {
                 email: req.body.email,
                 password: req.body.password
@@ -106,14 +113,14 @@ export class CompanieController {
 
                 idToEdit: req.params.id,
                 token: req.headers.authorization,
-                name:req.body.name,
-                email:req.body.email,
-                cellphone:req.body.cellphone,
-                address:req.body.address,
-                description:req.body.description,
-                password:req.body.passowrd,
-                image:req.body.image,
-                
+                name: req.body.name,
+                email: req.body.email,
+                cellphone: req.body.cellphone,
+                address: req.body.address,
+                description: req.body.description,
+                password: req.body.passowrd,
+                image: req.body.image,
+
 
             }
 

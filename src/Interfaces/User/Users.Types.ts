@@ -71,30 +71,30 @@ export interface UserProfessionModel {
 
 export interface UserWorkVacanciesDB{
     id:string,
-    user_id:string,
+    userProfileId:string,
     work_vacancy_id:string,
-    company_id:string,
-    aplied_at: string,
+    chosen:number,
+    applied_at: string,
 }
 
 
 export interface UserWorkVacanciesModel{
     id:string,
-    userId: string,
-    workVacancyId:string,
-    companyId:string,
-    aplied_at:string,
-    username:string,
-    email:string,
-    cellphone:string,
+    userProfileId:string,
+    work_vacancy_id:string,
+    chosen:number,
+    company_id:string,
+    applied_at:string,
+    first_name:string,
+    last_name:string,
+    phone_number:string,
     address:string,
     image:string,
-    work:{
-        title:string,
-        description:string,
-        location:string,
-        salary: number,
-    }
+    title:string,
+    description:string,
+    location:string,
+    salary: number,
+    
 }
 
 

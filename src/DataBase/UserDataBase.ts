@@ -1,4 +1,4 @@
-import { UserDB, UserModel, UserProfileDB } from "../Interfaces/User/Users.type";
+import { UserDB, UserModel, UserProfileDB } from "../Interfaces/User/Users.Types";
 import { BaseDatabase } from "./BaseDataBase";
 
 
@@ -12,7 +12,7 @@ export class UserDataBase extends BaseDatabase{
     }
 
 
-    public findByEmail = async (email:string): Promise< UserDB | undefined > =>{
+    public findByEmail = async (email:string): Promise< UserDB > =>{
 
 
         const result: UserDB[] = await BaseDatabase
@@ -22,7 +22,7 @@ export class UserDataBase extends BaseDatabase{
 
         return result[0]
     }
-    public findById= async (id:string): Promise< UserDB | undefined > =>{
+    public findById= async (id:string): Promise< UserDB > =>{
 
 
         const result: UserDB[] = await BaseDatabase
