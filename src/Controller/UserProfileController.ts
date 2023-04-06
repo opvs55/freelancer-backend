@@ -6,7 +6,7 @@ import {
     DeleteUserProfileInputDTO,
     EditUserProfileInputDTO,
     GetAllUserProfileInputDTO
-} from "../DTO/InterfaceDTO/UserProfileInterface";
+} from "../DTO/interfaceDTO/UserProfileInterface";
 import { UserProfileBusiness } from "../Business/UserProfileBusiness";
 
 
