@@ -1,6 +1,6 @@
 // SIGN UP
 
-import { CompanieModel } from "../../Interfaces/Companie/Companie.Types"
+import { CompanieModel } from "../../Interfaces/Companie/Companie.types"
 
 export interface SignUpCompanieInputDTO {
     name: string,
