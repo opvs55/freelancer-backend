@@ -1,4 +1,4 @@
-import { CompanieDB, CompanieModel } from "../Interfaces/Companie/Companie.Types";
+import { CompanieDB, CompanieModel } from "../Interfaces/Companie/Companie.types";
 import { BaseDatabase } from "./BaseDataBase";
 
 
