@@ -8,7 +8,7 @@ import {
     GetUserProfessionInputDTO,
     GetUserProfessionOutputDTO
 } from "../DTO/interfaceDTO/UserProfessionInterface";
-import { CreateUserProfileOutputDTO } from "../DTO/InterfaceDTO/UserProfileInterface";
+import { CreateUserProfileOutputDTO } from "../DTO/interfaceDTO/UserProfileInterface";
 import { UserProfessionDataBase } from "../DataBase/UserProfessionDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
