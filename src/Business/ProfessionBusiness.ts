@@ -7,11 +7,11 @@ import {
     GetAllProfessionOutputDTO,
     GetProfessionInputDTO,
     GetProfessionOutputDTO
-} from "../DTO/InterfaceDTO/ProfessionInterface";
+} from "../DTO/interfaceDTO/ProfessionInterface";
 import { ProfessionDataBase } from "../DataBase/ProfessionDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
-import { USER_ROLES } from "../Interfaces/Companie/Companie.Types";
+import { USER_ROLES } from "../Interfaces/Companie/Companie.types";
 import { Profession } from "../Models/Companie/ProfessionModel";
 import { IdGenerator } from "../Services/IdGenerator";
 import { TokenManager } from "../Services/TokenManager";
