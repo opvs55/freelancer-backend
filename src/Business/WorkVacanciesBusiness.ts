@@ -7,7 +7,7 @@ import {
     GetWorkVacanciesByIdOutputDTO,
     GetWorkVacanciesInputDTO,
     GetWorkVacanciesOutputDTO
-} from "../DTO/InterfaceDTO/WorkVacanciesInterface";
+} from "../DTO/interfaceDTO/WorkVacanciesInterface";
 import { WorkVacanciesDataBase } from "../DataBase/WorkVacanciesDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
