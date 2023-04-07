@@ -196,13 +196,6 @@ export class ProfessionBusiness {
             throw new NotFoundError("Id não encontrado")
         }
 
-        const creatorId = payload.id
-
-        if (payload.role !== USER_ROLES.ADMIN && professionDB.id !== creatorId) {
-            throw new BadRequestError("Apenas o user criador da postagem ou ADM's podem deletar!")
-        }
-
-
         await this.ProfessionDataBase.deleteProfession(idToDelete)
     }
 
