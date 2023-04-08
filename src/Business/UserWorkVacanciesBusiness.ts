@@ -271,11 +271,11 @@ export class UserWorkVacanciesBusiness {
             throw new NotFoundError("Id não encontrado")
         }
 
-        const creatorId = payload.id
+//         const creatorId = payload.id
 
-        if (payload.role !== USER_ROLES.ADMIN && userDB.id !== creatorId) {
-            throw new BadRequestError("Apenas o user criador da postagem ou ADM's podem deletar!")
-        }
+//         if (payload.role !== USER_ROLES.ADMIN && userDB.id !== creatorId) {
+//             throw new BadRequestError("Apenas o user criador da postagem ou ADM's podem deletar!")
+//         }
 
 
         await this.userWorkVacanciesDataBase.deleteUserWorkVacancies(idToDelete)
