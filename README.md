@@ -38,7 +38,7 @@ Este projeto foi desenvolvido pensando em criar uma ponte entre empresas e traba
 Documentação do meu projeto
 
 
-[FREELANCER-BACKEND API](https://documenter.getpostman.com/view/24461101/2s93XsWkUa#c38f7e1e-68ea-49c5-bcb0-9d193c74a51b)
+[FREELANCER-BACKEND API](https://documenter.getpostman.com/view/24461101/2s93XsWkUa)
 
 [FREELANCER-BACKEND Diagram](https://dbdocs.io/samvmvniz/FREELANCE-BACK-END?schema=public&view=relationships&table=users)
 
