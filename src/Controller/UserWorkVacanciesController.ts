@@ -22,7 +22,8 @@ export class UserWorkVacanciesController {
 
                 token: req.headers.authorization,
                 userProfileId: req.params.userProfileId,
-                work_vacancy_id: req.params.work_vacancy_id
+                work_vacancy_id: req.params.work_vacancy_id,
+                companie_id: req.params.companie_id
 
             }
 

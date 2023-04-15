@@ -11,7 +11,7 @@ export class UserWorkVacancies{
         private id:string,
         private userProfileId:string,
         private work_vacancy_id:string,
-        private company_id:string,
+        private companie_id:string,
         private chosen:number,
         private appliedAt:string,
         private first_name:string,
@@ -19,6 +19,7 @@ export class UserWorkVacancies{
         private phone_number:string,
         private address:string,
         private image:string,
+        private username:string,
         private title:string,
         private description:string,
         private location:string,
@@ -51,11 +52,11 @@ export class UserWorkVacancies{
         this.work_vacancy_id = value
     }
 
-    public getCompanyId(): string {
-        return this.company_id
+    public getCompanieId(): string {
+        return this.companie_id
     }
-    public setCompanyId(value: string): void {
-        this.company_id = value
+    public setCompanieId(value: string): void {
+        this.companie_id = value
     }
 
     public getTitle(): string {
@@ -142,11 +143,20 @@ export class UserWorkVacancies{
         this.chosen = value
     }
 
+    public getUsername():string{
+        return this.username
+    }
+
+    public setUsername(value:string):void{
+        this.username = value
+    }
+
     public userWorkVacanciesDB():UserWorkVacanciesDB{
         return{
             id: this.id,
             userProfileId:this.userProfileId,
             work_vacancy_id: this.work_vacancy_id,
+            companie_id: this.companie_id,
             chosen: this.chosen,
             applied_at: this.appliedAt
         }
@@ -158,7 +168,7 @@ export class UserWorkVacancies{
             id: this.id,
             userProfileId: this.userProfileId,
             work_vacancy_id: this.work_vacancy_id,
-            company_id: this.company_id,
+            companie_id: this.companie_id,
             chosen: this.chosen,
             applied_at: this.appliedAt,
             first_name: this.first_name,
@@ -166,6 +176,7 @@ export class UserWorkVacancies{
             phone_number: this.phone_number,
             address: this.address,
             image: this.image,
+            username: this.username,
             title: this.title,
             description: this.description,
             location:this.location,

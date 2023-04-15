@@ -6,27 +6,19 @@ export enum USER_ROLES {
 
 export interface CompanieDB {
     id: string,
-    name: string,
+    username: string,
     email: string,
-    cellphone:string,
-    address:string,
-    description:string,
     password: string,
     role: USER_ROLES,
-    image:string,
     created_at: string
 }
 
 
 export interface CompanieModel {
     id: string,
-    name: string,
+    username: string,
     email: string,
-    cellphone:string,
-    address:string,
-    description:string,
     role: USER_ROLES,
-    image:string,
     createdAt: string
 }
 
@@ -51,5 +43,28 @@ export interface WorkVacanciesModel{
     salary: number,
     created_at:string
 }
+
+
+export interface CompanieProfileDB{
+    id:string,
+    companie_id: string,
+    name:string,
+    description:string,
+    address:string,
+    phone_number:string,
+    image:string
+}
+
+
+export interface CompanieProfileModel {
+    id:string,
+    companieId: string,
+    name:string,
+    description:string,
+    address:string,
+    phoneNumber:string,
+    image:string
+}
+
 
 

@@ -23,6 +23,17 @@ export class WorkVacanciesDataBase extends BaseDatabase{
         return result[0]
     }
 
+    public findByCompanieId = async (company_id:string): Promise< WorkVacanciesDB > =>{
+
+
+        const result: WorkVacanciesDB[] = await BaseDatabase
+            .connection(WorkVacanciesDataBase.TABLE_WORK_VACANCIES)
+            .select()
+            .where({"work_vacancies.company_id": company_id })
+
+        return result[0]
+    }
+
 
     //fazer alguma modificações para buscar mais informações
 
@@ -33,7 +44,7 @@ export class WorkVacanciesDataBase extends BaseDatabase{
             .select(
                 "work_vacancies.id",
                 "work_vacancies.company_id",
-                "companies.name",
+                "companies.username",
                 "work_vacancies.title",
                 "work_vacancies.description",
                 "work_vacancies.skills_required",
@@ -54,7 +65,7 @@ export class WorkVacanciesDataBase extends BaseDatabase{
             .select(
                 "work_vacancies.id",
                 "work_vacancies.company_id",
-                "companies.name",
+                "companies.username",
                 "work_vacancies.title",
                 "work_vacancies.description",
                 "work_vacancies.skills_required",

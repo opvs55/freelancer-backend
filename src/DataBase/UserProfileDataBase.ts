@@ -5,7 +5,7 @@ import { BaseDatabase } from "./BaseDataBase";
 export class UserProfileDataBase extends BaseDatabase{
     public static TABLE_USER_PROFILES = "user_profiles"
 
-    public insert = async(userProfileDB: UserProfileDB| UserProfileDB) => {
+    public insert = async(userProfileDB: UserProfileDB) => {
         await BaseDatabase
             .connection(UserProfileDataBase.TABLE_USER_PROFILES)
             .insert(userProfileDB)
@@ -19,6 +19,17 @@ export class UserProfileDataBase extends BaseDatabase{
             .connection(UserProfileDataBase.TABLE_USER_PROFILES)
             .select()
             .where({id})
+
+        return result[0]
+    }
+
+    public findByUserId= async (user_id:string): Promise< UserProfileDB> =>{
+
+
+        const result: UserProfileDB[] = await BaseDatabase
+            .connection(UserProfileDataBase.TABLE_USER_PROFILES)
+            .select()
+            .where({"user_profiles.user_id" : user_id})
 
         return result[0]
     }

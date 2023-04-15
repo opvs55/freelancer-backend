@@ -1,4 +1,5 @@
 import { CreateUserWorkVacanciesInputDTO, CreateUserWorkVacanciesOutputDTO, DeleteUserWorkVacanciesInputDTO, EditUserWorkVacanciesInputDTO, GetAllUserWorkVacanciesInputDTO, GetAllUserWorkVacanciesOutputDTO, GetUserWorkVacanciesInputDTO, GetUserWorkVacanciesOutputDTO } from "../DTO/interfaceDTO/UserWorkVacanciesInterface";
+import { CompanieDataBase } from "../DataBase/CompanieDataBase";
 
 
 import { UserProfileDataBase } from "../DataBase/UserProfileDataBase";
@@ -6,7 +7,6 @@ import { UserWorkVacanciesDataBase } from "../DataBase/UserWorkVacanciesDataBase
 import { WorkVacanciesDataBase } from "../DataBase/WorkVacanciesDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
-import { USER_ROLES } from "../Interfaces/Companie/Companie.types";
 import { UserWorkVacancies } from "../Models/Jobs/UserWorkVacanciesModel";
 
 import { IdGenerator } from "../Services/IdGenerator";
@@ -21,6 +21,7 @@ export class UserWorkVacanciesBusiness {
         private userWorkVacanciesDataBase: UserWorkVacanciesDataBase,
         private workVacanciesDataBase: WorkVacanciesDataBase,
         private userProfileDataBase: UserProfileDataBase,
+        private companieDataBase: CompanieDataBase,
         private tokenManager: TokenManager,
         private idGenerator: IdGenerator
     ) { }
@@ -31,7 +32,8 @@ export class UserWorkVacanciesBusiness {
         const {
             token,
             userProfileId,
-            work_vacancy_id
+            work_vacancy_id,
+            companie_id
         } = input
 
 
@@ -40,24 +42,31 @@ export class UserWorkVacanciesBusiness {
         validateParam("token", token, "string")
         validateParam("userProfileId", userProfileId, "string")
         validateParam("work_vacancy_id", work_vacancy_id, "string")
+        validateParam("companie_id", companie_id, "string")
 
 
-        console.log(userProfileId)
-        const userProfile = await this.userProfileDataBase.findById(userProfileId)
         
+        const userProfile = await this.userProfileDataBase.findById(userProfileId)
+
         const workVacancies = await this.workVacanciesDataBase.findById(work_vacancy_id)
+
+        const CompanieName = await this.companieDataBase.findById(companie_id)
+        
+
         const id = this.idGenerator.generate()
         const applied_at = new Date().toISOString()
         const chosen = 0
         //monto meu objeto
 
 
+        console.log(CompanieName)
+
         const newUserWorkVacancies = new UserWorkVacancies(
 
             id,
             userProfileId,
             work_vacancy_id,
-            workVacancies.company_id,
+            companie_id,
             chosen,
             applied_at,
             userProfile.first_name,
@@ -65,6 +74,7 @@ export class UserWorkVacanciesBusiness {
             userProfile.phone_number,
             userProfile.address,
             userProfile.image,
+            CompanieName.username,
             workVacancies.title,
             workVacancies.description,
             workVacancies.location,
@@ -75,19 +85,18 @@ export class UserWorkVacanciesBusiness {
         //Modelo meu objeto e envio para o banco de dados
 
         const userWorkVacanciesDB = newUserWorkVacancies.userWorkVacanciesDB()
-        await this.userWorkVacanciesDataBase.insert(userWorkVacanciesDB)
+
+        const userWorkVacanciesAlreadyExist = await this.userWorkVacanciesDataBase.findByProfileUserId(userProfileId)
 
 
-
-        //criou um objeto tipado
-
-        const output: CreateUserWorkVacanciesOutputDTO = {
-            mensage: "sucesso"
+        if (userWorkVacanciesAlreadyExist) {
+            const output: CreateUserWorkVacanciesOutputDTO= { mensage: "Registro já existente" }
+            return output
+        } else {
+            await this.userWorkVacanciesDataBase.insert(userWorkVacanciesDB)
+            const output:  CreateUserWorkVacanciesOutputDTO= { mensage: "Registro criado com sucesso" }
+            return output
         }
-
-        //retorno
-
-        return output
 
     }
 
@@ -125,7 +134,7 @@ export class UserWorkVacanciesBusiness {
             userWorkVacanciesDB.id,
             userWorkVacanciesDB.userProfileId,
             userWorkVacanciesDB.work_vacancy_id,
-            userWorkVacanciesDB.company_id,
+            userWorkVacanciesDB.companie_id,
             userWorkVacanciesDB.chosen,
             userWorkVacanciesDB.applied_at,
             userWorkVacanciesDB.first_name,
@@ -133,6 +142,7 @@ export class UserWorkVacanciesBusiness {
             userWorkVacanciesDB.phone_number,
             userWorkVacanciesDB.address,
             userWorkVacanciesDB.image,
+            userWorkVacanciesDB.username,
             userWorkVacanciesDB.title,
             userWorkVacanciesDB.description,
             userWorkVacanciesDB.location,
@@ -168,10 +178,11 @@ export class UserWorkVacanciesBusiness {
 
         const userWorkVacancies = await Promise.all(user.map(async userCopy => {
             return new UserWorkVacancies(
+                
                 userCopy.id,
                 userCopy.userProfileId,
                 userCopy.work_vacancy_id,
-                userCopy.company_id,
+                userCopy.companie_id,
                 userCopy.chosen,
                 userCopy.applied_at,
                 userCopy.first_name,
@@ -179,10 +190,12 @@ export class UserWorkVacanciesBusiness {
                 userCopy.phone_number,
                 userCopy.address,
                 userCopy.image,
+                userCopy.username,
                 userCopy.title,
                 userCopy.description,
                 userCopy.location,
                 userCopy.salary
+
             ).toUserWorkVacanciesModel()
         }
         ))
@@ -229,7 +242,7 @@ export class UserWorkVacanciesBusiness {
             userWorkVacanciesDB.id,
             userWorkVacanciesDB.userProfileId,
             userWorkVacanciesDB.work_vacancy_id,
-            userWorkVacanciesDB.company_id,
+            userWorkVacanciesDB.companie_id,
             userWorkVacanciesDB.chosen,
             userWorkVacanciesDB.applied_at,
             userWorkVacanciesDB.first_name,
@@ -237,6 +250,7 @@ export class UserWorkVacanciesBusiness {
             userWorkVacanciesDB.phone_number,
             userWorkVacanciesDB.address,
             userWorkVacanciesDB.image,
+            userWorkVacanciesDB.username,
             userWorkVacanciesDB.title,
             userWorkVacanciesDB.description,
             userWorkVacanciesDB.location,

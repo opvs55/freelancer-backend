@@ -74,19 +74,18 @@ export class WorkVacanciesBusiness {
         //Modelo meu objeto e envio para o banco de dados
 
         const workVacanciesDB = newWorkVacancies.WorkVacanciesDB()
-        await this.workVacanciesDataBase.insert(workVacanciesDB)
+
+        const workVacanciesAlreadyExist = await this.workVacanciesDataBase.findByCompanieId(company_id)
 
 
-
-        //criou um objeto tipado
-
-        const output: CreateWorkVacanciesOutputDTO = {
-            mensage: "sucesso"
+        if (workVacanciesAlreadyExist) {
+            const output: CreateWorkVacanciesOutputDTO= { mensage: "Registro já existente" }
+            return output
+        } else {
+            await this.workVacanciesDataBase.insert(workVacanciesDB)
+            const output: CreateWorkVacanciesOutputDTO = { mensage: "Registro criado com sucesso" }
+            return output
         }
-
-        //retorno
-
-        return output
 
     }
 

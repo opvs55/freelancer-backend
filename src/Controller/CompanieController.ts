@@ -21,11 +21,8 @@ export class CompanieController {
         try {
             const input: SignUpCompanieInputDTO = {
 
-                name: req.body.name,
+                username: req.body.username,
                 email: req.body.email,
-                cellphone: req.body.cellphone,
-                address: req.body.address,
-                description: req.body.description,
                 password: req.body.password
             }
 
@@ -113,15 +110,9 @@ export class CompanieController {
 
                 idToEdit: req.params.id,
                 token: req.headers.authorization,
-                name: req.body.name,
+                username: req.body.username,
                 email: req.body.email,
-                cellphone: req.body.cellphone,
-                address: req.body.address,
-                description: req.body.description,
-                password: req.body.passowrd,
-                image: req.body.image,
-
-
+                password: req.body.passowrd
             }
 
             await this.companieBusiness.editCompanie(input)

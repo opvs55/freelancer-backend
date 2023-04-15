@@ -7,14 +7,10 @@ export class Companie{
     constructor(
 
         private id:string,
-        private name:string,
+        private username:string,
         private email:string,
-        private cellphone:string,
-        private address:string,
-        private description:string,
         private password:string,
         private role:USER_ROLES,
-        private image:string,
         private createAt:string,
 
     ){}
@@ -27,10 +23,10 @@ export class Companie{
     }
 
     public getName(): string {
-        return this.name
+        return this.username
     }
     public setname(value: string): void {
-        this.name = value
+        this.username = value
     }
 
     public getEmail(): string {
@@ -40,29 +36,29 @@ export class Companie{
         this.email = value
     }
 
-    public getCellphone():string{
-        return this.cellphone
-    }
+    // public getCellphone():string{
+    //     return this.cellphone
+    // }
 
-    public setCellphone(value:string):void{
-        this.cellphone = value
-    }
+    // public setCellphone(value:string):void{
+    //     this.cellphone = value
+    // }
 
-    public getAddress():string{
-        return this.address
-    }
+    // public getAddress():string{
+    //     return this.address
+    // }
 
-    public setAddress(value:string):void{
-        this.address = value
-    }
+    // public setAddress(value:string):void{
+    //     this.address = value
+    // }
 
-    public getDescription():string{
-        return this.description
-    }
+    // public getDescription():string{
+    //     return this.description
+    // }
 
-    public setDescription(value:string):void{
-        this.description = value
-    }
+    // public setDescription(value:string):void{
+    //     this.description = value
+    // }
 
     public getPassword(): string {
         return this.password
@@ -78,13 +74,13 @@ export class Companie{
         this.id = value
     }
 
-    public getImage():string{
-        return this.image
-    }
+    // public getImage():string{
+    //     return this.image
+    // }
 
-    public setImage(value:string):void{
-        this.image = value
-    }
+    // public setImage(value:string):void{
+    //     this.image = value
+    // }
 
     public getCreateAt(): string {
         return this.createAt
@@ -97,14 +93,14 @@ export class Companie{
     public companieToDBModel():CompanieDB{
         return{
             id: this.id,
-            name: this.name,
+            username: this.username,
             email: this.email,
-            cellphone: this.cellphone,
-            address:this.address,
-            description:this.description,
+            // cellphone: this.cellphone,
+            // address:this.address,
+            // description:this.description,
             password: this.password,
             role: this.role,
-            image: this.image,
+            // image: this.image,
             created_at: this.createAt
         }
     }
@@ -113,13 +109,13 @@ export class Companie{
     public toCompanieModel():CompanieModel{
         return{
             id: this.id,
-            name: this.name,
+            username: this.username,
             email: this.email,
-            cellphone: this.cellphone,
-            address:this.address,
-            description:this.description,
+            // cellphone: this.cellphone,
+            // address:this.address,
+            // description:this.description,
             role: this.role,
-            image: this.image,
+            // image: this.image,
             createdAt: this.createAt
         }
     }

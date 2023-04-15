@@ -8,6 +8,8 @@ import {
     GetUserProfileInputDTO,
     GetUserProfileOutputDTO
 } from "../DTO/interfaceDTO/UserProfileInterface";
+
+import { UserProfessionDataBase } from "../DataBase/UserProfessionDataBase";
 import { UserProfileDataBase } from "../DataBase/UserProfileDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
@@ -23,6 +25,7 @@ export class UserProfileBusiness {
 
     constructor(
         private userProfileDataBase: UserProfileDataBase,
+        private userProfessionDataBase: UserProfessionDataBase,
         private tokenManager: TokenManager,
         private idGenerator: IdGenerator
     ) { }
@@ -38,7 +41,7 @@ export class UserProfileBusiness {
             address,
             phone_number,
             bio,
-            skills,
+            // skills,
             image
         } = input
 
@@ -53,12 +56,18 @@ export class UserProfileBusiness {
         validateParam("address", address, "string")
         validateParam("phone_number", phone_number, "string")
         validateParam("bio", bio, "string")
-        validateParam("skills", skills, "string")
+        // validateParam("skills", skills, "string")
         validateParam("image", image, "string")
 
 
         const id = this.idGenerator.generate()
         //monto meu objeto
+
+
+        const skills = await this.userProfessionDataBase.findByUserIdModel(user_id)
+
+
+        console.log(skills)
 
         const newUserProfile = new UsersProfiles(
             id,
@@ -75,17 +84,19 @@ export class UserProfileBusiness {
         //Modelo meu objeto e envio para o banco de dados
 
         const userProfileDB = newUserProfile.userProfileToDB()
-        await this.userProfileDataBase.insert(userProfileDB)
 
 
+        const userProfileAlreadyExist = await this.userProfileDataBase.findByUserId(user_id)
 
-        //criou um objeto tipado
 
-        const output: CreateUserProfileOutputDTO = { mensage: "profile criado com sucesso" }
-
-        //retorno
-
-        return output
+        if (userProfileAlreadyExist) {
+            const output: CreateUserProfileOutputDTO = { mensage: "Profile já existente" }
+            return output
+        } else {
+            await this.userProfileDataBase.insert(userProfileDB)
+            const output: CreateUserProfileOutputDTO = { mensage: "profile criado com sucesso" }
+            return output
+        }
 
     }
 
@@ -109,6 +120,7 @@ export class UserProfileBusiness {
         }
 
         const user = await this.userProfileDataBase.getUserProfile(id)
+    
 
         if (!user) {
             throw new NotFoundError("usuário não encontrado")
@@ -129,7 +141,7 @@ export class UserProfileBusiness {
             throw new BadRequestError("token ausente")
         }
 
-        
+
 
         const payload = this.tokenManager.verifyToken(token)
 
@@ -159,7 +171,6 @@ export class UserProfileBusiness {
             address,
             phone_number,
             bio,
-            skills,
             image
         } = input
 
@@ -199,7 +210,6 @@ export class UserProfileBusiness {
         userProfileEditada.setAddress(address ? address : userProfileEditada.getAddress());
         userProfileEditada.setPhoneNumber(phone_number ? phone_number : userProfileEditada.getPhoneNumber());
         userProfileEditada.setBio(bio ? bio : userProfileEditada.getBio());
-        userProfileEditada.setSkills(skills ? skills : userProfileEditada.getSkills());
         userProfileEditada.setImage(image ? image : userProfileEditada.getImage());
 
 

@@ -37,11 +37,8 @@ export class CompanieBusiness {
 
         //pego o valor do input
         const {
-            name,
+            username,
             email,
-            cellphone,
-            address,
-            description,
             password,
         } = input
 
@@ -49,11 +46,8 @@ export class CompanieBusiness {
         //verifico a typagem
 
 
-        validateParam("username", name, "string")
+        validateParam("username", username, "string")
         validateParam("email", email, "string")
-        validateParam("cellphone", cellphone, "string")
-        validateParam("address", address, "string")
-        validateParam("description", description, "string")
         validateParam("password", password, "string")
 
 
@@ -63,21 +57,16 @@ export class CompanieBusiness {
         const hashedPassword = await this.hashManager.hash(password)
         const role = USER_ROLES.NORMAL
         const createdAt = new Date().toISOString()
-        const image = "Lauren Ipsum"
 
 
         //monto meu objeto
 
         const newCompanie = new Companie(
             id,
-            name,
+            username,
             email,
-            cellphone,
-            address,
-            description,
             hashedPassword,
             role,
-            image,
             createdAt
         )
 
@@ -135,14 +124,10 @@ export class CompanieBusiness {
 
         const user = new Companie(
             companieDB.id,
-            companieDB.name,
+            companieDB.username,
             companieDB.email,
-            companieDB.cellphone,
-            companieDB.address,
-            companieDB.description,
             companieDB.password,
             companieDB.role,
-            companieDB.image,
             companieDB.created_at
         )
 
@@ -217,13 +202,9 @@ export class CompanieBusiness {
         const {
             idToEdit,
             token,
-            name,
+            username,
             email,
-            cellphone,
-            address,
-            description,
             password,
-            image
         } = input
 
         if (token === undefined) {
@@ -246,24 +227,16 @@ export class CompanieBusiness {
 
         const companieEditada = new Companie(
             companieDB.id,
-            companieDB.name,
+            companieDB.username,
             companieDB.email,
-            companieDB.cellphone,
-            companieDB.address,
-            companieDB.description,
             companieDB.password,
             companieDB.role,
-            companieDB.image,
             companieDB.created_at
         )
 
-        companieEditada.setname(name ? name : companieEditada.getName());
+        companieEditada.setname(username? username : companieEditada.getName());
         companieEditada.setEmail(email ? email : companieEditada.getEmail());
-        companieEditada.setCellphone(cellphone ? cellphone : companieEditada.getCellphone());
-        companieEditada.setAddress(address ? address : companieEditada.getAddress());
-        companieEditada.setDescription(description ? description : companieEditada.getDescription());
         companieEditada.setPassword(password ? password : companieEditada.getPassword());
-        companieEditada.setImage(image ? image : companieEditada.getImage());
 
 
         companieEditada.setCreateAt(new Date().toISOString())

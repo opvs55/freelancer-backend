@@ -12,7 +12,7 @@ export interface CreateUserProfileInputDTO {
     address: string,
     phone_number:string,
     bio:string,
-    skills:string,
+    // skills:string,
     image:string
 
 }

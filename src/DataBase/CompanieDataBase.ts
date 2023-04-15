@@ -35,13 +35,9 @@ export class CompanieDataBase extends BaseDatabase{
             .connection(CompanieDataBase.TABLE_COMPANIES)
             .select(
                 "companies.id",
-                "companies.name",
+                "companies.username",
                 "companies.email",
-                "companies.cellphone",
-                "companies.address",
-                "companies.description",
                 "companies.role",
-                "companies.image"
             )
 
         return result
@@ -51,13 +47,9 @@ export class CompanieDataBase extends BaseDatabase{
             .connection(CompanieDataBase.TABLE_COMPANIES)
             .select(
                 "companies.id",
-                "companies.name",
+                "companies.username",
                 "companies.email",
-                "companies.cellphone",
-                "companies.address",
-                "companies.description",
                 "companies.role",
-                "companies.image"
             )
 
         return result

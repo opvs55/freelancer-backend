@@ -7,32 +7,34 @@ import {
     EditUserProfileInputDTO,
     GetAllUserProfileInputDTO
 } from "../DTO/interfaceDTO/UserProfileInterface";
-import { UserProfileBusiness } from "../Business/UserProfileBusiness";
+import { CompanieProfileBusiness } from "../Business/CompanieProfileBusiness";
+import { CreateCompanieProfileInputDTO } from "../DTO/interfaceDTO/CompanieProfileInterface";
+import { EditCompanieInputDTO } from "../DTO/interfaceDTO/CompanieInterface";
+import { EditCompanieProfileInputDTO } from "../DTO/interfaceDTO/CompanieProfileInterface";
 
 
 
-export class UserProfileController {
+
+export class CompanieProfileController {
     constructor(
-        private userProfileBusiness: UserProfileBusiness
+        private companieProfileBusiness: CompanieProfileBusiness
     ) { }
 
-    public createUserProfile = async (req: Request, res: Response) => {
+    public createCompanieProfile = async (req: Request, res: Response) => {
         try {
-            const input: CreateUserProfileInputDTO = {
+            const input: CreateCompanieProfileInputDTO = {
 
                 token: req.headers.authorization,
-                user_id: req.params.user_id,
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
+                companie_id: req.params.companie_id,
+                name: req.body.name,
+                description: req.body.description,
                 address: req.body.address,
                 phone_number: req.body.phone_number,
-                bio: req.body.bio,
-                // skills: req.body.skills,
                 image: req.body.image
 
             }
 
-            const output = await this.userProfileBusiness.createProfile(input)
+            const output = await this.companieProfileBusiness.createProfile(input)
 
             res.status(201).send(output)
 
@@ -49,14 +51,14 @@ export class UserProfileController {
 
 
 
-    public getUserProfile = async (req: Request, res: Response) => {
+    public getCompanieProfile = async (req: Request, res: Response) => {
         try {
             const input: GetUserInputDTO = {
                 token: req.headers.authorization,
                 id: req.params.id
             }
 
-            const output = await this.userProfileBusiness.getUserProfile(input)
+            const output = await this.companieProfileBusiness.getCompanieProfile(input)
 
             res.status(200).send(output)
 
@@ -72,13 +74,13 @@ export class UserProfileController {
 
 
 
-    public getAllUserProfile = async (req: Request, res: Response) => {
+    public getAllCompanieProfile = async (req: Request, res: Response) => {
         try {
             const input: GetAllUserProfileInputDTO = {
                 token: req.headers.authorization,
             }
 
-            const output = await this.userProfileBusiness.getAllUserProfile(input)
+            const output = await this.companieProfileBusiness.getAllUserProfile(input)
 
             res.status(200).send(output)
 
@@ -96,24 +98,22 @@ export class UserProfileController {
 
 
 
-    public editUserProfile = async (req: Request, res: Response) => {
+    public editCompanieProfile = async (req: Request, res: Response) => {
         try {
 
-            const input: EditUserProfileInputDTO = {
+            const input: EditCompanieProfileInputDTO = {
 
                 token: req.headers.authorization,
                 idToEdit: req.params.id,
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
+                name: req.body.ame,
+                description: req.body.description,
                 address: req.body.address,
                 phone_number: req.body.phone_number,
-                bio: req.body.bio,
-                skills: req.body.skills,
                 image: req.body.image
 
             }
 
-            await this.userProfileBusiness.editUserProfile(input)
+            await this.companieProfileBusiness.editUserProfile(input)
 
             res.status(200).end()
 
@@ -127,7 +127,7 @@ export class UserProfileController {
         }
     }
 
-    public deleteUser = async (req: Request, res: Response) => {
+    public deleteCompanieProfile = async (req: Request, res: Response) => {
         try {
 
             const input: DeleteUserProfileInputDTO = {
@@ -135,7 +135,7 @@ export class UserProfileController {
                 token: req.headers.authorization
             }
 
-            await this.userProfileBusiness.deleteUserProfile(input)
+            await this.companieProfileBusiness.deleteUserProfile(input)
 
             res.status(200).end()
         } catch (error) {

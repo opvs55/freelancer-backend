@@ -4,6 +4,7 @@ import { TokenManager } from "../Services/TokenManager"
 import { UserProfileController } from "../Controller/UserProfileController"
 import { UserProfileBusiness } from "../Business/UserProfileBusiness"
 import { UserProfileDataBase } from "../DataBase/UserProfileDataBase"
+import { UserProfessionDataBase } from "../DataBase/UserProfessionDataBase"
 
 
 
@@ -15,6 +16,7 @@ export const userProfileRouter = express.Router()
 const userProfileController = new UserProfileController(
     new UserProfileBusiness(
         new UserProfileDataBase(),
+        new UserProfessionDataBase(),
         new TokenManager(),
         new IdGenerator()
     )

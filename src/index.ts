@@ -8,6 +8,7 @@ import { userProfessionRouter } from "./Routes/UserProfessions"
 import { professionRouter } from "./Routes/ProfessionsRouter"
 import { workVacanciesRouter } from "./Routes/WorkVacancies"
 import { userWorkVacanciesRouter } from "./Routes/UserWorkVacancies"
+import { companieProfileRouter } from "./Routes/CompaniesProfileRouter"
 
 
 dotenv.config()
@@ -28,8 +29,16 @@ app.listen(Number(process.env.PORT), () => {
 app.use("/user", userRouter)
 app.use("/companie", companiesRouter)
 app.use("/userProfile", userProfileRouter)
+app.use("/companieProfile", companieProfileRouter)
 app.use("/userProfession", userProfessionRouter)
 app.use("/profession", professionRouter)
 app.use("/workVacancies", workVacanciesRouter)
 app.use("/userWorkVacancies", userWorkVacanciesRouter)
 // app.use("/companie", companieRouter)
+
+
+
+
+
+//fiz alterações em userProfiles e UserProfessions, estava cansado e posso ter feito alguma cagada,
+//testar endpoints e criar em user profile um array que renderiza userprofessions :3
