@@ -16,19 +16,22 @@ export class UserWorkVacanciesDTO {
     public CreateUserWorkVacanciesInputDTO = (
         token: unknown | undefined,
         userProfileId: string,
-        work_vacancy_id: string
+        work_vacancy_id: string,
+        companie_id:string
 
     ): CreateUserWorkVacanciesInputDTO => {
 
         validateParam("token", token, "string")
         validateParam("user_id", userProfileId, "string")
         validateParam("work_vacancy_id", work_vacancy_id, "string")
+        validateParam("companie_id", companie_id, "string")
 
         const workVacancies: CreateUserWorkVacanciesInputDTO = {
 
             token: token as string,
             userProfileId: userProfileId as string,
-            work_vacancy_id: work_vacancy_id as string
+            work_vacancy_id: work_vacancy_id as string,
+            companie_id : companie_id as string
             
         }
 

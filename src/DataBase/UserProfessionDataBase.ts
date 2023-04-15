@@ -24,6 +24,39 @@ export class UserProfessionDataBase extends BaseDatabase{
     }
 
 
+    public findByUserId= async (user_id:string): Promise< UserProfessionDB > =>{
+
+
+        const result: UserProfessionDB [] = await BaseDatabase
+            .connection(UserProfessionDataBase.TABLE_USER_PROFESSIONS)
+            .select()
+            .where({"user_professions.user_id":user_id})
+
+        return result[0]
+    }
+
+
+    public findByUserIdModel = async (user_id:string): Promise< UserProfessionModel[] > =>{
+
+
+        const result: UserProfessionModel[] = await BaseDatabase
+            .connection(UserProfessionDataBase.TABLE_USER_PROFESSIONS)
+            .select(
+                "user_professions.id",
+                "user_professions.user_id",
+                "users.username",
+                "professions.name",
+                "user_professions.profession_id",
+                "user_professions.experience_years"
+            )
+            .where({"user_professions.user_id":user_id})
+            .leftJoin("users", "user_professions.user_id", "users.id")
+            .leftJoin("professions", "user_professions.profession_id", "professions.id")
+
+        return result
+    }
+
+
     //fazer alguma modificações para buscar mais informações
 
 

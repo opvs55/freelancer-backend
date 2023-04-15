@@ -1,3 +1,5 @@
+import { UserProfession } from "../../Models/Users/UserProfessions"
+
 export enum USER_ROLES {
     NORMAL = "NORMAL",
     ADMIN = "ADMIN"
@@ -36,7 +38,7 @@ export interface UserProfileDB{
     address:string,
     phone_number:string,
     bio:string,
-    skills:string,
+    skills:UserProfessionModel[],
     image:string,
 }
 
@@ -49,7 +51,7 @@ export interface UserProfileModel {
     address:string,
     phoneNumber:string,
     bio:string,
-    skills:string,
+    skills:UserProfessionModel[],
     image:string,
 }
 
@@ -73,6 +75,7 @@ export interface UserWorkVacanciesDB{
     id:string,
     userProfileId:string,
     work_vacancy_id:string,
+    companie_id: string,
     chosen:number,
     applied_at: string,
 }
@@ -82,14 +85,15 @@ export interface UserWorkVacanciesModel{
     id:string,
     userProfileId:string,
     work_vacancy_id:string,
+    companie_id:string,
     chosen:number,
-    company_id:string,
     applied_at:string,
     first_name:string,
     last_name:string,
     phone_number:string,
     address:string,
     image:string,
+    username:string,
     title:string,
     description:string,
     location:string,

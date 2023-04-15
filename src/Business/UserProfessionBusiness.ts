@@ -61,18 +61,18 @@ export class UserProfessionBusiness {
         //Modelo meu objeto e envio para o banco de dados
 
         const userProfessionDB = newUserProfession.userProfessionToDB()
-        await this.userProfessionDataBase.insert(userProfessionDB)
+
+        const userProfessionAlreadyExist = await this.userProfessionDataBase.findByUserId(user_id)
 
 
-
-        //criou um objeto tipado
-
-        const output: CreateUserProfileOutputDTO = { mensage: "Cadastro feito com sucesso" }
-
-        //retorno
-
-        return output
-
+        if (userProfessionAlreadyExist) {
+            const output: CreateUserProfessionOutputDTO = { mensage: "Registro já existente" }
+            return output
+        } else {
+            await this.userProfessionDataBase.insert(userProfessionDB)
+            const output: CreateUserProfessionOutputDTO  = { mensage: "Registro criado com sucesso" }
+            return output
+        }
     }
 
 

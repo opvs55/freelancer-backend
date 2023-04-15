@@ -51,28 +51,19 @@ export class CompanieDTO {
     // }
 
     public SignUPCompanieInputDTO = (
-        name: unknown,
+        username: unknown,
         email: unknown,
-        cellphone: unknown,
-        address: unknown,
-        description: unknown,
         password: unknown
 
     ): SignUpCompanieInputDTO => {
 
-        validateParam("name", name, "string")
+        validateParam("username", username, "string")
         validateParam("email", email, "string")
-        validateParam("cellphone", cellphone, "string")
-        validateParam("address", address, "string")
-        validateParam("description", description, "string")
         validateParam("password", password, "string")
 
         const companie: SignUpCompanieInputDTO = {
-            name: name as string,
+            username:  username as string,
             email: email as string,
-            cellphone: cellphone as string,
-            address: address as string,
-            description: description as string,
             password: password as string
         }
 
@@ -100,36 +91,24 @@ export class CompanieDTO {
 
         idToEdit: unknown,
         token: unknown,
-        name: unknown,
+        username: unknown,
         email: unknown,
-        cellphone: unknown,
-        address: unknown,
-        description: unknown,
-        password: unknown,
-        image: unknown
+        password: unknown
 
     ): EditCompanieInputDTO => {
 
         validateParam("idToEdiT", idToEdit, "string")
         validateParam("token", token, "string")
-        validateParam("name", name, "string")
+        validateParam("name", username, "string")
         validateParam("email", email, "string")
-        validateParam("cellphone", cellphone, "string")
-        validateParam("address", address, "string")
-        validateParam("description", description, "string")
         validateParam("password", password, "string")
-        validateParam("image", image, "string")
 
         const companie = {
             idToEdit: idToEdit as string,
             token: token as string,
-            name: name as string,
+            username: username as string,
             email: email as string,
-            cellphone: cellphone as string,
-            address: address as string,
-            description: description as string,
-            password: password as string,
-            image: image as string,
+            password: password as string
         }
 
         return companie

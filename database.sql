@@ -1,4 +1,4 @@
--- Active: 1680788638050@@127.0.0.1@3306
+-- Active: 1681498105447@@127.0.0.1@5432
 
 /*Tablea Usuários*/
 
@@ -43,14 +43,10 @@ SELECT * FROM user_profiles;
 CREATE TABLE
     companies (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
-        name TEXT NOT NULL,
+        username TEXT NOT NULL,
         email TEXT UNIQUE NOT NULL,
-        cellphone TEXT NOT NULL,
-        address TEXT NOT NULL,
-        description TEXT,
         password TEXT NOT NULL,
         role TEXT NOT NULL,
-        image TEXT,
         created_at TEXT DEFAULT (
             strftime(
                 '%Y-%m-%d %H:%M:%S',
@@ -58,9 +54,29 @@ CREATE TABLE
                 'localtime'
             )
         ) NOT NULL
+);
+
+select * FROM companie_profile;
+
+
+/*Tabela Profile Companie*/
+
+CREATE TABLE
+    companie_profile(
+        id TEXT PRIMARY KEY UNIQUE NOT NULL,
+        companie_id TEXT NOT NULL,
+        name TEXT NOT NULL,
+        description TEXT,
+        address TEXT,
+        phone_number TEXT,
+        image TEXT,
+        FOREIGN KEY (companie_id) REFERENCES companies(id) 
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE
     );
 
-SELECT * FROM companies;
+
+
 
 /* Tabela de Profissões */
 
@@ -110,6 +126,8 @@ CREATE TABLE
         ON UPDATE CASCADE
     );
 
+
+select * FROM work_vacancies;
 /*Pessoa interessada na vaga*/
 
 CREATE TABLE
@@ -117,6 +135,7 @@ CREATE TABLE
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
         userProfileId TEXT NOT NULL,
         work_vacancy_id TEXT NOT NULL,
+        companie_id TEXT NOT NULL,
         chosen NUMBER NOT NULL,
         applied_at TEXT DEFAULT (
             strftime(
@@ -131,11 +150,14 @@ CREATE TABLE
         FOREIGN KEY (work_vacancy_id) REFERENCES work_vacancies(id)
         ON DELETE CASCADE 
         ON UPDATE CASCADE
+        FOREIGN KEY (companie_id) REFERENCES companies(id)
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE
     );
 
 DROP TABLE user_work_vacancies;
 
 DROP TABLE work_vacancies;
 
-SELECT * FROM user_profiles;
+SELECT * FROM user_work_vacancies;
 SELECT * FROM user_professions;

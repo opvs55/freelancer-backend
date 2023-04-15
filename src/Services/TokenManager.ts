@@ -34,6 +34,7 @@ export class TokenManager {
         }
     }
 
+
     public verifyToken(token: string): TokenPayLoad | null {
         try {
             const payload = jwt.verify(token, TokenManager.SECRET_KEY) as TokenPayLoad;

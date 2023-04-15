@@ -4,9 +4,10 @@ import {  UserWorkVacanciesModel } from "../../Interfaces/User/Users.Types"
 //CreateJobVacancies
 
 export interface CreateUserWorkVacanciesInputDTO {
-    token: unknown
+    token: string | undefined,
     userProfileId: string,
-    work_vacancy_id: string
+    work_vacancy_id: string,
+    companie_id: string
 }
 
 export interface CreateUserWorkVacanciesOutputDTO {

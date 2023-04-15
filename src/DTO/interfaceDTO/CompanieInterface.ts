@@ -3,11 +3,8 @@
 import { CompanieModel } from "../../Interfaces/Companie/Companie.types"
 
 export interface SignUpCompanieInputDTO {
-    name: string,
+    username: string,
     email: string,
-    cellphone: string,
-    address: string,
-    description: string,
     password: string,
 }
 
@@ -48,13 +45,9 @@ export type GetAllCompanieOutputDTO = CompanieModel[]
 export interface EditCompanieInputDTO {
     idToEdit: string,
     token: string | undefined,
-    name: string,
+    username: string,
     email: string,
-    cellphone: string,
-    address: string,
-    description: string,
-    password: string,
-    image: string
+    password: string
 }
 
 export interface EditCompanieOutputDTO {

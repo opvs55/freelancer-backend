@@ -11,16 +11,7 @@ export class ProfessionDataBase extends BaseDatabase{
             .connection(ProfessionDataBase.TABLE_PROFESSIONS)
             .insert(professionDB)
     }
-    public findByEmail = async (email:string): Promise< ProfessionDB > =>{
-
-
-        const result: ProfessionDB[] = await BaseDatabase
-            .connection(ProfessionDataBase.TABLE_PROFESSIONS)
-            .select()
-            .where({email})
-
-        return result[0]
-    }
+    
     public findById= async (id:string): Promise< ProfessionDB > =>{
 
 

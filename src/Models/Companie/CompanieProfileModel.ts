@@ -1,16 +1,14 @@
-import {UserProfessionModel, UserProfileDB, UserProfileModel} from "../../Interfaces/User/Users.Types";
+import { CompanieProfileDB, CompanieProfileModel } from "../../Interfaces/Companie/Companie.types";
 
 
-export class UsersProfiles{
+export class CompanieProfiles{
     constructor(
         private id:string,
-        private userId:string,
-        private firstName:string,
-        private lastName:string,
+        private companieId:string,
+        private name:string,
+        private description:string,
         private address: string,
         private phoneNumber: string,
-        private bio: string,
-        private skills:UserProfessionModel[],
         private image:string
     ){}
 
@@ -24,34 +22,34 @@ export class UsersProfiles{
         this.id = value
     }
 
-    public getUserId(): string {
-        return this.userId
+    public getCompanieId(): string {
+        return this.companieId
     }
-    public setUserId(value: string): void {
+    public setCompanieId(value: string): void {
         if(!value || typeof value !== "string"){
             throw new Error("User_id invalid")
         }
-        this.userId = value
+        this.companieId= value
     }
 
-    public getFirstName(): string {
-        return this.firstName
+    public getName(): string {
+        return this.name
     }
-    public setFirstName(value: string): void {
+    public setName(value: string): void {
         if(!value || typeof value !== "string"){
             throw new Error("FirstName invalid")
         }
-        this.firstName = value
+        this.name = value
     }
 
-    public getLastName(): string {
-        return this.lastName
+    public getDescription(): string {
+        return this.description
     }
-    public setLastName(value: string): void {
+    public setDescription(value: string): void {
         if(!value || typeof value !== "string"){
             throw new Error("LastName invalid")
         }
-        this.lastName = value
+        this.description = value
     }
 
     public getAddress(): string {
@@ -74,25 +72,6 @@ export class UsersProfiles{
         this.phoneNumber = value;
     }
 
-    public getBio(): string {
-        return this.bio
-    }
-    public setBio(value: string): void {
-        if(!value || typeof value !== "string"){
-            throw new Error("Bio invalid");
-            
-        }
-        this.bio = value
-    }
-
-    public getSkills(): UserProfessionModel[] {
-        return this.skills
-    }
-    public setSkills(value:UserProfessionModel[]): void {
-        this.skills = value
-    }
-
-
     public getImage(): string {
         return this.image
     }
@@ -108,30 +87,26 @@ export class UsersProfiles{
 
 
 
-    public userProfileToDB(): UserProfileDB{
+    public companieProfileToDB(): CompanieProfileDB{
         return{
             id: this.id,
-            user_id: this.userId,
-            first_name: this.firstName,
-            last_name: this.lastName,
+            companie_id: this.companieId,
+            name: this.name,
+            description: this.description,
             address: this.address,
             phone_number: this.phoneNumber,
-            bio: this.bio,
-            skills: this.skills,
             image: this.image
         }
     }
     
-    public userProfileToModel(): UserProfileModel {
+    public companieProfileToModel(): CompanieProfileModel {
         return{
             id: this.id,
-            userId: this.userId,
-            firstName: this.firstName,
-            lastName: this.lastName,
+            companieId: this.companieId,
+            name: this.name,
+            description: this.description,
             address: this.address,
             phoneNumber: this.phoneNumber,
-            bio: this.bio,
-            skills: this.skills,
             image: this.image
         }
     }
