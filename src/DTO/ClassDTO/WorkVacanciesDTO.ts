@@ -9,7 +9,7 @@ export class WorkVacanciesDTO {
 
     public CreateWorkVacanciesInputDTO = (
         token: unknown,
-        company_id: unknown,
+        companie_id: unknown,
         title: unknown,
         description: unknown,
         skills_required: unknown,
@@ -28,7 +28,7 @@ export class WorkVacanciesDTO {
         const workVacancies: CreateWorkVacanciesInputDTO = {
     
             token: token as string,
-            company_id: company_id as string,
+            companie_id: companie_id as string,
             title : title  as string,
             description: description as string,
             skills_required: skills_required as string,
@@ -59,7 +59,6 @@ export class WorkVacanciesDTO {
         token: unknown,
         title: unknown,
         description: unknown,
-        skills_required: unknown,
         location: unknown,
         salary:number
 
@@ -69,7 +68,6 @@ export class WorkVacanciesDTO {
         validateParam("token", token, "string")
         validateParam("title", title, "string")
         validateParam("description", description, "string")
-        validateParam("skills_required", skills_required, "string")
         validateParam("location", location, "string")
         validateParam("salary", salary, "number")
 
@@ -78,7 +76,6 @@ export class WorkVacanciesDTO {
             token: token as string,
             title : title  as string,
             description: description as string,
-            skills_required: skills_required as string,
             location: location as string,
             salary: salary as number
         }

@@ -21,10 +21,10 @@ export class WorkVacanciesController {
             const input: CreateWorkVacanciesInputDTO = {
 
                 token: req.headers.authorization,
-                company_id: req.params.company_id,
+                companie_id: req.params.companie_id,
                 title: req.body.title,
                 description: req.body.description,
-                skills_required: req.body.skills_required,
+                skills_required: req.params.profession_id,
                 location: req.body.location,
                 salary: req.body.salary,
             }
@@ -97,7 +97,6 @@ export class WorkVacanciesController {
                 idToEdit: req.params.id,
                 title: req.body.title,
                 description: req.body.description,
-                skills_required: req.body.skills_required,
                 location: req.body.location,
                 salary: req.body.salary,
 

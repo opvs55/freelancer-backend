@@ -1,10 +1,10 @@
-import { GetAllUserProfessionInputDTO } from "../DTO/interfaceDTO/UserProfessionInterface";
 import {
     CreateUserProfileInputDTO,
     CreateUserProfileOutputDTO,
     DeleteUserProfileInputDTO,
     EditUserProfileInputDTO,
-    GetAllUserProfileOutputDTO,
+    GetUserProfileByUserIdInputDTO,
+    GetUserProfileByUserIdOutputDTO,
     GetUserProfileInputDTO,
     GetUserProfileOutputDTO
 } from "../DTO/interfaceDTO/UserProfileInterface";
@@ -41,7 +41,6 @@ export class UserProfileBusiness {
             address,
             phone_number,
             bio,
-            // skills,
             image
         } = input
 
@@ -56,7 +55,6 @@ export class UserProfileBusiness {
         validateParam("address", address, "string")
         validateParam("phone_number", phone_number, "string")
         validateParam("bio", bio, "string")
-        // validateParam("skills", skills, "string")
         validateParam("image", image, "string")
 
 
@@ -64,10 +62,14 @@ export class UserProfileBusiness {
         //monto meu objeto
 
 
-        const skills = await this.userProfessionDataBase.findByUserIdModel(user_id)
+        const skills = await this.userProfessionDataBase.findByUserId(user_id)
+        const skillsArray: any[] = []
 
+        skills.map(skill => {
+            skillsArray.push(skill)
+        })
 
-        console.log(skills)
+        console.log(skillsArray)
 
         const newUserProfile = new UsersProfiles(
             id,
@@ -77,7 +79,7 @@ export class UserProfileBusiness {
             address,
             phone_number,
             bio,
-            skills,
+            skillsArray,
             image
         )
 
@@ -120,7 +122,6 @@ export class UserProfileBusiness {
         }
 
         const user = await this.userProfileDataBase.getUserProfile(id)
-    
 
         if (!user) {
             throw new NotFoundError("usuário não encontrado")
@@ -132,16 +133,17 @@ export class UserProfileBusiness {
         return output
     }
 
+    public getUserProfileByUserID = async (input: GetUserProfileByUserIdInputDTO): Promise<GetUserProfileByUserIdOutputDTO> => {
 
-    public getAllUserProfile = async (input: GetAllUserProfessionInputDTO): Promise<GetAllUserProfileOutputDTO> => {
-
-        const { token } = input
+        const { token, user_id } = input
 
         if (!token) {
             throw new BadRequestError("token ausente")
         }
 
-
+        if (!user_id) {
+            throw new BadRequestError("id ausente")
+        }
 
         const payload = this.tokenManager.verifyToken(token)
 
@@ -149,14 +151,27 @@ export class UserProfileBusiness {
             throw new BadRequestError("token inválido")
         }
 
-        const user = await this.userProfileDataBase.getAllUserProfile()
+        const user = await this.userProfileDataBase.findByUserId(user_id)
+        const skills = await this.userProfessionDataBase.findByUserId(user_id)
+
+        const copyUser = new UsersProfiles(
+            user.id,
+            user.user_id,
+            user.first_name,
+            user.last_name,
+            user.address,
+            user.phone_number,
+            user.bio,
+            skills,
+            user.image
+        )
 
         if (!user) {
             throw new NotFoundError("usuário não encontrado")
         }
 
 
-        const output: GetAllUserProfileOutputDTO = user
+        const output: GetUserProfileOutputDTO = copyUser
 
         return output
     }
@@ -191,6 +206,7 @@ export class UserProfileBusiness {
             throw new NotFoundError("Id não encontrado")
         }
 
+        const skills = await this.userProfessionDataBase.findByUserId(userProfileDB.user_id)
 
         const userProfileEditada = new UsersProfiles(
             userProfileDB.id,
@@ -200,7 +216,7 @@ export class UserProfileBusiness {
             userProfileDB.address,
             userProfileDB.phone_number,
             userProfileDB.bio,
-            userProfileDB.skills,
+            skills,
             userProfileDB.image
         )
 

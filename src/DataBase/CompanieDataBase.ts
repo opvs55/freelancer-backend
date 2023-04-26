@@ -10,7 +10,7 @@ export class CompanieDataBase extends BaseDatabase{
             .connection(CompanieDataBase.TABLE_COMPANIES)
             .insert(companieDB)
     }
-    public findByEmail = async (email:string): Promise< CompanieDB> =>{
+    public findByEmail = async (email:string): Promise<CompanieDB> =>{
 
 
         const result: CompanieDB[] = await BaseDatabase
@@ -25,7 +25,12 @@ export class CompanieDataBase extends BaseDatabase{
 
         const result: CompanieDB[] = await BaseDatabase
             .connection(CompanieDataBase.TABLE_COMPANIES)
-            .select()
+            .select(
+                "companies.id",
+                "companies.username",
+                "companies.email",
+                "companies.role",
+            )
             .where({id})
 
         return result[0]

@@ -1,17 +1,17 @@
-import {UserProfessionModel, UserProfileDB, UserProfileModel} from "../../Interfaces/User/Users.Types";
+import {UserProfessionDB, UserProfessionModel, UserProfileDB, UserProfileModel} from "../../Interfaces/User/Users.Types";
 
 
 export class UsersProfiles{
     constructor(
-        private id:string,
-        private userId:string,
-        private firstName:string,
-        private lastName:string,
-        private address: string,
-        private phoneNumber: string,
-        private bio: string,
-        private skills:UserProfessionModel[],
-        private image:string
+        public id:string,
+        public userId:string,
+        public firstName:string,
+        public lastName:string,
+        public address: string,
+        public phoneNumber: string,
+        public bio: string,
+        public skills: UserProfessionDB[],
+        public image:string
     ){}
 
     public getId(): string {
@@ -85,10 +85,10 @@ export class UsersProfiles{
         this.bio = value
     }
 
-    public getSkills(): UserProfessionModel[] {
+    public getSkills(): UserProfessionDB[] {
         return this.skills
     }
-    public setSkills(value:UserProfessionModel[]): void {
+    public setSkills(value:UserProfessionDB[] ): void {
         this.skills = value
     }
 
@@ -117,7 +117,6 @@ export class UsersProfiles{
             address: this.address,
             phone_number: this.phoneNumber,
             bio: this.bio,
-            skills: this.skills,
             image: this.image
         }
     }

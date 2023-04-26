@@ -7,7 +7,7 @@ export class UserProfession{
         private id:string,
         private userId:string,
         private professionId:string,
-        private experienceYears: string
+        private experienceYears: string,
 
     ){}
 

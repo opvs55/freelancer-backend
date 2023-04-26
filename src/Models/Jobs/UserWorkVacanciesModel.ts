@@ -1,4 +1,5 @@
-import { UserWorkVacanciesDB, UserWorkVacanciesModel } from "../../Interfaces/User/Users.Types";
+import { CompanieProfileDB, WorkVacanciesDB } from "../../Interfaces/Companie/Companie.types";
+import { UserProfessionDB, UserProfileDB, UserWorkVacanciesDB, UserWorkVacanciesModel } from "../../Interfaces/User/Users.Types";
 
 
 
@@ -9,21 +10,15 @@ export class UserWorkVacancies{
     constructor(
 
         private id:string,
-        private userProfileId:string,
+        private user_id:string,
         private work_vacancy_id:string,
         private companie_id:string,
         private chosen:number,
         private appliedAt:string,
-        private first_name:string,
-        private last_name:string,
-        private phone_number:string,
-        private address:string,
-        private image:string,
-        private username:string,
-        private title:string,
-        private description:string,
-        private location:string,
-        private salary:number
+        private companie:CompanieProfileDB,
+        private userProfile: UserProfileDB,
+        private workVacancies: WorkVacanciesDB,
+        private skills:any[]
 
     ){}
 
@@ -35,13 +30,13 @@ export class UserWorkVacancies{
     }
 
     public getUserProfileId(): string {
-        return this.userProfileId
+        return this.user_id
     }
     public setUserProfileId(value: string): void {
         if(!value || typeof value !== "string"){
             throw new Error("User_id invalid")
         }
-        this.userProfileId = value
+        this.user_id = value
     }
 
     public getWorkVacancieId():string{
@@ -59,80 +54,11 @@ export class UserWorkVacancies{
         this.companie_id = value
     }
 
-    public getTitle(): string {
-        return this.title
-    }
-    public setTitle(value: string): void {
-        this.title = value
-    }
-
-    public getDescription(): string {
-        return this.description
-    }
-    public setDescription(value: string): void {
-        this.description = value
-    }
-
     public getAppliedAt(): string {
         return this.appliedAt
     }
     public setAppliedAt(value:string): void {
         this.appliedAt = value
-    }
-
-    public getFirstName():string{
-        return this.first_name
-    }
-
-    public setFirstName(value:string):void{
-        this.first_name = value
-    }
-    
-    public getLocation(): string {
-        return this.location
-    }
-    public setLocation(value:string): void {
-        this.location = value
-    }
-
-    public getSalary():number{
-        return this.salary
-    }
-
-    public setSalary(value:number):void{
-        this.salary = value
-    }
-
-    public getImage():string{
-        return this.image
-    }
-
-    public setImage(value:string):void{
-        this.image = value
-    }
-
-    public getLastName():string{
-        return this.last_name
-    }
-
-    public setLastName(value:string):void{
-        this.last_name = value
-    }
-
-    public getCellphone():string{
-        return this.phone_number
-    }
-
-    public setCellphone(value:string):void{
-        this.phone_number = value
-    }
-
-    public getAddress():string{
-        return this.address
-    }
-
-    public setAdress(value:string):void{
-        this.address = value
     }
 
     public getChosen():number{
@@ -143,18 +69,18 @@ export class UserWorkVacancies{
         this.chosen = value
     }
 
-    public getUsername():string{
-        return this.username
+    public getSkills(): UserProfessionDB[] {
+        return this.skills
+    }
+    public setSkills(value: UserProfessionDB[]): void {
+        this.skills = value
     }
 
-    public setUsername(value:string):void{
-        this.username = value
-    }
 
     public userWorkVacanciesDB():UserWorkVacanciesDB{
         return{
             id: this.id,
-            userProfileId:this.userProfileId,
+            user_id: this.user_id,
             work_vacancy_id: this.work_vacancy_id,
             companie_id: this.companie_id,
             chosen: this.chosen,
@@ -166,21 +92,20 @@ export class UserWorkVacancies{
     public toUserWorkVacanciesModel():UserWorkVacanciesModel{
         return{
             id: this.id,
-            userProfileId: this.userProfileId,
+            user_id: this.user_id,
             work_vacancy_id: this.work_vacancy_id,
             companie_id: this.companie_id,
             chosen: this.chosen,
             applied_at: this.appliedAt,
-            first_name: this.first_name,
-            last_name: this.last_name,
-            phone_number: this.phone_number,
-            address: this.address,
-            image: this.image,
-            username: this.username,
-            title: this.title,
-            description: this.description,
-            location:this.location,
-            salary:this.salary
+            user:{
+                userProfile: this.userProfile,
+                skills: this.skills
+                
+            },
+            job:{
+                workVacancies: this.workVacancies,
+                companie: this.companie
+            }
             
         }
     }

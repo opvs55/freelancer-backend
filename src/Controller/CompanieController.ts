@@ -57,6 +57,7 @@ export class CompanieController {
                 res.status(error.statusCode).send(error.message)
             } else {
                 res.status(500).send("erro inesperado")
+                console.log(error)
             }
         }
     }

@@ -1,4 +1,6 @@
-import { UserProfession } from "../../Models/Users/UserProfessions"
+import {  CompanieProfileDB, WorkVacanciesDB } from "../Companie/Companie.types"
+
+
 
 export enum USER_ROLES {
     NORMAL = "NORMAL",
@@ -30,75 +32,91 @@ export interface UserModel {
 }
 
 
-export interface UserProfileDB{
-    id:string,
+export interface UserProfileDB {
+    id: string,
     user_id: string,
-    first_name:string,
-    last_name:string,
-    address:string,
-    phone_number:string,
-    bio:string,
-    skills:UserProfessionModel[],
-    image:string,
+    first_name: string,
+    last_name: string,
+    address: string,
+    phone_number: string,
+    bio: string,
+    image: string,
 }
 
 
 export interface UserProfileModel {
-    id:string,
+    id: string,
     userId: string,
-    firstName:string,
-    lastName:string,
-    address:string,
-    phoneNumber:string,
-    bio:string,
-    skills:UserProfessionModel[],
-    image:string,
+    firstName: string,
+    lastName: string,
+    address: string,
+    phoneNumber: string,
+    bio: string,
+    skills: UserProfessionDB[],
+    image: string,
 }
 
 
 export interface UserProfessionDB {
-    id:string,
-    user_id:string,
-    profession_id:string,
-    experience_years:string
+    id: string,
+    user_id: string,
+    profession_id: string,
+    experience_years: string
 }
 
 export interface UserProfessionModel {
-    id:string,
-    userId:string,
-    professionId:string,
-    experienceYears:string
+    id: string,
+    userId: string,
+    professionId: string,
+    experienceYears: string
 }
 
 
-export interface UserWorkVacanciesDB{
-    id:string,
-    userProfileId:string,
-    work_vacancy_id:string,
+export interface UserWorkVacanciesDB {
+    id: string,
+    user_id: string,
+    work_vacancy_id: string,
     companie_id: string,
-    chosen:number,
+    chosen: number,
     applied_at: string,
 }
 
 
-export interface UserWorkVacanciesModel{
-    id:string,
-    userProfileId:string,
-    work_vacancy_id:string,
-    companie_id:string,
-    chosen:number,
-    applied_at:string,
-    first_name:string,
-    last_name:string,
-    phone_number:string,
-    address:string,
-    image:string,
-    username:string,
-    title:string,
-    description:string,
-    location:string,
+export interface UserWorkVacanciesModel {
+    id: string,
+    user_id: string,
+    work_vacancy_id: string,
+    companie_id: string,
+    chosen: number,
+    applied_at: string,
+    user: {
+        userProfile: UserProfileDB,
+        skills: UserProfessionDB[]
+    },
+    job: {
+        workVacancies: WorkVacanciesDB,
+        companie:CompanieProfileDB
+    }
+}
+
+export interface UserWorkVacanciesDBimport {
+    id: string,
+    user_id: string,
+    work_vacancy_id: string,
+    companie_id: string,
+    profession_id: string,
+    chosen: number,
+    applied_at: string,
+    first_name: string,
+    last_name: string,
+    phone_number: string,
+    address: string,
+    image: string,
+    title: string,
+    description: string,
+    location: string,
     salary: number,
-    
+
 }
 
 

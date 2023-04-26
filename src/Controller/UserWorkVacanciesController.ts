@@ -21,7 +21,7 @@ export class UserWorkVacanciesController {
             const input: CreateUserWorkVacanciesInputDTO = {
 
                 token: req.headers.authorization,
-                userProfileId: req.params.userProfileId,
+                user_id: req.params.user_id,
                 work_vacancy_id: req.params.work_vacancy_id,
                 companie_id: req.params.companie_id
 

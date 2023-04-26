@@ -1,4 +1,4 @@
-import { WorkVacanciesDB, WorkVacanciesModel } from "../../Interfaces/Companie/Companie.types"
+import {  WorkVacanciesModel } from "../../Interfaces/Companie/Companie.types"
 
 
 
@@ -6,7 +6,7 @@ import { WorkVacanciesDB, WorkVacanciesModel } from "../../Interfaces/Companie/C
 
 export interface CreateWorkVacanciesInputDTO {
     token: string | undefined,
-    company_id: string,
+    companie_id: string,
     title: string,
     description: string,
     skills_required: string,
@@ -43,7 +43,6 @@ export interface EditWorkVacanciesInputDTO {
     idToEdit: string,
     title: string,
     description: string,
-    skills_required: string,
     location: string,
     salary:number
 }

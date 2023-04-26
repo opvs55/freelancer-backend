@@ -8,6 +8,7 @@ import {
     GetWorkVacanciesInputDTO,
     GetWorkVacanciesOutputDTO
 } from "../DTO/interfaceDTO/WorkVacanciesInterface";
+import { ProfessionDataBase } from "../DataBase/ProfessionDataBase";
 import { WorkVacanciesDataBase } from "../DataBase/WorkVacanciesDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
@@ -24,6 +25,7 @@ export class WorkVacanciesBusiness {
 
     constructor(
         private workVacanciesDataBase: WorkVacanciesDataBase,
+        private professionDataBase : ProfessionDataBase,
         private tokenManager: TokenManager,
         private idGenerator: IdGenerator
     ) { }
@@ -33,7 +35,7 @@ export class WorkVacanciesBusiness {
         //pego o valor do input
         const {
             token,
-            company_id,
+            companie_id,
             title,
             description,
             skills_required,
@@ -45,7 +47,7 @@ export class WorkVacanciesBusiness {
         //verifico a typagem
 
         validateParam("token", token, "string")
-        validateParam("company_id", company_id, "string")
+        validateParam("companie_id", companie_id, "string")
         validateParam("title", title, "string")
         validateParam("description", description, "string")
         validateParam("skills_required", skills_required, "string")
@@ -56,15 +58,18 @@ export class WorkVacanciesBusiness {
 
         const id = this.idGenerator.generate()
         const createdAt = new Date().toISOString()
+        
         //monto meu objeto
+        
+        const professionDB = this.professionDataBase.findById(skills_required)
 
         const newWorkVacancies = new WorkVacancies(
 
             id,
-            company_id,
+            companie_id,
             title,
             description,
-            skills_required,
+            await professionDB,
             location,
             salary,
             createdAt
@@ -75,17 +80,9 @@ export class WorkVacanciesBusiness {
 
         const workVacanciesDB = newWorkVacancies.WorkVacanciesDB()
 
-        const workVacanciesAlreadyExist = await this.workVacanciesDataBase.findByCompanieId(company_id)
-
-
-        if (workVacanciesAlreadyExist) {
-            const output: CreateWorkVacanciesOutputDTO= { mensage: "Registro já existente" }
-            return output
-        } else {
-            await this.workVacanciesDataBase.insert(workVacanciesDB)
-            const output: CreateWorkVacanciesOutputDTO = { mensage: "Registro criado com sucesso" }
-            return output
-        }
+        await this.workVacanciesDataBase.insert(workVacanciesDB)
+        const output: CreateWorkVacanciesOutputDTO = { mensage: "Registro criado com sucesso" }
+        return output
 
     }
 
@@ -154,7 +151,6 @@ export class WorkVacanciesBusiness {
             token,
             title,
             description,
-            skills_required,
             location,
             salary
 
@@ -180,7 +176,7 @@ export class WorkVacanciesBusiness {
 
         const workVacanciesEditada = new WorkVacancies(
             workVacanciesDB.id,
-            workVacanciesDB.company_id,
+            workVacanciesDB.companie_id,
             workVacanciesDB.title,
             workVacanciesDB.description,
             workVacanciesDB.skills_required,
@@ -192,7 +188,6 @@ export class WorkVacanciesBusiness {
 
         workVacanciesEditada.setTitle(title ? title : workVacanciesEditada.getTitle())
         workVacanciesEditada.setDescription(description ? description : workVacanciesEditada.getDescription())
-        workVacanciesEditada.setskillsRequired(skills_required ? skills_required : workVacanciesEditada.getskillsRequired())
         workVacanciesEditada.setLocation(location ? location : workVacanciesEditada.getLocation())
         workVacanciesEditada.setSalary(salary ? salary : workVacanciesEditada.getSalary())
 
@@ -227,7 +222,7 @@ export class WorkVacanciesBusiness {
 
         const creatorId = payload.id
 
-        if (payload.role !== USER_ROLES.ADMIN && userDB.company_id !== creatorId) {
+        if (payload.role !== USER_ROLES.ADMIN && userDB.companie_id !== creatorId) {
             throw new BadRequestError("Apenas o user criador da postagem ou ADM's podem deletar!")
         }
 

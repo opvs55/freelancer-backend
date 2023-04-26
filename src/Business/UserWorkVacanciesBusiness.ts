@@ -1,5 +1,6 @@
 import { CreateUserWorkVacanciesInputDTO, CreateUserWorkVacanciesOutputDTO, DeleteUserWorkVacanciesInputDTO, EditUserWorkVacanciesInputDTO, GetAllUserWorkVacanciesInputDTO, GetAllUserWorkVacanciesOutputDTO, GetUserWorkVacanciesInputDTO, GetUserWorkVacanciesOutputDTO } from "../DTO/interfaceDTO/UserWorkVacanciesInterface";
-import { CompanieDataBase } from "../DataBase/CompanieDataBase";
+import { CompanieProfileDataBase } from "../DataBase/CompanieProfileDataBase";
+import { UserProfessionDataBase } from "../DataBase/UserProfessionDataBase";
 
 
 import { UserProfileDataBase } from "../DataBase/UserProfileDataBase";
@@ -20,8 +21,9 @@ export class UserWorkVacanciesBusiness {
     constructor(
         private userWorkVacanciesDataBase: UserWorkVacanciesDataBase,
         private workVacanciesDataBase: WorkVacanciesDataBase,
+        private userProfessionDataBase: UserProfessionDataBase,
         private userProfileDataBase: UserProfileDataBase,
-        private companieDataBase: CompanieDataBase,
+        private companieProfileDataBase: CompanieProfileDataBase,
         private tokenManager: TokenManager,
         private idGenerator: IdGenerator
     ) { }
@@ -31,7 +33,7 @@ export class UserWorkVacanciesBusiness {
         //pego o valor do input
         const {
             token,
-            userProfileId,
+            user_id,
             work_vacancy_id,
             companie_id
         } = input
@@ -40,63 +42,64 @@ export class UserWorkVacanciesBusiness {
         //verifico a typagem
 
         validateParam("token", token, "string")
-        validateParam("userProfileId", userProfileId, "string")
+        validateParam("user_id", user_id, "string")
         validateParam("work_vacancy_id", work_vacancy_id, "string")
         validateParam("companie_id", companie_id, "string")
 
 
-        
-        const userProfile = await this.userProfileDataBase.findById(userProfileId)
+        const userProfile = await this.userProfileDataBase.findByUserIdWithNoSkills(user_id)
 
         const workVacancies = await this.workVacanciesDataBase.findById(work_vacancy_id)
 
-        const CompanieName = await this.companieDataBase.findById(companie_id)
-        
+        const companie = await this.companieProfileDataBase.findByCompanieId(companie_id) 
+
+        const userProfession = await this.userProfessionDataBase.findByUserId(user_id)
+
+        //pegando valores para construção do objeto
 
         const id = this.idGenerator.generate()
         const applied_at = new Date().toISOString()
         const chosen = 0
+
+
         //monto meu objeto
 
-
-        console.log(CompanieName)
 
         const newUserWorkVacancies = new UserWorkVacancies(
 
             id,
-            userProfileId,
+            user_id,
             work_vacancy_id,
             companie_id,
             chosen,
             applied_at,
-            userProfile.first_name,
-            userProfile.last_name,
-            userProfile.phone_number,
-            userProfile.address,
-            userProfile.image,
-            CompanieName.username,
-            workVacancies.title,
-            workVacancies.description,
-            workVacancies.location,
-            workVacancies.salary
-
+            companie,
+            userProfile,
+            workVacancies,
+            userProfession
         )
 
         //Modelo meu objeto e envio para o banco de dados
 
         const userWorkVacanciesDB = newUserWorkVacancies.userWorkVacanciesDB()
 
-        const userWorkVacanciesAlreadyExist = await this.userWorkVacanciesDataBase.findByProfileUserId(userProfileId)
 
 
-        if (userWorkVacanciesAlreadyExist) {
-            const output: CreateUserWorkVacanciesOutputDTO= { mensage: "Registro já existente" }
-            return output
-        } else {
-            await this.userWorkVacanciesDataBase.insert(userWorkVacanciesDB)
-            const output:  CreateUserWorkVacanciesOutputDTO= { mensage: "Registro criado com sucesso" }
-            return output
+        // verifica se já existe um registro.
+
+        //preciso criar uma lógica que verifica e altera o chosen para 0 se caso ele for 1
+
+        const userWorkVacanciesAlreadyExist = await this.userWorkVacanciesDataBase.findByUserId(user_id);
+
+        for (const userWork of userWorkVacanciesAlreadyExist) {
+            if (userWork.work_vacancy_id === work_vacancy_id) {
+                return { mensage: "Registro já existente" };
+            }
         }
+
+        await this.userWorkVacanciesDataBase.insert(userWorkVacanciesDB);
+        return { mensage: "Registro criado com sucesso" };
+
 
     }
 
@@ -118,35 +121,36 @@ export class UserWorkVacanciesBusiness {
         if (!payload) {
             throw new BadRequestError("token inválido")
         }
-        console.log(id)
+
         const userWorkVacanciesDB = await this.userWorkVacanciesDataBase.findById(id)
+
+
 
         if (!userWorkVacanciesDB) {
             throw new NotFoundError("usuário não encontrado");
         }
 
 
-        console.log(userWorkVacanciesDB)
+        const skills = await this.userProfessionDataBase.findByUserId(userWorkVacanciesDB.user_id)
 
+        const workVacancies = await this.workVacanciesDataBase.findById(userWorkVacanciesDB.work_vacancy_id)
+
+        const userProfile = await this.userProfileDataBase.findByUserIdWithNoSkills(userWorkVacanciesDB.user_id)
+
+        const companie = await this.companieProfileDataBase.findByCompanieId(userWorkVacanciesDB.companie_id)
 
         const copyUserWorkVacancies = new UserWorkVacancies(
 
             userWorkVacanciesDB.id,
-            userWorkVacanciesDB.userProfileId,
+            userWorkVacanciesDB.user_id,
             userWorkVacanciesDB.work_vacancy_id,
             userWorkVacanciesDB.companie_id,
             userWorkVacanciesDB.chosen,
             userWorkVacanciesDB.applied_at,
-            userWorkVacanciesDB.first_name,
-            userWorkVacanciesDB.last_name,
-            userWorkVacanciesDB.phone_number,
-            userWorkVacanciesDB.address,
-            userWorkVacanciesDB.image,
-            userWorkVacanciesDB.username,
-            userWorkVacanciesDB.title,
-            userWorkVacanciesDB.description,
-            userWorkVacanciesDB.location,
-            userWorkVacanciesDB.salary
+            companie,
+            userProfile,
+            workVacancies,
+            skills
 
         )
 
@@ -176,37 +180,45 @@ export class UserWorkVacanciesBusiness {
 
         const user = await this.userWorkVacanciesDataBase.getAllUserWorkVacancies()
 
+
         const userWorkVacancies = await Promise.all(user.map(async userCopy => {
+
+
+            const skills = await this.userProfessionDataBase.findByUserId(userCopy.user_id)
+
+            const workVacancies = await this.workVacanciesDataBase.findById(userCopy.work_vacancy_id)
+
+            const userProfile = await this.userProfileDataBase.findByUserIdWithNoSkills(userCopy.user_id)
+
+            const companie = await this.companieProfileDataBase.findByCompanieId(userCopy.companie_id)
+
             return new UserWorkVacancies(
-                
+
                 userCopy.id,
-                userCopy.userProfileId,
+                userCopy.user_id,
                 userCopy.work_vacancy_id,
                 userCopy.companie_id,
                 userCopy.chosen,
                 userCopy.applied_at,
-                userCopy.first_name,
-                userCopy.last_name,
-                userCopy.phone_number,
-                userCopy.address,
-                userCopy.image,
-                userCopy.username,
-                userCopy.title,
-                userCopy.description,
-                userCopy.location,
-                userCopy.salary
+                companie,
+                userProfile,
+                workVacancies,
+                skills
 
             ).toUserWorkVacanciesModel()
         }
         ))
 
+
         if (!user) {
             throw new NotFoundError("usuário não encontrado")
         }
 
-        console.log(userWorkVacancies)
+
+
+
         const output: GetAllUserWorkVacanciesOutputDTO = userWorkVacancies
-        
+
         return output
     }
 
@@ -237,25 +249,26 @@ export class UserWorkVacanciesBusiness {
             throw new NotFoundError("Id não encontrado")
         }
 
+        const skills = await this.userProfessionDataBase.findByUserId(userWorkVacanciesDB.user_id)
+
+        const workVacancies = await this.workVacanciesDataBase.findById(userWorkVacanciesDB.work_vacancy_id)
+
+        const userProfile = await this.userProfileDataBase.findByUserIdWithNoSkills(userWorkVacanciesDB.user_id)
+
+        const companie = await this.companieProfileDataBase.findByCompanieId(userWorkVacanciesDB.companie_id)
+
         const copyUserWorkVacancies = new UserWorkVacancies(
 
             userWorkVacanciesDB.id,
-            userWorkVacanciesDB.userProfileId,
+            userWorkVacanciesDB.user_id,
             userWorkVacanciesDB.work_vacancy_id,
             userWorkVacanciesDB.companie_id,
             userWorkVacanciesDB.chosen,
             userWorkVacanciesDB.applied_at,
-            userWorkVacanciesDB.first_name,
-            userWorkVacanciesDB.last_name,
-            userWorkVacanciesDB.phone_number,
-            userWorkVacanciesDB.address,
-            userWorkVacanciesDB.image,
-            userWorkVacanciesDB.username,
-            userWorkVacanciesDB.title,
-            userWorkVacanciesDB.description,
-            userWorkVacanciesDB.location,
-            userWorkVacanciesDB.salary
-
+            companie,
+            userProfile,
+            workVacancies,
+            skills
         )
 
         copyUserWorkVacancies.setChosen(chosen ? chosen : copyUserWorkVacancies.getChosen())
@@ -285,11 +298,11 @@ export class UserWorkVacanciesBusiness {
             throw new NotFoundError("Id não encontrado")
         }
 
-//         const creatorId = payload.id
+        //         const creatorId = payload.id
 
-//         if (payload.role !== USER_ROLES.ADMIN && userDB.id !== creatorId) {
-//             throw new BadRequestError("Apenas o user criador da postagem ou ADM's podem deletar!")
-//         }
+        //         if (payload.role !== USER_ROLES.ADMIN && userDB.id !== creatorId) {
+        //             throw new BadRequestError("Apenas o user criador da postagem ou ADM's podem deletar!")
+        //         }
 
 
         await this.userWorkVacanciesDataBase.deleteUserWorkVacancies(idToDelete)

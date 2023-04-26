@@ -3,10 +3,6 @@ import { validateParam } from "../../Utils/Validate"
 import { CreateUserProfessionInputDTO, DeleteUserProfessionInputDTO, EditUserProfessionInputDTO, GetUserProfessionInputDTO } from "../interfaceDTO/UserProfessionInterface"
 
 
-//=================================================/
-
-//CLASSE - TESTANDO A FUNÇÃO DE VALIDAÇÃO, se der bom, atualizo para o projeto todo
-
 export class UserProfessionDTO {
 
 

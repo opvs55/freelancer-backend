@@ -8,47 +8,6 @@ import { DeleteCompanieInputDTO, EditCompanieInputDTO, GetCompanieInputDTO, Sign
 
 export class CompanieDTO {
 
-    // public SignUPCompanieInputDTO = (
-    //     name: unknown,
-    //     email: unknown,
-    //     cellphone: unknown,
-    //     address: unknown,
-    //     description: unknown,
-    //     password: unknown
-
-    // ): SignUpCompanieInputDTO => {
-
-    //     if (typeof name !== "string") {
-    //         throw new BadRequestError("name deve ser uma string")
-    //     }
-    //     if (typeof email !== "string") {
-    //         throw new BadRequestError("email deve ser uma string")
-    //     }
-    //     if (typeof cellphone !== "string") {
-    //         throw new BadRequestError("cellphone deve ser uma string")
-    //     }
-    //     if (typeof address !== "string") {
-    //         throw new BadRequestError("address deve ser uma string")
-    //     }
-    //     if (typeof description !== "string") {
-    //         throw new BadRequestError("description deve ser uma string")
-    //     }
-    //     if (typeof password !== "string") {
-    //         throw new BadRequestError("password deve ser uma string")
-    //     }
-
-    //     const companie: SignUpCompanieInputDTO = {
-    //         name: name as string,
-    //         email: email as string,
-    //         cellphone: cellphone as string,
-    //         address: address as string,
-    //         description: description as string,
-    //         password: password as string
-    //     }
-
-
-    //     return companie
-    // }
 
     public SignUPCompanieInputDTO = (
         username: unknown,
@@ -113,63 +72,6 @@ export class CompanieDTO {
 
         return companie
     }
-
-    // public EditCompanieInputDTO = (
-
-    //     idToEdit: unknown,
-    //     token: unknown,
-    //     name: unknown,
-    //     email: unknown,
-    //     cellphone: unknown,
-    //     address:unknown,
-    //     description:unknown,
-    //     password:unknown,
-    //     image:unknown
-
-    // ): EditCompanieInputDTO =>{
-
-    //     if(typeof idToEdit !== "string"){
-    //         throw new BadRequestError("idToEdit deve ser string")
-    //     }
-    //     if(typeof token !== "string"){
-    //         throw new BadRequestError("token precisa ser string")
-    //     }
-    //     if(typeof name !== "string"){
-    //         throw new BadRequestError("name deve ser string")
-    //     }
-    //     if(typeof email !== "string"){
-    //         throw new BadRequestError("email deve ser string")
-    //     }
-    //     if(typeof cellphone !== "string"){
-    //         throw new BadRequestError("cellphone deve ser string")
-    //     }
-    //     if(typeof address !== "string"){
-    //         throw new BadRequestError("andress deve ser string")
-    //     }
-    //     if(typeof description !== "string"){
-    //         throw new BadRequestError("description deve ser string")
-    //     }
-    //     if(typeof password !== "string"){
-    //         throw new BadRequestError("password deve ser string")
-    //     }
-    //     if(typeof image !== "string"){
-    //         throw new BadRequestError("image deve ser string")
-    //     }
-
-    //     const companie = {
-    //         idToEdit,
-    //         token,
-    //         name,
-    //         email,
-    //         cellphone,
-    //         address,
-    //         description,
-    //         password,
-    //         image
-    //     }
-
-    //     return companie
-    // }
 
     public DeleteCompanieInputDTO = (
         idToDelete: unknown,
