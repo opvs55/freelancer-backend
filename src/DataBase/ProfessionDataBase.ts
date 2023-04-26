@@ -12,10 +12,10 @@ export class ProfessionDataBase extends BaseDatabase{
             .insert(professionDB)
     }
     
-    public findById= async (id:string): Promise< ProfessionDB > =>{
+    public findById= async (id:string): Promise< ProfessionModel > =>{
 
 
-        const result: ProfessionDB[] = await BaseDatabase
+        const result: ProfessionModel[] = await BaseDatabase
             .connection(ProfessionDataBase.TABLE_PROFESSIONS)
             .select()
             .where({id})

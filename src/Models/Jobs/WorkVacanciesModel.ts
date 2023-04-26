@@ -1,4 +1,5 @@
 import {  WorkVacanciesDB, WorkVacanciesModel } from "../../Interfaces/Companie/Companie.types";
+import { ProfessionDB } from "../../Interfaces/Profession/Profession.Types";
 
 
 
@@ -9,10 +10,10 @@ export class WorkVacancies{
     constructor(
 
         private id:string,
-        private companyId:string,
+        private companieId:string,
         private title:string,
         private description:string,
-        private skillsRequired:string,
+        private skillsRequired:ProfessionDB,
         private location:string,
         private salary:number,
         private createdAt:string
@@ -27,10 +28,10 @@ export class WorkVacancies{
     }
 
     public getCompanyId(): string {
-        return this.companyId
+        return this.companieId
     }
     public setCompanyId(value: string): void {
-        this.companyId = value
+        this.companieId = value
     }
 
     public getTitle(): string {
@@ -47,10 +48,10 @@ export class WorkVacancies{
         this.description = value
     }
 
-    public getskillsRequired(): string {
+    public getskillsRequired(): ProfessionDB {
         return this.skillsRequired
     }
-    public setskillsRequired(value:string): void {
+    public setskillsRequired(value:ProfessionDB): void {
         this.skillsRequired = value
     }
 
@@ -81,7 +82,7 @@ export class WorkVacancies{
     public WorkVacanciesDB():WorkVacanciesDB{
         return{
             id: this.id,
-            company_id: this.companyId,
+            companie_id: this.companieId,
             title: this.title,
             description: this.description,
             skills_required: this.skillsRequired,
@@ -95,7 +96,7 @@ export class WorkVacancies{
     public toWorkVacanciesModel():WorkVacanciesModel{
         return{
             id: this.id,
-            company_id: this.companyId,
+            companie_id: this.companieId,
             title: this.title,
             description: this.description,
             skills_required: this.skillsRequired,

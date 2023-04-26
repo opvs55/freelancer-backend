@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { GetUserInputDTO } from "../DTO/interfaceDTO/UserInterface";
+import { GetUserInputDTO} from "../DTO/interfaceDTO/UserInterface";
 import { BaseError } from "../Errors/BaseError";
 import {
     CreateUserProfileInputDTO,
     DeleteUserProfileInputDTO,
     EditUserProfileInputDTO,
-    GetAllUserProfileInputDTO
+    GetUserProfileByUserIdInputDTO
 } from "../DTO/interfaceDTO/UserProfileInterface";
 import { UserProfileBusiness } from "../Business/UserProfileBusiness";
 
@@ -27,7 +27,6 @@ export class UserProfileController {
                 address: req.body.address,
                 phone_number: req.body.phone_number,
                 bio: req.body.bio,
-                // skills: req.body.skills,
                 image: req.body.image
 
             }
@@ -47,7 +46,26 @@ export class UserProfileController {
         }
     }
 
+    public getUserProfileByUserId = async (req: Request, res: Response) => {
+        try {
+            const input: GetUserProfileByUserIdInputDTO = {
+                token: req.headers.authorization,
+                user_id: req.params.user_id
+            }
 
+            const output = await this.userProfileBusiness.getUserProfileByUserID(input)
+
+            res.status(200).send(output)
+        } catch (error) {
+            console.log(error)
+            if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.status(500).send("erro inesperado")
+            }
+        }
+
+    }
 
     public getUserProfile = async (req: Request, res: Response) => {
         try {
@@ -71,31 +89,6 @@ export class UserProfileController {
     }
 
 
-
-    public getAllUserProfile = async (req: Request, res: Response) => {
-        try {
-            const input: GetAllUserProfileInputDTO = {
-                token: req.headers.authorization,
-            }
-
-            const output = await this.userProfileBusiness.getAllUserProfile(input)
-
-            res.status(200).send(output)
-
-        } catch (error) {
-            console.log(error)
-            if (error instanceof BaseError) {
-                res.status(error.statusCode).send(error.message)
-            } else {
-                res.status(500).send("erro inesperado")
-            }
-        }
-    }
-
-
-
-
-
     public editUserProfile = async (req: Request, res: Response) => {
         try {
 
@@ -108,7 +101,6 @@ export class UserProfileController {
                 address: req.body.address,
                 phone_number: req.body.phone_number,
                 bio: req.body.bio,
-                skills: req.body.skills,
                 image: req.body.image
 
             }

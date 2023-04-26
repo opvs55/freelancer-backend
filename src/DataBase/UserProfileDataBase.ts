@@ -23,12 +23,32 @@ export class UserProfileDataBase extends BaseDatabase{
         return result[0]
     }
 
-    public findByUserId= async (user_id:string): Promise< UserProfileDB> =>{
+    public findByUserId= async (user_id:string): Promise< UserProfileDB > =>{
 
 
         const result: UserProfileDB[] = await BaseDatabase
             .connection(UserProfileDataBase.TABLE_USER_PROFILES)
             .select()
+            .where({"user_profiles.user_id" : user_id})
+
+        return result[0]
+    }
+
+    public findByUserIdWithNoSkills = async (user_id:string): Promise< UserProfileDB > =>{
+
+
+        const result: UserProfileDB[] = await BaseDatabase
+            .connection(UserProfileDataBase.TABLE_USER_PROFILES)
+            .select(
+                "user_profiles.id",
+                "user_profiles.user_id",
+                "user_profiles.first_name",
+                "user_profiles.last_name",
+                "user_profiles.address",
+                "user_profiles.phone_number",
+                "user_profiles.bio",
+                "user_profiles.image"
+            )
             .where({"user_profiles.user_id" : user_id})
 
         return result[0]
@@ -55,8 +75,8 @@ export class UserProfileDataBase extends BaseDatabase{
         return result[0]
     }
 
-    public getAllUserProfile = async (): Promise<UserProfileModel[]> => {
-        const result: UserProfileModel[] = await BaseDatabase
+    public getAllUserProfile = async (): Promise<UserProfileDB[]> => {
+        const result: UserProfileDB[] = await BaseDatabase
             .connection(UserProfileDataBase.TABLE_USER_PROFILES)
             .select(
                 "user_profiles.id",

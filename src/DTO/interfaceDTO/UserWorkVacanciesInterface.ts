@@ -5,7 +5,7 @@ import {  UserWorkVacanciesModel } from "../../Interfaces/User/Users.Types"
 
 export interface CreateUserWorkVacanciesInputDTO {
     token: string | undefined,
-    userProfileId: string,
+    user_id: string,
     work_vacancy_id: string,
     companie_id: string
 }
@@ -27,6 +27,7 @@ export interface GetAllUserWorkVacanciesInputDTO {
 }
 
 export type GetUserWorkVacanciesOutputDTO  = UserWorkVacanciesModel | void
+
 export type GetAllUserWorkVacanciesOutputDTO = UserWorkVacanciesModel[] | void[]
 
 

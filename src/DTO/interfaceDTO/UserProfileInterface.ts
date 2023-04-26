@@ -12,7 +12,6 @@ export interface CreateUserProfileInputDTO {
     address: string,
     phone_number:string,
     bio:string,
-    // skills:string,
     image:string
 
 }
@@ -31,12 +30,13 @@ export interface GetUserProfileInputDTO {
 
 export type GetUserProfileOutputDTO = UserProfileModel
 
-
-export interface GetAllUserProfileInputDTO {
+export interface GetUserProfileByUserIdInputDTO {
     token: string | undefined
+    user_id: string
 }
 
-export type GetAllUserProfileOutputDTO = UserProfileModel[]
+export type GetUserProfileByUserIdOutputDTO = UserProfileModel
+
 
 
 //EDIT UserProfession INFO
@@ -50,7 +50,6 @@ export interface EditUserProfileInputDTO {
     address: string,
     phone_number:string,
     bio:string,
-    skills:string,
     image:string
 
 }

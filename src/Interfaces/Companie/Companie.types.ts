@@ -1,3 +1,5 @@
+import { ProfessionDB, ProfessionModel } from "../Profession/Profession.Types"
+
 export enum USER_ROLES {
     NORMAL = "NORMAL",
     ADMIN = "ADMIN"
@@ -24,10 +26,10 @@ export interface CompanieModel {
 
 export interface WorkVacanciesDB{
     id:string,
-    company_id:string,
+    companie_id:string,
     title: string,
     description:string,
-    skills_required: string,
+    skills_required: ProfessionDB,
     location:string,
     salary: number,
     created_at:string
@@ -35,10 +37,10 @@ export interface WorkVacanciesDB{
 
 export interface WorkVacanciesModel{
     id:string,
-    company_id:string,
+    companie_id:string,
     title: string,
     description:string,
-    skills_required: string,
+    skills_required: ProfessionModel,
     location:string,
     salary: number,
     created_at:string

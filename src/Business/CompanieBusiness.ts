@@ -112,6 +112,8 @@ export class CompanieBusiness {
 
         const companieDB: CompanieDB | undefined = await this.companieDataBase.findByEmail(email)
 
+        console.log(companieDB.password)
+
         if (!companieDB) {
             throw new NotFoundError("email invalido")
         }

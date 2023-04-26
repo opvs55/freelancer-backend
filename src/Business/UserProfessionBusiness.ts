@@ -8,7 +8,6 @@ import {
     GetUserProfessionInputDTO,
     GetUserProfessionOutputDTO
 } from "../DTO/interfaceDTO/UserProfessionInterface";
-import { CreateUserProfileOutputDTO } from "../DTO/interfaceDTO/UserProfileInterface";
 import { UserProfessionDataBase } from "../DataBase/UserProfessionDataBase";
 import { BadRequestError } from "../Errors/BadRequestError";
 import { NotFoundError } from "../Errors/NotFoundError";
@@ -40,7 +39,7 @@ export class UserProfessionBusiness {
 
 
         //verifico a typagem
-        console.log(user_id)
+
         validateParam("token", token, "string")
         validateParam("user_id", user_id, "string")
         validateParam("profession_id", profession_id, "string")
@@ -50,6 +49,8 @@ export class UserProfessionBusiness {
 
         const id = this.idGenerator.generate()
         //monto meu objeto
+
+        
 
         const newUserProfession = new UserProfession(
             id,
@@ -64,13 +65,17 @@ export class UserProfessionBusiness {
 
         const userProfessionAlreadyExist = await this.userProfessionDataBase.findByUserId(user_id)
 
+        const alreadyExists = userProfessionAlreadyExist.find(user => user.user_id === user_id && user.profession_id=== profession_id)
 
-        if (userProfessionAlreadyExist) {
+
+        if (alreadyExists) {
             const output: CreateUserProfessionOutputDTO = { mensage: "Registro já existente" }
             return output
-        } else {
+        }
+        else {
             await this.userProfessionDataBase.insert(userProfessionDB)
-            const output: CreateUserProfessionOutputDTO  = { mensage: "Registro criado com sucesso" }
+            const output: CreateUserProfessionOutputDTO = { mensage: "Registro criado com sucesso" }
+            console.log(alreadyExists)
             return output
         }
     }
@@ -170,7 +175,7 @@ export class UserProfessionBusiness {
         validateParam("token", token, "string")
         validateParam("experience_years", experience_years, "string")
 
-        userProfessionEditada.setExperienceYear(experience_years? experience_years: userProfessionEditada.getExperienceYear());
+        userProfessionEditada.setExperienceYear(experience_years ? experience_years : userProfessionEditada.getExperienceYear());
 
         const upuserProfessionDB = userProfessionEditada.userProfessionToDB()
 

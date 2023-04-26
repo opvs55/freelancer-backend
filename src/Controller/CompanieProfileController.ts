@@ -1,15 +1,10 @@
 import { Request, Response } from "express";
-import { GetUserInputDTO } from "../DTO/interfaceDTO/UserInterface";
 import { BaseError } from "../Errors/BaseError";
 import {
-    CreateUserProfileInputDTO,
-    DeleteUserProfileInputDTO,
-    EditUserProfileInputDTO,
-    GetAllUserProfileInputDTO
+    DeleteUserProfileInputDTO
 } from "../DTO/interfaceDTO/UserProfileInterface";
 import { CompanieProfileBusiness } from "../Business/CompanieProfileBusiness";
-import { CreateCompanieProfileInputDTO } from "../DTO/interfaceDTO/CompanieProfileInterface";
-import { EditCompanieInputDTO } from "../DTO/interfaceDTO/CompanieInterface";
+import { CreateCompanieProfileInputDTO, GetAllCompanieProfileInputDTO, GetCompanieProfileInputDTO } from "../DTO/interfaceDTO/CompanieProfileInterface";
 import { EditCompanieProfileInputDTO } from "../DTO/interfaceDTO/CompanieProfileInterface";
 
 
@@ -53,7 +48,7 @@ export class CompanieProfileController {
 
     public getCompanieProfile = async (req: Request, res: Response) => {
         try {
-            const input: GetUserInputDTO = {
+            const input: GetCompanieProfileInputDTO = {
                 token: req.headers.authorization,
                 id: req.params.id
             }
@@ -76,7 +71,7 @@ export class CompanieProfileController {
 
     public getAllCompanieProfile = async (req: Request, res: Response) => {
         try {
-            const input: GetAllUserProfileInputDTO = {
+            const input: GetAllCompanieProfileInputDTO = {
                 token: req.headers.authorization,
             }
 

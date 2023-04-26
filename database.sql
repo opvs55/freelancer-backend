@@ -33,7 +33,9 @@ CREATE TABLE
         bio TEXT,
         skills TEXT,
         image TEXT,
-        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (user_id) REFERENCES users(id) 
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE
     );
 
 SELECT * FROM user_profiles;
@@ -103,12 +105,17 @@ CREATE TABLE
 
 DROP TABLE user_professions;
 
+SELECT * FROM user_professions;
+
 /*Vagas de Emprego*/
+
+
+
 
 CREATE TABLE
     work_vacancies (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
-        company_id TEXT NOT NULL,
+        companie_id TEXT NOT NULL,
         title TEXT NOT NULL,
         description TEXT NOT NULL,
         skills_required TEXT,
@@ -121,19 +128,24 @@ CREATE TABLE
                 'localtime'
             )
         ) NOT NULL,
-        FOREIGN KEY (company_id) REFERENCES companies(id) 
+        FOREIGN KEY (companie_id) REFERENCES companies(id) 
         ON DELETE CASCADE 
         ON UPDATE CASCADE
     );
 
-
+DROP TABLE work_vacancies;
 select * FROM work_vacancies;
+
+
+
+
+
 /*Pessoa interessada na vaga*/
 
 CREATE TABLE
     user_work_vacancies (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
-        userProfileId TEXT NOT NULL,
+        user_id TEXT NOT NULL,
         work_vacancy_id TEXT NOT NULL,
         companie_id TEXT NOT NULL,
         chosen NUMBER NOT NULL,
@@ -144,7 +156,7 @@ CREATE TABLE
                 'localtime'
             )
         ) NOT NULL,
-        FOREIGN KEY (userProfileId) REFERENCES user_profiles(id) 
+        FOREIGN KEY (user_id) REFERENCES users(id) 
         ON DELETE CASCADE 
         ON UPDATE CASCADE,
         FOREIGN KEY (work_vacancy_id) REFERENCES work_vacancies(id)

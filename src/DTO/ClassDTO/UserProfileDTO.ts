@@ -20,7 +20,6 @@ export class UserProfileDTO {
         address: unknown,
         phone_number: unknown,
         bio: unknown,
-        skills: unknown,
         image: unknown
 
     ): CreateUserProfileInputDTO => {
@@ -33,7 +32,6 @@ export class UserProfileDTO {
         validateParam("address", address, "string")
         validateParam("phone_number", phone_number, "string")
         validateParam("bio", bio, "string")
-        validateParam("skills", skills, "string")
         validateParam("image", image, "string")
 
         const userProfile: CreateUserProfileInputDTO = {
@@ -45,7 +43,6 @@ export class UserProfileDTO {
             address: address as string,
             phone_number: phone_number as string,
             bio: bio as string,
-            skills: skills as string,
             image: image as string
 
         }
@@ -78,7 +75,6 @@ export class UserProfileDTO {
         address: unknown,
         phone_number: unknown,
         bio: unknown,
-        skills: unknown,
         image: unknown
 
     ): EditUserProfileInputDTO => {
@@ -90,7 +86,6 @@ export class UserProfileDTO {
         validateParam("address", address, "string")
         validateParam("phone_number", phone_number, "string")
         validateParam("bio", bio, "string")
-        validateParam("skills", skills, "string")
         validateParam("image", image, "string")
 
         const userProfile = {
@@ -101,7 +96,6 @@ export class UserProfileDTO {
             address: address as string,
             phone_number: phone_number as string,
             bio: bio as string,
-            skills: skills as string,
             image: image as string
         }
 
