@@ -92,7 +92,8 @@ export class UserBusiness {
         //criou um objeto tipado
 
         const output: SignUpUserOutputDTO = {
-            token
+            token,
+            id
         }
 
 
@@ -138,8 +139,11 @@ export class UserBusiness {
 
         const token = this.tokenManager.createToken(payload)
 
+        const id = user.getId()
+
         const output: LoginUserOutputDTO = {
-            token
+            token,
+            id
         }
 
         return output
@@ -164,14 +168,14 @@ export class UserBusiness {
             throw new BadRequestError("token invalido")
         }
 
-        const user: UserModel =
-            await this.userDataBase
-                .getUser()
+        const user: UserModel = await this.userDataBase.findByIdModel(id)
 
         const output: GetUserOutputDTO = user
 
         return output
     }
+
+
     public getAllUser = async (input: GetAllUserInputDTO): Promise<GetAllUserOutputDTO> => {
 
         const { token } = input
@@ -217,7 +221,7 @@ export class UserBusiness {
         }
 
 
-        const userDB = await this.userDataBase.findById(idToEdit)
+        const userDB = await this.userDataBase.findByIdDBModel(idToEdit)
 
         if (!userDB) {
             throw new NotFoundError("Id não encontrado")
@@ -260,7 +264,7 @@ export class UserBusiness {
             throw new BadRequestError("token invalido")
         }
 
-        const userDB = await this.userDataBase.findById(idToDelete)
+        const userDB = await this.userDataBase.findByIdDBModel(idToDelete)
 
         if (!userDB) {
             throw new NotFoundError("Id não encontrado")
