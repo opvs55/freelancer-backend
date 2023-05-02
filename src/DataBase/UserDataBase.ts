@@ -22,10 +22,21 @@ export class UserDataBase extends BaseDatabase{
 
         return result[0]
     }
-    public findById= async (id:string): Promise< UserDB > =>{
+    public findByIdDBModel= async (id:string): Promise< UserDB > =>{
 
 
         const result: UserDB[] = await BaseDatabase
+            .connection(UserDataBase.TABLE_USERS)
+            .select()
+            .where({id})
+
+        return result[0]
+    }
+
+    public findByIdModel = async (id:string): Promise< UserModel > =>{
+
+
+        const result: UserModel[] = await BaseDatabase
             .connection(UserDataBase.TABLE_USERS)
             .select()
             .where({id})
