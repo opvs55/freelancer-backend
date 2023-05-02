@@ -83,7 +83,6 @@ Documentação do meu projeto
         - [ ]  Delete User_work_vacancies
        
 - Authentication and authorization
-    - [ ]  UUID
     - [ ]  Hashed passwords with Bcrypt.
     - [ ]  tokens JWT
  - Code
