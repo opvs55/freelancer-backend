@@ -88,7 +88,5 @@ Documentação do meu projeto
     - [ ]  tokens JWT
  - Code
     - [ ]  POO
-    - [ ]  Layered architecture
     - [ ]  Router in Express
-    - [ ]  SOLID
     - [ ]  Clean code
