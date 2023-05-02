@@ -92,8 +92,7 @@ export class UserBusiness {
         //criou um objeto tipado
 
         const output: SignUpUserOutputDTO = {
-            token,
-            id
+            token
         }
 
 
@@ -139,11 +138,9 @@ export class UserBusiness {
 
         const token = this.tokenManager.createToken(payload)
 
-        const id = user.getId()
 
         const output: LoginUserOutputDTO = {
-            token,
-            id
+            token
         }
 
         return output

@@ -13,8 +13,7 @@ export interface SignupUserInputDTO {
 }
 
 export interface SignUpUserOutputDTO {
-    token: string,
-    id:string
+    token: string
 }
 
 
@@ -27,8 +26,7 @@ export interface LoginUserInputDTO {
 }
 
 export interface LoginUserOutputDTO {
-    token: string,
-    id: string
+    token: string
 }
 
 //GET Companie POR ID
