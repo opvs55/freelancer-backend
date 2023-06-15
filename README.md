@@ -42,6 +42,7 @@ Documentação do meu projeto
 
 
 <img src="./FREELANCE-BACK-END (1).png" />
+
 [FREELANCER-BACKEND Diagram](https://dbdocs.io/samvmvniz/FREELANCE-BACK-END?schema=public&view=relationships&table=users)
 
 
