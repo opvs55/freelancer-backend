@@ -91,3 +91,8 @@ Documentação do meu projeto
     - [ ]  POO
     - [ ]  Router in Express
     - [ ]  Clean code
+
+
+## Install
+
+- npm install
