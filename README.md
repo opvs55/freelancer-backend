@@ -40,6 +40,8 @@ Documentação do meu projeto
 
 [FREELANCER-BACKEND API](https://documenter.getpostman.com/view/24461101/2s93XsWkUa)
 
+
+<img src="./FREELANCE-BACK-END (1).png" />
 [FREELANCER-BACKEND Diagram](https://dbdocs.io/samvmvniz/FREELANCE-BACK-END?schema=public&view=relationships&table=users)
 
 
