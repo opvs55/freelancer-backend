@@ -96,3 +96,4 @@ Documentação do meu projeto
 ## Install
 
 - npm install
+- npm run dev
